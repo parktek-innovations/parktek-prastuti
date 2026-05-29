@@ -4,6 +4,15 @@
 
 A modern, responsive landing page for ParkTek - a smart parking ecosystem company offering innovative parking management solutions for corporates, residential societies, and commercial establishments.
 
+## Source Of Truth
+
+Shared brand/design constraints, documentation standards, and AI-agent workflow live in `../parktek-standards/`.
+Use repo-local docs only for landing-site implementation and deployment details. Do not treat landing content as product/API/model truth.
+
+Canonical landing documentation lives in `../parktek-standards/docs/lending/`. Local implementation notes live in `docs/`.
+
+Start here for AI-agent work: `AGENTS.md`.
+
 ## 🌟 Features
 
 ### Design & UI
