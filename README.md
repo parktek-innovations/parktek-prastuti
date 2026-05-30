@@ -5,7 +5,7 @@
 - Display name: ParkTek Prastuti
 - Current repo slug: `parktek-prastuti`
 - Former repo name: `parktek-lending`
-- Purpose: Public landing and marketing site for ParkTek brand and solution pages.
+- Purpose: Public ParkTek landing and marketing site for brand presentation, smart-parking solution pages, policy pages, contact flows, and web presence.
 - Primary stack: HTML, CSS, JavaScript, Tailwind CSS, Font Awesome
 - Source-of-truth repository: `../parktek-samhita`
 - Search aliases: `prastuti`, `landing`, `website`, `marketing site`, `public site`, `smart parking solutions`
@@ -14,7 +14,7 @@
 
 ![ParkTek Logo](images/parkTekLogo.png)
 
-A modern, responsive landing page for ParkTek - a smart parking ecosystem company offering innovative parking management solutions for corporates, residential societies, and commercial establishments.
+It presents ParkTek’s smart-parking brand, solution pages, policy pages, contact flows, and web presence for societies, corporate campuses, and commercial parking use cases.
 
 ## Source Of Truth
 
