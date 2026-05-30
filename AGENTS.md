@@ -2,10 +2,10 @@
 
 ## Source Of Truth
 
-Read `../parktek-standards/docs/agent-onboarding.md` first.
+Read `../parktek-samhita/docs/agent-onboarding.md` first.
 
-Shared brand/design constraints, documentation standards, and platform context live in `../parktek-standards/`.
-Canonical landing documentation lives in `../parktek-standards/docs/lending/`.
+Shared brand/design constraints, documentation standards, and platform context live in `../parktek-samhita/`.
+Canonical landing documentation lives in `../parktek-samhita/docs/lending/`.
 
 ## Repo Scope
 

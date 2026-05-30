@@ -1,4 +1,16 @@
-# ParkTek - Smart Parking Solutions Website
+# ParkTek Prastuti
+
+## Repository Metadata
+
+- Display name: ParkTek Prastuti
+- Current repo slug: `parktek-prastuti`
+- Former repo name: `parktek-lending`
+- Purpose: Public landing and marketing site for ParkTek brand and solution pages.
+- Primary stack: HTML, CSS, JavaScript, Tailwind CSS, Font Awesome
+- Source-of-truth repository: `../parktek-samhita`
+- Search aliases: `prastuti`, `landing`, `website`, `marketing site`, `public site`, `smart parking solutions`
+- GitHub topics: `parktek`, `parktek-prastuti`, `landing-page`, `marketing-site`, `website`, `nextjs`, `tailwindcss`, `brand`, `public-site`, `seo`, `contact-form`, `policy-pages`, `smart-parking`, `parking-management`
+- Migration note: `parktek-prastuti` is the renamed canonical slug for former `parktek-lending`.
 
 ![ParkTek Logo](images/parkTekLogo.png)
 
@@ -6,10 +18,10 @@ A modern, responsive landing page for ParkTek - a smart parking ecosystem compan
 
 ## Source Of Truth
 
-Shared brand/design constraints, documentation standards, and AI-agent workflow live in `../parktek-standards/`.
+Shared brand/design constraints, documentation standards, and AI-agent workflow live in `../parktek-samhita/`.
 Use repo-local docs only for landing-site implementation and deployment details. Do not treat landing content as product/API/model truth.
 
-Canonical landing documentation lives in `../parktek-standards/docs/lending/`. Local implementation notes live in `docs/`.
+Canonical landing documentation lives in `../parktek-samhita/docs/lending/`. Local implementation notes live in `docs/`.
 
 Start here for AI-agent work: `AGENTS.md`.
 
@@ -121,8 +133,8 @@ Light Background: #f5f5f5
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kushgupta18/parktek-lending.git
-   cd parktek-lending
+   git clone https://github.com/kushgupta18/parktek-prastuti.git
+   cd parktek-prastuti
    ```
 
 2. **Open the website**
