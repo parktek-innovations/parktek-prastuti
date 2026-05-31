@@ -1,5 +1,20 @@
 # Repo Context
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Repo name](#repo-name)
+- [Role in ParkTek](#role-in-parktek)
+- [Owns](#owns)
+- [Does not own](#does-not-own)
+- [Upstream dependencies](#upstream-dependencies)
+- [Downstream dependencies](#downstream-dependencies)
+- [Main runtime](#main-runtime)
+- [High-risk areas](#high-risk-areas)
+- [Local commands](#local-commands)
+- [Required samhita references](#required-samhita-references)
+<!-- END TOC -->
+
 ## Repo name
 
 `parktek-prastuti`
