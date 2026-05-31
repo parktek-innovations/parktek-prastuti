@@ -1,5 +1,38 @@
 # ParkTek Prastuti
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Repository Metadata](#repository-metadata)
+- [Source Of Truth](#source-of-truth)
+- [🌟 Features](#-features)
+  - [Design & UI](#design--ui)
+  - [Sections](#sections)
+- [🚀 Technologies Used](#-technologies-used)
+- [📁 Project Structure](#-project-structure)
+- [🎨 Color Scheme](#-color-scheme)
+- [⚙️ Features Implementation](#-features-implementation)
+  - [Interactive Components](#interactive-components)
+  - [JavaScript Functionality](#javascript-functionality)
+- [🌐 Browser Support](#-browser-support)
+- [📱 Responsive Breakpoints](#-responsive-breakpoints)
+- [🚀 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation & Usage](#installation--usage)
+- [🎯 Key Sections Overview](#-key-sections-overview)
+  - [Homepage Sections](#homepage-sections)
+  - [Contact Page](#contact-page)
+- [🎨 Customization](#-customization)
+  - [Changing Colors](#changing-colors)
+  - [Updating Content](#updating-content)
+- [📧 Contact Information](#-contact-information)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [👥 Author](#-author)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📈 Future Enhancements](#-future-enhancements)
+<!-- END TOC -->
+
 ## Repository Metadata
 
 - Display name: ParkTek Prastuti
