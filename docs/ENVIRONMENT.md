@@ -1,6 +1,8 @@
 # Environment
 
-Next.js exposes only `NEXT_PUBLIC_*` variables to the browser bundle. Server-side variables are available server-only. No `.env.example` is present — create `.env.local` for local overrides.
+Next.js exposes only `NEXT_PUBLIC_*` variables to the browser bundle. Server-side variables are available server-only. Copy `.env.example` to `.env.local` for local overrides.
+
+Cross-repo deployment readiness and owner-supplied production values live in `../parktek-samhita/docs/deployment-readiness.md`.
 
 ## Common variables
 
