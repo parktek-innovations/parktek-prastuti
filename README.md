@@ -1,8 +1,62 @@
-# ParkTek - Smart Parking Solutions Website
+# ParkTek Prastuti
+
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Repository Metadata](#repository-metadata)
+- [Source Of Truth](#source-of-truth)
+- [🌟 Features](#-features)
+  - [Design & UI](#design--ui)
+  - [Sections](#sections)
+- [🚀 Technologies Used](#-technologies-used)
+- [📁 Project Structure](#-project-structure)
+- [🎨 Color Scheme](#-color-scheme)
+- [⚙️ Features Implementation](#-features-implementation)
+  - [Interactive Components](#interactive-components)
+  - [JavaScript Functionality](#javascript-functionality)
+- [🌐 Browser Support](#-browser-support)
+- [📱 Responsive Breakpoints](#-responsive-breakpoints)
+- [🚀 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation & Usage](#installation--usage)
+- [🎯 Key Sections Overview](#-key-sections-overview)
+  - [Homepage Sections](#homepage-sections)
+  - [Contact Page](#contact-page)
+- [🎨 Customization](#-customization)
+  - [Changing Colors](#changing-colors)
+  - [Updating Content](#updating-content)
+- [📧 Contact Information](#-contact-information)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [👥 Author](#-author)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [📈 Future Enhancements](#-future-enhancements)
+<!-- END TOC -->
+
+## Repository Metadata
+
+- Display name: ParkTek Prastuti
+- Current repo slug: `parktek-prastuti`
+- Former repo name: `parktek-lending`
+- Purpose: Public ParkTek landing and marketing site for brand presentation, smart-parking solution pages, policy pages, contact flows, and web presence.
+- Primary stack: HTML, CSS, JavaScript, Tailwind CSS, Font Awesome
+- Source-of-truth repository: `../parktek-samhita`
+- Search aliases: `prastuti`, `landing`, `website`, `marketing site`, `public site`, `smart parking solutions`
+- GitHub topics: `parktek`, `parktek-prastuti`, `landing-page`, `marketing-site`, `website`, `nextjs`, `tailwindcss`, `brand`, `public-site`, `seo`, `contact-form`, `policy-pages`, `smart-parking`, `parking-management`
+- Migration note: `parktek-prastuti` is the renamed canonical slug for former `parktek-lending`.
 
 ![ParkTek Logo](images/parkTekLogo.png)
 
-A modern, responsive landing page for ParkTek - a smart parking ecosystem company offering innovative parking management solutions for corporates, residential societies, and commercial establishments.
+It presents ParkTek’s smart-parking brand, solution pages, policy pages, contact flows, and web presence for societies, corporate campuses, and commercial parking use cases.
+
+## Source Of Truth
+
+Shared brand/design constraints, documentation standards, and AI-agent workflow live in `../parktek-samhita/`.
+Use repo-local docs only for landing-site implementation and deployment details. Do not treat landing content as product/API/model truth.
+
+Canonical landing documentation lives in `../parktek-samhita/docs/lending/`. Local implementation notes live in `docs/`.
+
+Start here for AI-agent work: `AGENTS.md`.
 
 ## 🌟 Features
 
@@ -112,8 +166,8 @@ Light Background: #f5f5f5
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/kushgupta18/parktek-lending.git
-   cd parktek-lending
+   git clone https://github.com/kushgupta18/parktek-prastuti.git
+   cd parktek-prastuti
    ```
 
 2. **Open the website**
