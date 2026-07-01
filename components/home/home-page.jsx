@@ -8,6 +8,7 @@ import { HashLink, HashScrollHandler } from "@/components/site/hash-link";
 import { Header } from "@/components/site/header";
 import { Button } from "@/components/ui/button";
 import { RoadArt } from "@/components/home/road-art";
+import { APP_LINKS } from "@/lib/site-content";
 
 const heroPills = [
   {
@@ -32,22 +33,31 @@ const viaCards = [
     icon: "/figma/via/anpr.svg",
     title: "AI-Powered ANPR",
     copy:
-      "Utilize advanced license plate recognition for frictionless entry and exit, eliminating bottlenecks and securing access points instantly.",
+      "Automate license plate recognition for faster entry and exit while keeping access points secure.",
     width: "326px"
   },
   {
     icon: "/figma/via/lock.svg",
     title: "Centralized List Tagging",
     copy:
-      "Manage authorized vehicles effortlessly with our smart registration system, offering real-time tracking and automated compliance for all users.",
+      "Manage authorized vehicles, tags, and access lists from one clear operational view.",
     width: "394px"
   },
   {
     icon: "/figma/via/valet.svg",
     title: "Unified Valet & Fleet",
     copy:
-      "Streamline professional valet services and fleet sharing ecosystems from a single, intuitive dashboard to optimize your on-site resources.",
+      "Coordinate valet operations and shared fleets with tools built for busy parking teams.",
     width: "333px"
+  },
+  {
+    icon: "/figma/via/admin-dashboard.svg",
+    title: "Admin Dashboard",
+    copy:
+      "Manage users, vehicles, access logs, tags, and controls from one secure dashboard.",
+    width: "326px",
+    cta: "Open Dashboard",
+    href: APP_LINKS.dashboard
   }
 ];
 
@@ -150,9 +160,29 @@ function ViaSection({ mobile = false }) {
               className="rounded-[32px] bg-white px-6 py-8 text-center shadow-card"
               key={card.title}
             >
-              <img alt="" className="mx-auto h-[71px] w-auto" src={card.icon} />
-              <h3 className="mt-6 font-clash text-[28px] leading-[1.1] text-black">{card.title}</h3>
-              <p className="mt-4 text-[20px] leading-[1.35] text-[#767676]">{card.copy}</p>
+              <img
+                alt=""
+                className={
+                  card.title === "Admin Dashboard"
+                    ? "mx-auto size-[80px]"
+                    : "mx-auto h-[71px] w-auto"
+                }
+                src={card.icon}
+              />
+              <h3 className="mt-6 flex min-h-[62px] items-center justify-center font-clash text-[28px] leading-[1.1] text-black">
+                {card.title}
+              </h3>
+              <p className="mt-4 min-h-[108px] text-[20px] leading-[1.35] text-[#767676]">{card.copy}</p>
+              {card.cta ? (
+                <a
+                  className="mt-5 inline-flex items-center text-[18px] font-medium leading-none text-parktek-yellow transition-opacity hover:opacity-75"
+                  href={card.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {card.cta} <span className="ml-2" aria-hidden>→</span>
+                </a>
+              ) : null}
             </div>
           ))}
         </div>
@@ -172,39 +202,61 @@ function ViaSection({ mobile = false }) {
         </p>
       </div>
 
-      <div className="mt-[92px] flex items-start justify-center">
-        <div className="flex w-[326px] flex-col items-center text-center">
-          <img alt="" className="h-[71px] w-[92px]" src="/figma/via/anpr.svg" />
-          <h3 className="mt-[28px] font-clash text-[32px] font-medium leading-[1.1] text-black">
+      <div className="mt-[92px] grid grid-cols-4 items-start gap-[34px]">
+        <div className="flex w-full flex-col items-center text-center">
+          <div className="flex h-[91px] items-center justify-center">
+            <img alt="" className="h-[71px] w-[92px]" src="/figma/via/anpr.svg" />
+          </div>
+          <h3 className="mt-[18px] flex min-h-[80px] items-center justify-center font-clash text-[32px] font-medium leading-[1.1] text-black">
             {viaCards[0].title}
           </h3>
-          <p className="mt-[30px] max-w-[320px] text-[24px] leading-[1.42] text-[#8b8b8b]">
+          <p className="mt-[18px] min-h-[132px] max-w-[286px] text-[22px] leading-[1.42] text-[#8b8b8b]">
             {viaCards[0].copy}
           </p>
         </div>
 
-        <div className="mx-[68px] h-[295px] w-px bg-[#d9d9d9]" />
-
-        <div className="flex w-[394px] flex-col items-center text-center">
-          <ViaListTaggingIcon />
-          <h3 className="mt-[18px] font-clash text-[32px] font-medium leading-[1.1] text-black">
+        <div className="flex w-full flex-col items-center border-l border-[#d9d9d9] px-[24px] text-center">
+          <div className="flex h-[91px] items-center justify-center">
+            <ViaListTaggingIcon />
+          </div>
+          <h3 className="mt-[18px] flex min-h-[80px] items-center justify-center font-clash text-[32px] font-medium leading-[1.1] text-black">
             {viaCards[1].title}
           </h3>
-          <p className="mt-[31px] max-w-[410px] text-[24px] leading-[1.42] text-[#8b8b8b]">
+          <p className="mt-[18px] min-h-[132px] max-w-[286px] text-[22px] leading-[1.42] text-[#8b8b8b]">
             {viaCards[1].copy}
           </p>
         </div>
 
-        <div className="mx-[68px] h-[295px] w-px bg-[#d9d9d9]" />
-
-        <div className="flex w-[333px] flex-col items-center text-center">
-          <img alt="" className="h-[71px] w-[88px]" src="/figma/via/valet.svg" />
-          <h3 className="mt-[28px] font-clash text-[32px] font-medium leading-[1.1] text-black">
+        <div className="flex w-full flex-col items-center border-l border-[#d9d9d9] px-[24px] text-center">
+          <div className="flex h-[91px] items-center justify-center">
+            <img alt="" className="h-[71px] w-[88px]" src="/figma/via/valet.svg" />
+          </div>
+          <h3 className="mt-[18px] flex min-h-[80px] items-center justify-center font-clash text-[32px] font-medium leading-[1.1] text-black">
             {viaCards[2].title}
           </h3>
-          <p className="mt-[30px] max-w-[360px] text-[24px] leading-[1.42] text-[#8b8b8b]">
+          <p className="mt-[18px] min-h-[132px] max-w-[286px] text-[22px] leading-[1.42] text-[#8b8b8b]">
             {viaCards[2].copy}
           </p>
+        </div>
+
+        <div className="flex w-full flex-col items-center border-l border-[#d9d9d9] px-[24px] text-center">
+          <div className="flex h-[91px] items-center justify-center">
+            <img alt="" className="size-[82px]" src={viaCards[3].icon} />
+          </div>
+          <h3 className="mt-[18px] flex min-h-[80px] items-center justify-center font-clash text-[32px] font-medium leading-[1.1] text-black">
+            {viaCards[3].title}
+          </h3>
+          <p className="mt-[18px] min-h-[132px] max-w-[286px] text-[22px] leading-[1.42] text-[#8b8b8b]">
+            {viaCards[3].copy}
+          </p>
+          <a
+            className="mt-[30px] inline-flex items-center text-[20px] font-medium leading-none text-parktek-yellow transition-opacity hover:opacity-75"
+            href={viaCards[3].href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {viaCards[3].cta} <span className="ml-2" aria-hidden>→</span>
+          </a>
         </div>
       </div>
     </section>
