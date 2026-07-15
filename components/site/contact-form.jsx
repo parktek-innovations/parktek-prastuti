@@ -86,9 +86,9 @@ export function ContactForm() {
   return (
     <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
       <div className="rounded-[32px] bg-[#111108] p-8 text-white shadow-card md:p-10">
-        <p className="font-clash text-[42px] leading-[1] text-parktek-yellow">Contact Us</p>
+        <p className="font-clash text-[42px] leading-[1] text-[#60A5FA]">Contact Us</p>
         <p className="mt-4 max-w-[40ch] text-lg leading-8 text-white/75">
-          Ready to update the way your premises handle entry, exit, monitoring, and list-based access? Talk to the ParkTek team.
+          Ready to update how your society handles vehicle identity, gate access and parking operations? Talk to the ParkTek team.
         </p>
 
         <div className="mt-10 space-y-5">
@@ -146,13 +146,13 @@ export function ContactForm() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="companyName">Company Name</Label>
+            <Label htmlFor="companyName">Society Name</Label>
             <Input
               disabled={isSubmitting}
               id="companyName"
               name="companyName"
               onChange={updateField}
-              placeholder="ParkTek"
+              placeholder="Your residential society"
               value={form.companyName}
             />
           </div>
@@ -165,7 +165,7 @@ export function ContactForm() {
             id="projectContext"
             name="projectContext"
             onChange={updateField}
-            placeholder="Tell us about the parking, access-control, or operational challenge you want to solve."
+            placeholder="Tell us about your society, gate setup, vehicle volume, and the parking workflow you want to improve."
             required
             value={form.projectContext}
           />

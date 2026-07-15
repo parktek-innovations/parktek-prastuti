@@ -52,9 +52,9 @@ export function Header({ className, compact = false, forceDesktop = false }) {
           >
             <img
               alt="ParkTek"
-              className="absolute left-[-25.83%] top-[-82.97%] h-[281.32%] w-[149.13%] max-w-none"
+              className="size-full object-contain"
               height="56"
-              src="/figma/hero/logo.png"
+              src="/brand/parktek-logo-white.svg"
               width="158"
             />
           </div>

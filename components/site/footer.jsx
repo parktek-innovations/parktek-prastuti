@@ -4,29 +4,18 @@ import { HashLink } from "@/components/site/hash-link";
 import { APP_LINKS, CONTACT_DETAILS, LEGAL_LINKS } from "@/lib/site-content";
 
 const quickLinks = [
-  { label: "About Us", href: "/#about" },
-  { label: "Features", href: "/#features" },
+  { label: "Platform", href: "/#platform" },
+  { label: "Residents", href: "/#residents" },
+  { label: "Operations", href: "/#operations" },
   { label: "Contact", href: "/contact/" },
-  { label: "Careers", href: "/contact/" }
 ];
 
 const aboutLinks = [
-  { label: "PARKTEK INNOVATION PRIVATE LIMITED", href: "/#solutions" },
-  { label: "Join the Parktek Team", href: "/contact/" }
+  { label: "PARKTEK INNOVATION PRIVATE LIMITED", href: "/#platform" },
+  { label: "Plan a ParkTek demo", href: "/contact/" }
 ];
 
 const socialLinks = [
-  { alt: "X", href: "https://x.com", icon: "/figma/footer/social-x.svg" },
-  {
-    alt: "LinkedIn",
-    href: "https://linkedin.com",
-    icon: "/figma/footer/social-linkedin.svg"
-  },
-  {
-    alt: "YouTube",
-    href: "https://youtube.com",
-    icon: "/figma/footer/social-youtube.svg"
-  },
   {
     alt: "",
     ariaLabel: "Download ParkTek on Android",
@@ -131,9 +120,9 @@ export function Footer({ className = "", forceDesktop = false }) {
               <div className={forceDesktop ? "relative h-14 w-[158px] overflow-hidden" : "relative h-11 w-[124px] overflow-hidden sm:h-12 sm:w-[136px] xl:h-14 xl:w-[158px]"}>
                 <img
                   alt="ParkTek"
-                  className="absolute left-[-25.83%] top-[-82.97%] h-[281.32%] w-[149.13%] max-w-none"
+                  className="size-full object-contain"
                   height="56"
-                  src="/figma/footer/logo.png"
+                  src="/brand/parktek-logo-white.svg"
                   width="158"
                 />
               </div>
@@ -185,7 +174,7 @@ export function Footer({ className = "", forceDesktop = false }) {
                     : "text-sm leading-6 text-[#999] md:text-base md:leading-7 lg:text-right"
                 }
               >
-                {"\u00A9 2025 ParkTek. All rights reserved."}
+                {"\u00A9 2026 ParkTek. All rights reserved."}
               </p>
             </div>
           </div>

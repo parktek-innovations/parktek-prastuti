@@ -5,8 +5,12 @@ import GoogleAnalytics from "./google-analytics";
 const GA_MEASUREMENT_ID = "G-3YPSBPEGB3";
 
 export const metadata = {
-  title: "ParkTek",
-  description: "Connecting and securing every vehicle with ParkTek's smart parking ecosystem."
+  title: "ParkTek — Connected residential parking access",
+  description:
+    "ParkTek connects vehicle identity, local gate control, resident tools and society operations for residential parking.",
+  icons: {
+    icon: "/brand/parktek-mark.svg"
+  }
 };
 
 export default function RootLayout({ children }) {

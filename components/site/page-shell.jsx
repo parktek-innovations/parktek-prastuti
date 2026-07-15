@@ -18,7 +18,7 @@ export function PageShell({ children, eyebrow, lead, title }) {
 
       <section className="mx-auto mt-5 max-w-[1237px] rounded-[40px] bg-white px-6 py-10 shadow-card md:mt-6 md:px-10 md:py-12 min-[1440px]:mt-[72px] min-[1440px]:p-[48px]">
         {eyebrow ? (
-          <p className="font-clash text-sm uppercase tracking-[0.16em] text-parktek-yellow">
+          <p className="font-clash text-sm uppercase tracking-[0.16em] text-[#1D4ED8]">
             {eyebrow}
           </p>
         ) : null}
