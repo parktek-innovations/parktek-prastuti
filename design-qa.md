@@ -1,71 +1,50 @@
-# ParkTek Prastuti design QA
+# ParkTek Prastuti Website V1 — design QA
 
-## Comparison target
+## Evidence
 
-- Source visual truth: `artifacts/design-qa-source-desktop.png`
-- Browser-rendered implementation: `artifacts/design-qa-implementation-desktop.jpg`
-- Mobile implementation: `artifacts/design-qa-implementation-mobile.jpg`
-- Route: `http://127.0.0.1:3010/`
-- Desktop viewport: 1280 × 720 CSS pixels
-- Mobile viewport: 390 × 844 CSS pixels
-- State: desktop and mobile entry state at scroll position 0; desktop journey interaction advanced from stage 01 to stage 02.
+- Visual reference: `artifacts/design-qa-source-desktop.png` (1280 × 720 crop of the supplied concept).
+- Release desktop render: `artifacts/design-qa-implementation-desktop.jpg` (1440 × 900).
+- Release mobile render: `artifacts/design-qa-implementation-mobile.jpg` (375 × 812).
+- Local release route: `http://127.0.0.1:4173/` from the static `out/` build.
+- A 1440-pixel full-page capture was reviewed after scrolling through every lazy-loaded section.
 
-## Full-view comparison evidence
+## Visual result
 
-The source top section was cropped to its 16:9 hero region and normalized to 1280 × 720 before it was viewed together with the browser-rendered 1280 × 720 implementation. The comparison showed the same primary composition: deep navy night environment, left-aligned display copy, residential gate and vehicles as the hero subject, cyan route lighting, compact glass operational overlays, a contained top navigation shell, and a high-contrast demo CTA.
+The release preserves the reference's defining composition: a deep-navy operations environment, oversized left-aligned headline, illuminated parking/gate scene, compact live-state overlays, contained navigation, strong conversion CTA and dense product storytelling below the fold. ParkTek's official Figma-derived logo and primary blue replace the concept's illustrative brand mark and orange accent.
 
-The implementation intentionally uses a scroll-stage rail where the static reference uses feature cards. This brings the requested animation into the first viewport while preserving the reference's information density and visual rhythm.
+The visual is implemented as a lightweight local asset system. Responsive AVIF/JPEG sources, CSS state animation and the optional local Three.js trial provide motion without Higgsfield or another recurring generation subscription.
 
-## Focused region evidence
+## Fidelity and product-truth decisions
 
-A separate crop was not needed because the normalized 1280 × 720 pair keeps the navigation, display headline, CTA, live-state panel, world imagery, vehicle details, border radii, and small stage labels legible at original resolution. The 390 × 844 browser capture was also reviewed independently for the responsive headline wrap, image crop, CTA stack, header shell, and horizontal overflow.
+- Typography: Clash Display supplies the cinematic headline; Montserrat is used for navigation, labels, body copy and controls. The mobile headline wraps without clipping.
+- Layout: the desktop hero keeps the copy/world split and the mobile view intentionally places the visual below the first viewport so the decision copy and CTAs remain immediate.
+- Color: navy surfaces, white copy, cyan route/state accents and translucent blue borders follow the source; the primary CTA uses the ParkTek design-system blue.
+- Imagery: the cinematic parking worlds are responsive raster assets, while official ParkTek brand marks remain SVG.
+- Claims: RFID and local control are described as current; ANPR is marked pilot; commercial/POS workflows are marked launching. Unsupported occupancy, payments, fleet, valet, ratings and invented results from the concept are not presented as live facts.
+- Metrics: provisional founder metrics are not rendered publicly until verified.
 
-## Required fidelity surfaces
+## Responsive and interaction checks
 
-- Fonts and typography: the implementation uses Clash Display for the cinematic headline and Montserrat for navigation, labels, body copy, and controls. Display weight, tight tracking, compact line height, and cyan word emphasis follow the source hierarchy. The mobile headline wraps without clipping or truncation.
-- Spacing and layout rhythm: the inset navigation shell, left hero column, right live-state panel, full-bleed world, CTA spacing, and stage rail align to the source's dense hero composition. Desktop and mobile body width match the viewport with no horizontal overflow.
-- Colors and visual tokens: deep navy surfaces, white text, cyan route/state accents, and translucent blue borders match the source direction. ParkTek's official primary blue replaces the reference's orange CTA as an intentional design-system constraint.
-- Image quality and asset fidelity: all visible cinematic worlds are generated raster assets sized for the slot; no CSS illustrations, placeholder boxes, handcrafted SVG scenery, or emoji replace the reference imagery. The official Figma-exported ParkTek logo remains a vector asset.
-- Copy and content: hero and overlay copy is specific to ParkTek's real residential access model. Unsupported payments, valet, fleet, occupancy, fake ratings, and invented performance metrics from the visual reference were deliberately excluded.
+- 375, 768, 1280 and 1440-pixel widths have no horizontal overflow.
+- Each route has one main landmark and one H1; the homepage has one header and one footer.
+- The 375-pixel render uses responsive AVIF media, 16-pixel body copy and footer targets of at least 44 pixels.
+- Mobile navigation traps focus, locks body scroll, closes on Escape and restores focus to the trigger.
+- Reduced-motion mode disables continuous animation on the homepage and the Three.js trial.
+- Lead-form empty submission focuses the first invalid field. Simulated upstream failure retains form values and never reports success; simulated success clears the form and announces confirmation.
+- Sitemap, robots directives, canonical metadata, structured data and trial/case-study noindex behavior were checked in the static export.
+- Axe checks at 375 and 1280 pixels returned no violations.
 
-## Findings
+## Performance and release acceptance
 
-No actionable P0, P1, or P2 design mismatches remain.
+- Lighthouse mobile: 89 performance, 100 accessibility, 100 SEO.
+- Required release thresholds: performance ≥85, accessibility ≥95, SEO ≥95.
+- All release thresholds pass.
+- Google Analytics is deferred until after window load so it does not block the primary rendering path.
 
-- [P3] The source includes three static capability cards inside the first viewport, while the implementation uses a six-stage scroll rail and live access panel. This is intentional: it converts the reference into an animated journey and keeps the first screen focused.
-- [P3] The source uses an orange conversion accent; the implementation uses ParkTek primary blue from the official design system.
-- [P3] Some generated world micro-details are decorative rather than literal product UI. All product claims remain in the HTML overlays and supporting page copy, where they are accurate and accessible.
+## Remaining launch inputs
 
-## Open questions
+- Configure `CONTACT_INQUIRY_API_URL` with a production-approved, proxy-compatible enquiry upstream. Until then, the form adapter deliberately returns 503 instead of showing a fake success state.
+- Replace the anonymised case-study, team and product-proof placeholders when founder-approved evidence is supplied.
+- Add verified metrics only through the central content configuration after source confirmation.
 
-- None blocking. Final camera speed and overlay timing are subjective polish choices that can be tuned after stakeholder review.
-
-## Primary interactions tested
-
-- `Follow the vehicle` advanced the scroll journey from `01 / Arrival` to `02 / Identify` and moved the page to the corresponding scroll state.
-- Header anchors resolve to `#platform`, `#residents`, and `#operations`.
-- Both demo CTAs resolve to `/contact/`.
-- Desktop and mobile image assets completed loading at their natural dimensions.
-- Browser console checked at desktop and mobile states: no errors or warnings.
-
-## Comparison history
-
-- Pass 1: no P0/P1/P2 findings. The normalized source and browser render matched the requested composition and art direction, so no post-comparison visual fix was required.
-- Responsive check: the 390 × 844 browser render preserved hierarchy, readable copy, functional CTAs, the cinematic image crop, and viewport width with no P0/P1/P2 finding.
-
-## Implementation checklist
-
-- [x] Match the night-isometric residential gate art direction.
-- [x] Add scroll-driven gate-state and camera movement.
-- [x] Add a connected-campus scroll scene.
-- [x] Use official ParkTek logo assets and primary color.
-- [x] Keep claims aligned with ParkTek Samhita.
-- [x] Verify desktop and mobile browser renders.
-- [x] Verify primary links, journey interaction, loaded imagery, and console state.
-
-## Follow-up polish
-
-- P3: tune scroll smoothing and stage dwell time after live stakeholder feedback.
-- P3: replace generated decorative vehicle details with future production 3D renders if ParkTek commissions a reusable Blender asset library.
-
-final result: passed
+Final result: passed.

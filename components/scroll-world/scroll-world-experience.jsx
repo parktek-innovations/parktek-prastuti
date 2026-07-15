@@ -82,24 +82,36 @@ export function ScrollWorldExperience() {
         previousStage = nextStage;
         setActiveStage(nextStage);
       }
+
+      if (motionQuery.matches) {
+        scrollState.current = scrollState.target;
+        world.render({ progress: scrollState.current, time: 0 });
+      }
     };
 
     const draw = (time) => {
       const smoothing = motionQuery.matches ? 1 : 0.075;
       scrollState.current += (scrollState.target - scrollState.current) * smoothing;
-      world.render({ progress: scrollState.current, time: time / 1000 });
+      world.render({ progress: scrollState.current, time: motionQuery.matches ? 0 : time / 1000 });
+      if (!motionQuery.matches) frameId = window.requestAnimationFrame(draw);
+    };
+
+    const syncMotionPreference = () => {
+      window.cancelAnimationFrame(frameId);
       frameId = window.requestAnimationFrame(draw);
     };
 
     syncScroll();
     window.addEventListener("scroll", syncScroll, { passive: true });
     window.addEventListener("resize", syncScroll);
+    motionQuery.addEventListener("change", syncMotionPreference);
     frameId = window.requestAnimationFrame(draw);
 
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("scroll", syncScroll);
       window.removeEventListener("resize", syncScroll);
+      motionQuery.removeEventListener("change", syncMotionPreference);
       world.dispose();
     };
   }, []);
@@ -119,7 +131,7 @@ export function ScrollWorldExperience() {
   }, []);
 
   return (
-    <main className={styles.page} ref={pageRef}>
+    <main className={styles.page} id="main-content" ref={pageRef}>
       <div className={styles.stickyFrame}>
         <div aria-hidden="true" className={styles.canvasHost} ref={hostRef} />
         <div aria-hidden="true" className={styles.copyShade} />
@@ -130,16 +142,6 @@ export function ScrollWorldExperience() {
             <p>Open the trial in a current desktop or mobile browser.</p>
           </div>
         ) : null}
-
-        <header className={styles.header}>
-          <Link aria-label="ParkTek home" className={styles.brand} href="/">
-            ParkTek
-          </Link>
-          <div className={styles.trialMeta}>Local 3D trial</div>
-          <Link className={styles.exitLink} href="/">
-            Exit trial
-          </Link>
-        </header>
 
         <div className={styles.copyRegion}>
           {STAGES.map((stage, index) => {
@@ -160,17 +162,31 @@ export function ScrollWorldExperience() {
                 <p className={styles.stageBody}>{stage.body}</p>
 
                 {index === 0 ? (
-                  <button className={styles.textAction} onClick={() => jumpToStage(1)} type="button">
+                  <button
+                    className={styles.textAction}
+                    onClick={() => jumpToStage(1)}
+                    tabIndex={isActive ? 0 : -1}
+                    type="button"
+                  >
                     Scroll into the gate <span aria-hidden="true">↓</span>
                   </button>
                 ) : null}
 
                 {index === STAGES.length - 1 ? (
                   <div className={styles.actions}>
-                    <Link className={styles.primaryAction} href="/contact/">
-                      Book a demo
+                    <Link
+                      className={styles.primaryAction}
+                      href="/book-site-assessment/"
+                      tabIndex={isActive ? 0 : -1}
+                    >
+                      Book a site assessment
                     </Link>
-                    <button className={styles.secondaryAction} onClick={() => jumpToStage(0)} type="button">
+                    <button
+                      className={styles.secondaryAction}
+                      onClick={() => jumpToStage(0)}
+                      tabIndex={isActive ? 0 : -1}
+                      type="button"
+                    >
                       Replay journey
                     </button>
                   </div>

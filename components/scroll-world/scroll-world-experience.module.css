@@ -13,9 +13,9 @@
 }
 
 .stickyFrame {
-  position: fixed;
-  inset: 0;
-  height: 100svh;
+  position: sticky;
+  top: 72px;
+  height: calc(100svh - 72px);
   min-height: 620px;
   overflow: hidden;
   isolation: isolate;
@@ -92,7 +92,7 @@
 .copyRegion {
   position: absolute;
   z-index: 3;
-  top: 80px;
+  top: 0;
   bottom: 0;
   left: clamp(24px, 6vw, 96px);
   width: min(46vw, 660px);
