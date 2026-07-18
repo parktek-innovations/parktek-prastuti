@@ -21,14 +21,13 @@
 
 ## Role in ParkTek
 
-Landing/lending/marketing site for ParkTek. Next.js + Tailwind CSS. Serves the public-facing marketing pages and lending/settlement flows. Depends on `parktek-kendra` for payment and settlement APIs.
+Public ParkTek marketing site built with Next.js and CSS Modules. It presents live residential access control and clearly labeled commercial-parking/POS launch scope. It depends on `parktek-kendra` only for the contact-inquiry API.
 
 ## Owns
 
 - Marketing/landing pages
-- Lending flow UI
-- Payment and reconciliation surfaces
-- Settlement logic where applicable
+- Site-assessment and contact lead UI
+- Public capability-status copy
 - Static assets and content
 
 ## Does not own
@@ -36,10 +35,11 @@ Landing/lending/marketing site for ParkTek. Next.js + Tailwind CSS. Serves the p
 - API contracts → `parktek-kendra`
 - Platform product/model decisions → `parktek-samhita`
 - Admin dashboard → `parktek-darpana`
+- Payment processing, settlement, and financial records → not implemented in this repo
 
 ## Upstream dependencies
 
-- `parktek-kendra` (payment/settlement APIs)
+- `parktek-kendra` (`POST /api/contact-inquiries`)
 
 ## Downstream dependencies
 
@@ -49,14 +49,14 @@ Landing/lending/marketing site for ParkTek. Next.js + Tailwind CSS. Serves the p
 
 - Language: TypeScript / JavaScript
 - Framework: Next.js + Tailwind CSS
-- Deployment: static/SSR → CDN / web server
+- Deployment: static export → Netlify CDN
 
 ## High-risk areas
 
-- payment correctness and reconciliation
-- settlement flows (financial — no test data in production)
+- unsupported or premature product claims
+- lead-form/backend contract drift
 - public-site content/credential hygiene (no secrets in source)
-- backend API contract drift
+- accessibility, SEO, and responsive regressions
 
 ## Local commands
 
@@ -64,6 +64,7 @@ Landing/lending/marketing site for ParkTek. Next.js + Tailwind CSS. Serves the p
 npm install
 npm run dev     # Next.js dev server
 npm run build
+npm run lint
 npm test
 ```
 

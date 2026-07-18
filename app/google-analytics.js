@@ -7,18 +7,28 @@ export default function GoogleAnalytics({ measurementId }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window.gtag !== "function") {
-      return;
+    const sendPageView = () => {
+      if (typeof window.gtag !== "function") {
+        return;
+      }
+
+      const queryString = window.location.search.replace(/^\?/, "");
+      const pagePath = queryString ? `${pathname}?${queryString}` : pathname;
+
+      window.gtag("event", "page_view", {
+        page_path: pagePath,
+        page_location: window.location.href,
+        page_title: document.title
+      });
+    };
+
+    if (typeof window.gtag === "function") {
+      sendPageView();
+      return undefined;
     }
 
-    const queryString = window.location.search.replace(/^\?/, "");
-    const pagePath = queryString ? `${pathname}?${queryString}` : pathname;
-
-    window.gtag("event", "page_view", {
-      page_path: pagePath,
-      page_location: window.location.href,
-      page_title: document.title
-    });
+    window.addEventListener("parktek:analytics-ready", sendPageView, { once: true });
+    return () => window.removeEventListener("parktek:analytics-ready", sendPageView);
   }, [pathname, measurementId]);
 
   return null;
