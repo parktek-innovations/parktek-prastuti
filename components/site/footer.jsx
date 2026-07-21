@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { HashLink } from "@/components/site/hash-link";
-import { CONTACT_DETAILS, LEGAL_LINKS } from "@/lib/site-content";
+import { APP_LINKS, CONTACT_DETAILS, LEGAL_LINKS } from "@/lib/site-content";
 
 const quickLinks = [
   { label: "About Us", href: "/#about" },
@@ -26,6 +26,20 @@ const socialLinks = [
     alt: "YouTube",
     href: "https://youtube.com",
     icon: "/figma/footer/social-youtube.svg"
+  },
+  {
+    alt: "",
+    ariaLabel: "Download ParkTek on Android",
+    href: APP_LINKS.android,
+    icon: "/figma/footer/social-android.svg",
+    imageClassName: "size-10 sm:size-11"
+  },
+  {
+    alt: "",
+    ariaLabel: "Download ParkTek on iOS",
+    href: APP_LINKS.ios,
+    icon: "/figma/footer/social-ios.svg",
+    imageClassName: "size-10 sm:size-11"
   }
 ];
 
@@ -126,13 +140,19 @@ export function Footer({ className = "", forceDesktop = false }) {
               <div className="flex items-center gap-3">
                 {socialLinks.map((link) => (
                   <a
-                    className="inline-flex size-9 items-center justify-center rounded-full bg-[#333] sm:size-10"
+                    aria-label={link.ariaLabel}
+                    className={link.imageClassName ? "inline-flex items-center justify-center transition-opacity hover:opacity-80" : "inline-flex size-9 items-center justify-center rounded-full bg-[#333] sm:size-10"}
                     href={link.href}
-                    key={link.alt}
-                    rel="noreferrer"
+                    key={link.ariaLabel || link.alt}
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
-                    <img alt={link.alt} className="size-[18px] sm:size-[19.2px]" src={link.icon} />
+                    <img
+                      alt={link.alt}
+                      aria-hidden={link.alt ? undefined : true}
+                      className={link.imageClassName || "size-[18px] sm:size-[19.2px]"}
+                      src={link.icon}
+                    />
                   </a>
                 ))}
               </div>
