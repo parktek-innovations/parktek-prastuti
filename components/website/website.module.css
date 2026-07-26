@@ -366,6 +366,34 @@
   color: #ffffff;
 }
 
+.socialLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.footerColumn .socialLink {
+  width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: #d9e7f3;
+}
+
+.footerColumn .socialLink:hover {
+  border-color: #76aff0;
+  background: var(--navy-800);
+  color: #ffffff;
+}
+
+.socialLink svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
 .footerBottom {
   display: flex;
   max-width: 1280px;
