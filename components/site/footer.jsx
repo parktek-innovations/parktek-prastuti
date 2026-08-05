@@ -6,6 +6,8 @@ import { APP_LINKS, CONTACT_DETAILS, LEGAL_LINKS } from "@/lib/site-content";
 const quickLinks = [
   { label: "About Us", href: "/#about" },
   { label: "Features", href: "/#features" },
+  { label: "FASTag Recharge", href: "/fastag/" },
+  { label: "E-Challan", href: "/e-challan/" },
   { label: "Contact", href: "/contact/" },
   { label: "Careers", href: "/contact/" }
 ];
