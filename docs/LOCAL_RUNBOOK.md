@@ -8,23 +8,27 @@
 
 ## First-time setup
 
-```bash
-npm install
+```powershell
+npm.cmd install
 ```
 
 Configure any required `NEXT_PUBLIC_*` env vars (see `docs/ENVIRONMENT.md`).
 
 ## Run
 
-```bash
-npm run dev      # Next.js dev server (default port 3000 or as configured)
+```powershell
+npm.cmd run dev
 ```
+
+The Phase A non-production component/landing preview is available at
+`http://localhost:3000/preview/prastuti/`. Its form is local-only and does not
+send to the production contact endpoint.
 
 ## Build
 
-```bash
-npm run build
-npm start       # start production build locally
+```powershell
+npm.cmd run build
+npm.cmd start
 ```
 
 ## Tests

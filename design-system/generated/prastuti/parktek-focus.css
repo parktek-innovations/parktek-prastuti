@@ -1,0 +1,34 @@
+/*
+ * notice: GENERATED FILE — DO NOT EDIT
+ * canonical_source: design-system/tokens/tokens.json
+ * token_release_version: 0.2.0
+ * release_status: approved-focus-component-foundation
+ * source_sha256: 03a89fdf95768d895d1a2bd4a2b0e3f1dc417d1b97574371d02ca829ba64ac56
+ * generator_version: 0.3.0
+ * platform: focus CSS
+ * context: light.product;camera.overlay
+ * timestamp_policy: No wall-clock timestamps; release metadata only.
+ */
+
+:root {
+  --pk-focus-ring-colour: #0F6975;
+  --pk-focus-contrast-colour: #FFFFFF;
+  --pk-focus-standard-width: 2px;
+  --pk-focus-standard-offset: 2px;
+  --pk-focus-dual-gap: 2px;
+  --pk-focus-dual-inner-width: 2px;
+  --pk-focus-dual-outer-width: 2px;
+  --pk-focus-inset-width: 2px;
+  --pk-focus-inset-separator-width: 1px;
+  --pk-focus-inset-separator-colour: #FFFFFF;
+}
+.pk-focus-standard:focus-visible { outline: var(--pk-focus-standard-width) solid var(--pk-focus-ring-colour); outline-offset: var(--pk-focus-standard-offset); transition: none; }
+.pk-focus-dual:focus-visible { outline: none; box-shadow: 0 0 0 var(--pk-focus-dual-gap) transparent, 0 0 0 calc(var(--pk-focus-dual-gap) + var(--pk-focus-dual-inner-width)) var(--pk-focus-contrast-colour), 0 0 0 calc(var(--pk-focus-dual-gap) + var(--pk-focus-dual-inner-width) + var(--pk-focus-dual-outer-width)) var(--pk-focus-ring-colour); transition: none; }
+.pk-focus-inset:focus-visible { outline: none; box-shadow: inset 0 0 0 var(--pk-focus-inset-width) var(--pk-focus-ring-colour); transition: none; }
+.pk-focus-inset-separator:focus-visible { outline: none; box-shadow: inset 0 0 0 var(--pk-focus-inset-separator-width) var(--pk-focus-inset-separator-colour), inset 0 0 0 calc(var(--pk-focus-inset-separator-width) + var(--pk-focus-inset-width)) var(--pk-focus-ring-colour); transition: none; }
+@media (forced-colors: active) {
+  .pk-focus-standard:focus-visible, .pk-focus-dual:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; box-shadow: none; forced-color-adjust: auto; }
+  .pk-focus-inset:focus-visible, .pk-focus-inset-separator:focus-visible { outline: 2px solid Highlight; outline-offset: -2px; box-shadow: none; forced-color-adjust: auto; }
+}
+
+/* light.product remains default; dark.marketing remains disabled. */

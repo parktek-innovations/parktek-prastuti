@@ -2,6 +2,9 @@
 const nextConfig = {
   output: "export",
   trailingSlash: true,
+  experimental: {
+    optimizePackageImports: ["@phosphor-icons/react"]
+  },
   images: {
     unoptimized: true
   }
