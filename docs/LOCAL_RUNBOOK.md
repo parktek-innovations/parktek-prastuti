@@ -20,7 +20,7 @@ Configure any required `NEXT_PUBLIC_*` env vars (see `docs/ENVIRONMENT.md`).
 npm.cmd run dev
 ```
 
-The Phase A non-production component/landing preview is available at
+The non-production Prastuti design-system preview is available at
 `http://localhost:3000/preview/prastuti/`. Its form is local-only and does not
 send to the production contact endpoint.
 

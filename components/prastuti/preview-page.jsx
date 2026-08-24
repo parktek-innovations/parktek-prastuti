@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   PrimaryPromotionalCta,
   PrastutiLink,
@@ -29,7 +31,7 @@ import {
 
 const availabilityGroups = AVAILABILITY_ORDER.map((key) => AVAILABILITY[key]);
 
-function AvailabilityNarrativeSection({ group, id, surface = false }) {
+function AvailabilityNarrativeSection({ group, id, surface = false, visual }) {
   return (
     <section
       className={surface ? "bg-pk-surface-section" : undefined}
@@ -45,14 +47,34 @@ function AvailabilityNarrativeSection({ group, id, surface = false }) {
             title={group.heading}
           />
         </div>
+        {visual ? (
+          <figure className="mt-8 overflow-hidden rounded-2xl border border-pk-border-strong bg-pk-surface-card">
+            <Image
+              alt={visual.alt}
+              className="h-auto w-full"
+              data-preview-asset={visual.id}
+              height={visual.height}
+              sizes="(min-width: 1280px) 1216px, calc(100vw - 32px)"
+              src={visual.src}
+              width={visual.width}
+            />
+            <figcaption className="border-t border-pk-border-default px-5 py-4 text-sm leading-6 text-pk-text-secondary">
+              Illustrative commercial operations concept. Availability remains{" "}
+              <span className="font-semibold text-pk-text-primary">{group.badge}</span>.
+            </figcaption>
+          </figure>
+        ) : null}
         <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {group.items.map((item) => (
             <li
               className="flex min-w-0 items-start gap-3 rounded-xl border border-pk-border-default bg-pk-surface-card p-4"
               key={item}
             >
-              <span className="mt-0.5 shrink-0 text-pk-link-default">
-                <ParktekIcon name="verified" size={19} weight="bold" />
+              <span
+                className="mt-0.5 shrink-0 text-pk-text-muted"
+                data-capability-icon={group.icon}
+              >
+                <ParktekIcon name={group.icon} size={19} weight="duotone" />
               </span>
               <span className="break-words leading-6 text-pk-text-primary">{item}</span>
             </li>
@@ -77,7 +99,10 @@ export function PrastutiPreviewPage() {
         <section className="border-b border-pk-border-default">
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:py-24">
             <div>
-              <AvailabilityBadge label="Phase A preview" tone="information" />
+              <AvailabilityBadge
+                label="Prastuti design-system preview"
+                tone="information"
+              />
               <h1 className="mt-6 max-w-4xl font-clash text-4xl leading-[1.05] text-pk-text-primary sm:text-5xl lg:text-6xl">
                 Residential access today, guarded ANPR pilots, and commercial parking
                 operations launching.
@@ -98,33 +123,17 @@ export function PrastutiPreviewPage() {
               </p>
             </div>
 
-            <figure className="rounded-3xl border border-pk-border-strong bg-pk-surface-section p-5 sm:p-7">
-              <div
-                aria-label="Concept diagram showing a residential gate, vehicle, controller, and guarded camera pilot"
-                className="grid min-h-72 place-items-center rounded-2xl border border-pk-border-default bg-pk-surface-card p-6"
-                role="img"
-              >
-                <div className="grid w-full max-w-md grid-cols-2 gap-4">
-                  {[
-                    ["residentialAccess", "Residential gate"],
-                    ["vehicle", "Registered vehicle"],
-                    ["controller", "Controller integration"],
-                    ["anprPilot", "Guarded camera pilot"]
-                  ].map(([icon, label]) => (
-                    <div
-                      className="flex min-w-0 flex-col items-center rounded-xl border border-pk-border-default bg-pk-surface-page p-4 text-center"
-                      key={label}
-                    >
-                      <span className="text-pk-link-default">
-                        <ParktekIcon name={icon} size={32} weight="duotone" />
-                      </span>
-                      <span className="mt-3 break-words text-sm font-semibold text-pk-text-primary">
-                        {label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <figure className="overflow-hidden rounded-3xl border border-pk-border-strong bg-pk-surface-section p-4 sm:p-5">
+              <Image
+                alt="Illustration of vehicles passing an apartment entrance with barrier gates, a local controller, and permit and event status panels"
+                className="h-auto w-full rounded-2xl"
+                data-preview-asset="hero"
+                height={1122}
+                priority
+                sizes="(min-width: 1024px) 560px, calc(100vw - 64px)"
+                src="/prastuti/connected-parking-concept.png"
+                width={1402}
+              />
               <figcaption className="mt-4 text-sm font-semibold text-pk-text-secondary">
                 Illustrative connected-parking concept
               </figcaption>
@@ -190,8 +199,11 @@ export function PrastutiPreviewPage() {
                           className="flex min-w-0 items-start gap-3 rounded-xl border border-pk-border-default bg-pk-surface-page p-4"
                           key={item}
                         >
-                          <span className="mt-0.5 shrink-0 text-pk-link-default">
-                            <ParktekIcon name="verified" size={19} weight="bold" />
+                          <span
+                            className="mt-0.5 shrink-0 text-pk-text-muted"
+                            data-capability-icon={group.icon}
+                          >
+                            <ParktekIcon name={group.icon} size={19} weight="duotone" />
                           </span>
                           <span className="break-words leading-6 text-pk-text-primary">{item}</span>
                         </li>
@@ -221,6 +233,13 @@ export function PrastutiPreviewPage() {
           group={AVAILABILITY.launching}
           id="commercial-parking"
           surface
+          visual={{
+            alt: "Illustrative commercial parking dashboard with launching and in-development workflow states",
+            height: 941,
+            id: "commercial-parking",
+            src: "/prastuti/commercial-parking-dashboard.png",
+            width: 1672
+          }}
         />
 
         <AvailabilityNarrativeSection
@@ -235,6 +254,21 @@ export function PrastutiPreviewPage() {
               eyebrow="How ParkTek works"
               title="From site assessment to routine access"
             />
+            <figure className="mt-8 overflow-hidden rounded-2xl border border-pk-border-strong bg-pk-surface-card">
+              <Image
+                alt="Illustrative connected parking site beside a staged operating workflow"
+                className="h-auto w-full"
+                data-preview-asset="how-it-works"
+                height={1024}
+                sizes="(min-width: 1280px) 1216px, calc(100vw - 32px)"
+                src="/prastuti/connected-parking-workflow.png"
+                width={1536}
+              />
+              <figcaption className="border-t border-pk-border-default px-5 py-4 text-sm leading-6 text-pk-text-secondary">
+                Illustrative workflow reference. The structured steps below remain the
+                accessible process description.
+              </figcaption>
+            </figure>
             <ol className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {PROCESS_STEPS.map((step, index) => (
                 <ProcessStep key={step.title} number={index + 1} {...step} />
@@ -261,7 +295,7 @@ export function PrastutiPreviewPage() {
         <section className="bg-pk-surface-section">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
             <SectionHeading
-              description="The reusable foundation is shown before Figma composition so semantics, release states, focus behavior, and content APIs can be reviewed independently."
+              description="The reusable foundation reflects the canonical Figma reference while keeping semantics, release states, focus behavior, and content APIs independently reviewable."
               eyebrow="Component gallery"
               title="Core landing components"
             />
@@ -340,7 +374,7 @@ export function PrastutiPreviewPage() {
                 title="Start with the premises, hardware, and operating need"
               />
               <p className="mt-6 leading-7 text-pk-text-secondary">
-                This Phase A form demonstrates field, validation, loading, error, and
+                This preview form demonstrates field, validation, loading, error, and
                 success semantics. It intentionally does not submit to the production
                 contact endpoint.
               </p>

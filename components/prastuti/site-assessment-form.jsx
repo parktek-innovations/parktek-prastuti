@@ -124,7 +124,7 @@ export function SiteAssessmentForm() {
     setStatus({
       type: "success",
       message:
-        "Preview request captured locally. Production submission wiring is intentionally outside this Phase A route."
+        "Preview request captured locally. Production submission wiring is intentionally outside this preview route."
     });
   }
 

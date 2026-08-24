@@ -20,6 +20,7 @@ test("preview exposes the approved structure and availability labels", async ({ 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(previewPath);
 
+  await expect(page).toHaveTitle("ParkTek Prastuti Design-System Preview");
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 2, name: "Available Today — Residential Access" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Pilot — ANPR and Parking Intelligence" })).toBeVisible();
@@ -52,15 +53,85 @@ test("preview exposes the approved structure and availability labels", async ({ 
 
   await expect(page.locator('[data-availability-detail="launching"]')).toBeVisible();
   await expect(page.locator('[data-availability-detail="comingSoon"]')).toBeVisible();
+  await expect(
+    page
+      .locator('[data-availability-detail="comingSoon"]')
+      .getByRole("link", { name: "Discuss future requirements" })
+  ).toHaveAttribute("href", "#assessment");
   await expect(page.getByLabel("Premises type")).toHaveAttribute("aria-invalid", "true");
   await expect(page.locator('[data-feedback-state="fail-closed"]')).toContainText(
     "Evidence remains hidden"
   );
 
-  for (const state of ["pilot", "launching", "comingSoon"]) {
+  const futureIcons = {
+    pilot: "anprPilot",
+    launching: "commercialOperations",
+    comingSoon: "comingNext"
+  };
+
+  for (const [state, icon] of Object.entries(futureIcons)) {
     const group = page.locator(`section[data-availability-state="${state}"]`).first();
     await expect(group.getByText("Live", { exact: true })).toHaveCount(0);
+    await expect(group.locator(`[data-capability-icon="${icon}"]`).first()).toBeVisible();
+    await expect(group.locator('[data-capability-icon="verified"]')).toHaveCount(0);
   }
+
+  for (const [state, icon] of Object.entries(futureIcons).slice(1)) {
+    const detail = page.locator(`[data-availability-detail="${state}"]`);
+    await expect(detail.locator(`[data-capability-icon="${icon}"]`).first()).toBeVisible();
+    await expect(detail.locator('[data-capability-icon="verified"]')).toHaveCount(0);
+  }
+
+  const previewAssets = ["hero", "how-it-works", "commercial-parking"];
+  for (const asset of previewAssets) {
+    const image = page.locator(`img[data-preview-asset="${asset}"]`);
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect(image).not.toHaveAttribute("alt", "");
+    const geometry = await image.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        complete: element.complete,
+        naturalHeight: element.naturalHeight,
+        naturalRatio: element.naturalWidth / element.naturalHeight,
+        renderedRatio: rect.width / rect.height
+      };
+    });
+    expect(geometry.complete).toBe(true);
+    expect(geometry.naturalHeight).toBeGreaterThan(0);
+    expect(geometry.renderedRatio).toBeCloseTo(geometry.naturalRatio, 2);
+  }
+
+  await expect(page.getByText("Illustrative workflow reference.", { exact: false })).toBeVisible();
+  await expect(
+    page.getByText("Illustrative commercial operations concept.", { exact: false })
+  ).toBeVisible();
+
+  const footer = page.locator("footer");
+  await expect(footer).toBeVisible();
+  for (const label of [
+    "Availability",
+    "How it works",
+    "Compatibility",
+    "Commercial Parking",
+    "Coming Soon",
+    "Site Assessment"
+  ]) {
+    await expect(footer.getByRole("link", { name: label })).toBeVisible();
+  }
+  await expect(footer.getByRole("link", { name: "support@parktek.in" })).toHaveAttribute(
+    "href",
+    "mailto:support@parktek.in"
+  );
+  await expect(
+    footer.getByText(
+      "Canonical Figma reference established; production migration is not yet authorized."
+    )
+  ).toBeVisible();
+  await expect(footer.getByRole("link", { name: "Current production landing page" })).toHaveAttribute(
+    "href",
+    "/"
+  );
 });
 
 test("keyboard focus is visible and the mobile disclosure returns focus on Escape", async ({
@@ -126,7 +197,7 @@ for (const width of [320, 640]) {
     }));
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 
-    const clipped = await page.locator("a:visible, button:visible, h1:visible, h2:visible").evaluateAll(
+    const clipped = await page.locator("a:visible, button:visible, h1:visible, h2:visible, img:visible").evaluateAll(
       (elements) =>
         elements
           .map((element) => {

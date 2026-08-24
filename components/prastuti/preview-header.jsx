@@ -6,6 +6,15 @@ import { useEffect, useRef, useState } from "react";
 import { ParktekIcon } from "@/components/prastuti/icons";
 import { PREVIEW_NAVIGATION } from "@/lib/prastuti/preview-content.mjs";
 
+const PREVIEW_FOOTER_LINKS = Object.freeze([
+  { label: "Availability", href: "#availability" },
+  { label: "How it works", href: "#how-it-works" },
+  { label: "Compatibility", href: "#compatibility" },
+  { label: "Commercial Parking", href: "#commercial-parking" },
+  { label: "Coming Soon", href: "#coming-soon" },
+  { label: "Site Assessment", href: "#assessment" }
+]);
+
 export function PreviewHeader() {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef(null);
@@ -42,7 +51,7 @@ export function PreviewHeader() {
           >
             ParkTek
             <span className="ml-2 font-montserrat text-xs font-semibold uppercase tracking-[0.12em] text-pk-text-muted">
-              Phase A preview
+              Design-system preview
             </span>
           </Link>
 
@@ -102,27 +111,64 @@ export function PreviewHeader() {
 
 export function PreviewFooter() {
   return (
-    <footer className="border-t border-pk-border-default bg-pk-surface-section">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 lg:px-8">
-        <div>
-          <p className="font-clash text-2xl text-pk-text-primary">ParkTek</p>
-          <p className="mt-3 max-w-xl leading-7 text-pk-text-secondary">
-            Phase A component and content preview. This route does not replace the
-            production landing page.
-          </p>
+    <footer
+      aria-labelledby="preview-footer-title"
+      className="border-t border-pk-border-strong bg-pk-surface-section"
+    >
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.1fr_1fr_0.8fr]">
+          <div>
+            <h2 className="font-clash text-3xl text-pk-text-primary" id="preview-footer-title">
+              ParkTek
+            </h2>
+            <p className="mt-4 max-w-md leading-7 text-pk-text-secondary">
+              Prastuti design-system preview with explicit availability boundaries and
+              evidence-safe product framing.
+            </p>
+          </div>
+
+          <nav aria-label="Preview footer navigation">
+            <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-pk-text-muted">
+              Explore the preview
+            </h3>
+            <ul className="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {PREVIEW_FOOTER_LINKS.map((item) => (
+                <li key={item.href}>
+                  <a
+                    className="pk-focus-standard inline-flex rounded-sm font-semibold text-pk-link-default underline decoration-2 underline-offset-4 hover:text-pk-link-hover"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-pk-text-muted">
+              Contact
+            </h3>
+            <a
+              className="pk-focus-standard mt-4 inline-flex items-center gap-2 rounded-sm font-semibold text-pk-link-default underline decoration-2 underline-offset-4 hover:text-pk-link-hover"
+              href="mailto:support@parktek.in"
+            >
+              <ParktekIcon name="mail" size={20} weight="duotone" />
+              support@parktek.in
+            </a>
+          </div>
         </div>
-        <div className="md:text-right">
-          <p className="text-sm font-bold uppercase tracking-[0.12em] text-pk-text-muted">
-            Preview status
-          </p>
-          <p className="mt-3 text-pk-text-primary">
-            Architecture ready; final visual composition awaits Figma.
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-pk-border-default pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-3xl text-sm leading-6 text-pk-text-secondary">
+            Canonical Figma reference established; production migration is not yet
+            authorized.
           </p>
           <Link
-            className="pk-focus-standard mt-4 inline-flex rounded-sm font-semibold text-pk-link-default underline decoration-2 underline-offset-4 hover:text-pk-link-hover"
+            className="pk-focus-standard inline-flex shrink-0 rounded-sm font-semibold text-pk-link-default underline decoration-2 underline-offset-4 hover:text-pk-link-hover"
             href="/"
           >
-            Return to the current landing page
+            Current production landing page
           </Link>
         </div>
       </div>
