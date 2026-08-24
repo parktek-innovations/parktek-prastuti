@@ -1,13 +1,22 @@
+const {
+  parktekColors,
+  parktekComponentColors
+} = require("./design-system/generated/prastuti/tailwind-colours.cjs");
+const parktekFocus = require("./design-system/generated/prastuti/tailwind-focus.cjs");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,jsx}",
-    "./components/**/*.{js,jsx}",
-    "./lib/**/*.{js,jsx}"
+    "./app/**/*.{js,jsx,mjs}",
+    "./components/**/*.{js,jsx,mjs}",
+    "./lib/**/*.{js,jsx,mjs}"
   ],
   theme: {
     extend: {
+      ...parktekFocus.themeExtension,
       colors: {
+        pk: parktekColors,
+        "pk-component": parktekComponentColors,
         parktek: {
           cream: "#fafaf7",
           paper: "#ffffff",

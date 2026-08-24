@@ -5,9 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "npm run test:unit && npm run test:preview",
+    "test:unit": "node --test tests/phase-a-contracts.test.mjs",
+    "test:preview": "npm run build && playwright test tests/phase-a-preview.spec.js"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-slot": "1.2.3",
     "class-variance-authority": "0.7.1",
@@ -19,6 +23,7 @@
     "tailwind-merge": "3.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "autoprefixer": "10.4.27",
     "postcss": "8.5.6",
     "tailwindcss": "3.4.19"
