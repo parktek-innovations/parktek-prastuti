@@ -17,14 +17,45 @@ test.afterAll(async () => {
 });
 
 test("preview exposes the approved structure and availability labels", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(previewPath);
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 2, name: "Available Today — Residential Access" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Pilot — ANPR and Parking Intelligence" })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: "Launching — Commercial Parking Operations" })).toBeVisible();
-  await expect(page.getByRole("heading", { level: 2, name: "Coming Next — 2–4 months" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Launching — Commercial Parking Operations" })).toHaveCount(2);
+  await expect(page.getByRole("heading", { level: 2, name: "Coming Next — 2–4 months" })).toHaveCount(2);
   await expect(page.getByText("Illustrative connected-parking concept", { exact: true })).toBeVisible();
+
+  const availabilityCards = page.locator("#availability section[data-availability-state]");
+  await expect(availabilityCards).toHaveCount(4);
+  const layout = await availabilityCards.evaluateAll((cards) =>
+    cards.map((card) => {
+      const rect = card.getBoundingClientRect();
+      return {
+        state: card.getAttribute("data-availability-state"),
+        left: rect.left,
+        top: rect.top
+      };
+    })
+  );
+  expect(layout.map(({ state }) => state)).toEqual([
+    "live",
+    "pilot",
+    "launching",
+    "comingSoon"
+  ]);
+  expect(layout[0].top).toBeCloseTo(layout[1].top);
+  expect(layout[2].top).toBeCloseTo(layout[3].top);
+  expect(layout[0].left).toBeLessThan(layout[1].left);
+  expect(layout[2].left).toBeLessThan(layout[3].left);
+
+  await expect(page.locator('[data-availability-detail="launching"]')).toBeVisible();
+  await expect(page.locator('[data-availability-detail="comingSoon"]')).toBeVisible();
+  await expect(page.getByLabel("Premises type")).toHaveAttribute("aria-invalid", "true");
+  await expect(page.locator('[data-feedback-state="fail-closed"]')).toContainText(
+    "Evidence remains hidden"
+  );
 
   for (const state of ["pilot", "launching", "comingSoon"]) {
     const group = page.locator(`section[data-availability-state="${state}"]`).first();

@@ -7,6 +7,7 @@ import {
   AvailabilityBadge,
   CaseStudyCard,
   CompatibilityTile,
+  FailClosedAlert,
   FeatureCard,
   FeedbackState,
   ProcessStep,
@@ -16,7 +17,7 @@ import {
 } from "@/components/prastuti/foundation";
 import { ParktekIcon } from "@/components/prastuti/icons";
 import { PreviewFooter, PreviewHeader } from "@/components/prastuti/preview-header";
-import { SiteAssessmentForm } from "@/components/prastuti/site-assessment-form";
+import { FormField, SiteAssessmentForm } from "@/components/prastuti/site-assessment-form";
 import {
   AVAILABILITY,
   AVAILABILITY_ORDER,
@@ -27,6 +28,43 @@ import {
 } from "@/lib/prastuti/preview-content.mjs";
 
 const availabilityGroups = AVAILABILITY_ORDER.map((key) => AVAILABILITY[key]);
+
+function AvailabilityNarrativeSection({ group, id, surface = false }) {
+  return (
+    <section
+      className={surface ? "bg-pk-surface-section" : undefined}
+      data-availability-detail={group.key}
+      id={id}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <AvailabilityBadge label={group.badge} tone={group.tone} />
+        <div className="mt-5">
+          <SectionHeading
+            description={group.summary}
+            eyebrow={group.badge}
+            title={group.heading}
+          />
+        </div>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {group.items.map((item) => (
+            <li
+              className="flex min-w-0 items-start gap-3 rounded-xl border border-pk-border-default bg-pk-surface-card p-4"
+              key={item}
+            >
+              <span className="mt-0.5 shrink-0 text-pk-link-default">
+                <ParktekIcon name="verified" size={19} weight="bold" />
+              </span>
+              <span className="break-words leading-6 text-pk-text-primary">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8">
+          <SecondaryCta href="#assessment">{group.cta}</SecondaryCta>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function PrastutiPreviewPage() {
   return (
@@ -117,7 +155,7 @@ export function PrastutiPreviewPage() {
               title="One typed source for every release state"
             />
 
-            <div className="mt-10 space-y-6">
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
               {availabilityGroups.map((group) => (
                 <section
                   aria-labelledby={`availability-${group.key}`}
@@ -125,7 +163,7 @@ export function PrastutiPreviewPage() {
                   data-availability-state={group.key}
                   key={group.key}
                 >
-                  <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
+                  <div className="grid gap-6">
                     <div>
                       <AvailabilityBadge label={group.badge} tone={group.tone} />
                       <h2
@@ -178,6 +216,17 @@ export function PrastutiPreviewPage() {
             </div>
           </div>
         </section>
+
+        <AvailabilityNarrativeSection
+          group={AVAILABILITY.launching}
+          id="commercial-parking"
+          surface
+        />
+
+        <AvailabilityNarrativeSection
+          group={AVAILABILITY.comingSoon}
+          id="coming-soon"
+        />
 
         <section className="bg-pk-surface-section" id="how-it-works">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -237,6 +286,28 @@ export function PrastutiPreviewPage() {
                 title="Accessible focus"
               >
                 <SecondaryCta href="#assessment">Keyboard-check this CTA</SecondaryCta>
+              </FeatureCard>
+              <FeatureCard
+                description="The error remains associated with the field and does not rely on colour alone."
+                icon="error"
+                title="TextField error state"
+              >
+                <FormField
+                  error="Enter the premises type."
+                  id="gallery-premises-type"
+                  label="Premises type"
+                  placeholder="Residential society"
+                />
+              </FeatureCard>
+              <FeatureCard
+                description="Unsupported proof remains hidden until its source and publication permission are verified."
+                icon="empty"
+                title="Fail-closed Alert state"
+              >
+                <FailClosedAlert
+                  description="Customer, metric, hardware, payment, and commercial outcome claims remain unpublished."
+                  title="Evidence remains hidden"
+                />
               </FeatureCard>
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-3">

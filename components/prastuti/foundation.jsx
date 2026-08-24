@@ -80,7 +80,7 @@ export function ProofMetricBlock({ value, label, description, icon }) {
 
 export function ProductComparison({ groups }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-4" aria-label="Product availability comparison">
+    <div className="grid gap-4 md:grid-cols-2" aria-label="Product availability comparison">
       {groups.map((group) => (
         <article
           className="min-w-0 rounded-2xl border border-pk-border-default bg-pk-surface-card p-5"
@@ -96,6 +96,23 @@ export function ProductComparison({ groups }) {
           </p>
         </article>
       ))}
+    </div>
+  );
+}
+
+export function FailClosedAlert({ title, description }) {
+  return (
+    <div
+      className="rounded-xl border border-pk-status-unknown-border bg-pk-status-unknown-background p-4 text-pk-status-unknown-foreground"
+      data-feedback-state="fail-closed"
+    >
+      <div className="flex items-start gap-3">
+        <ParktekIcon className="mt-0.5 shrink-0" name="empty" size={21} weight="bold" />
+        <div>
+          <p className="font-semibold">{title}</p>
+          <p className="mt-1 text-sm leading-6">{description}</p>
+        </div>
+      </div>
     </div>
   );
 }
