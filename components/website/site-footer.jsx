@@ -100,23 +100,25 @@ export function SiteFooter({ className = "" }) {
         </div>
 
         <div className={styles.footerBrandRow}>
-          <Link aria-label={`${SITE.name} home`} href="/">
-            <Image alt={SITE.name} height="54" src="/brand/parktek-logo-black.svg" width="152" />
-          </Link>
-          <nav aria-label="ParkTek apps and social profiles" className={styles.footerSocialRow}>
-            {[...VERIFIED_APP_LINKS, ...VERIFIED_SOCIAL_LINKS].map((item) => (
-              <a
-                aria-label={item.label}
-                className={styles.footerSocialLink}
-                href={item.href}
-                key={item.href}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Image alt="" aria-hidden="true" height="44" src={item.icon} width="44" />
-              </a>
-            ))}
-          </nav>
+          <div className={styles.footerBrandGroup}>
+            <Link aria-label={`${SITE.name} home`} href="/">
+              <Image alt={SITE.name} height="54" src="/brand/parktek-logo-black.svg" width="152" />
+            </Link>
+            <nav aria-label="ParkTek apps and social profiles" className={styles.footerSocialRow}>
+              {[...VERIFIED_APP_LINKS, ...VERIFIED_SOCIAL_LINKS].map((item) => (
+                <a
+                  aria-label={item.label}
+                  className={styles.footerSocialLink}
+                  href={item.href}
+                  key={item.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Image alt="" aria-hidden="true" height="44" src={item.icon} width="44" />
+                </a>
+              ))}
+            </nav>
+          </div>
           <p>{SITE.legalName}</p>
         </div>
 
