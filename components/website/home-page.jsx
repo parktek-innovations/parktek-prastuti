@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Building2,
   Camera,
+  CarFront,
   CircleDot,
   Cpu,
   Gauge,
@@ -11,6 +12,7 @@ import {
   Radio,
   ShieldCheck,
   Smartphone,
+  Tag,
   Wrench
 } from "lucide-react";
 
@@ -83,6 +85,21 @@ function ArrowIcon() {
   return <ArrowRight aria-hidden="true" size={17} strokeWidth={2} />;
 }
 
+function HeroHud({ className, icon: Icon, label, value }) {
+  return (
+    <div className={className}>
+      <span aria-hidden="true" className={styles.hudIcon}>
+        <Icon size={19} strokeWidth={1.8} />
+      </span>
+      <span className={styles.hudCopy}>
+        <span className={styles.hudLabel}>{label}</span>
+        <span className={styles.hudValue}>{value}</span>
+      </span>
+      <span aria-hidden="true" className={styles.hudStatus} />
+    </div>
+  );
+}
+
 function WorldImage({ alt, ariaHidden = false, className, eager = false, name, sizes }) {
   return (
     <picture>
@@ -144,7 +161,7 @@ export function WebsiteHomePage() {
           <div className={styles.heroCopy}>
             <span className={styles.eyebrow}>Connected parking operations</span>
             <h1 className={styles.heroTitle}>
-              Every gate. Every vehicle. Every parking <span>transaction—connected.</span>
+              Every gate. Every vehicle. Every parking transaction—connected.
             </h1>
             <p className={styles.heroLead}>
               Secure residential access with RFID, local barrier control and live operations today—while guarded
@@ -166,33 +183,27 @@ export function WebsiteHomePage() {
             </ul>
           </div>
 
-          <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene">
-            <WorldImage
-              alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
-              className={styles.worldImage}
-              eager
-              name="parktek-gate-closed"
-              sizes="(max-width: 1080px) calc(100vw - 40px), 58vw"
+          <div className={styles.worldFrame} aria-label="ParkTek connected residential access scene">
+            <img
+              alt="A bright illustrated ParkTek access-control site with vehicles, barrier infrastructure and camera monitoring."
+              className={styles.heroIllustration}
+              decoding="async"
+              fetchPriority="high"
+              height="2160"
+              src="/figma/SVG.svg"
+              width="1728"
             />
-            <WorldImage
-              ariaHidden
-              className={`${styles.worldImage} ${styles.worldImageOpen}`}
-              name="parktek-gate-open"
-              sizes="(max-width: 1080px) calc(100vw - 40px), 58vw"
-            />
+            <div aria-hidden="true" className={styles.heroAccessCue}>
+              <span className={styles.heroVehicle}>
+                <CarFront size={34} strokeWidth={1.7} />
+              </span>
+              <span className={styles.heroBarrierPost} />
+              <span className={styles.heroBarrierArm} />
+            </div>
             <span className={styles.scanLine} aria-hidden="true" />
-            <div className={styles.hud}>
-              <span className={styles.hudLabel}>Vehicle identity</span>
-              <span className={styles.hudValue}>Permit verified</span>
-            </div>
-            <div className={styles.gateHud}>
-              <span className={styles.hudLabel}>Local controller</span>
-              <span className={styles.hudValue}>Decision ready</span>
-            </div>
-            <div className={styles.occupancyHud}>
-              <span className={styles.hudLabel}>Operations</span>
-              <span className={styles.hudValue}>Event recorded</span>
-            </div>
+            <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
+            <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
+            <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
           </div>
         </div>
       </section>
@@ -258,13 +269,35 @@ export function WebsiteHomePage() {
           />
           <div className={styles.flowLayout}>
             <figure className={styles.flowVisual}>
-              <WorldImage
-                alt="A connected parking ecosystem showing multiple gates, vehicles, parking lanes and an operations room."
-                name="parktek-ecosystem"
-                sizes="(max-width: 820px) calc(100vw - 40px), 64vw"
-              />
+              <div
+                aria-label="A light ParkTek access schematic showing a vehicle identified at a controlled barrier, a local controller decision and an operating event recorded."
+                className={styles.flowScene}
+                role="img"
+              >
+                <div aria-hidden="true" className={styles.flowRoad}>
+                  <span className={`${styles.flowNode} ${styles.flowIdentify}`}>
+                    <Camera size={22} strokeWidth={1.7} />
+                    <span>Identify</span>
+                  </span>
+                  <span className={styles.flowVehicle}>
+                    <CarFront size={46} strokeWidth={1.55} />
+                  </span>
+                  <span className={styles.flowBarrier}>
+                    <span className={styles.flowBarrierPost} />
+                    <span className={styles.flowBarrierArm} />
+                  </span>
+                  <span className={`${styles.flowNode} ${styles.flowDecide}`}>
+                    <Cpu size={22} strokeWidth={1.7} />
+                    <span>Decide</span>
+                  </span>
+                  <span className={`${styles.flowNode} ${styles.flowRecord}`}>
+                    <Activity size={22} strokeWidth={1.7} />
+                    <span>Record</span>
+                  </span>
+                </div>
+              </div>
               <figcaption className={styles.flowCaption}>
-                <span>Illustrative connected-site view</span>
+                <span>Illustrative local gate decision</span>
                 <span className={styles.liveDot}>Access live</span>
               </figcaption>
             </figure>
@@ -317,7 +350,7 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.sectionAlt}`} id="commercial-parking">
+      <section className={styles.section} id="commercial-parking">
         <div className={`${styles.container} ${styles.commercialLayout}`}>
           <div>
             <span className={styles.sectionKicker}>Commercial parking + POS</span>
@@ -387,7 +420,7 @@ export function WebsiteHomePage() {
               const Icon = icons[index] || Wrench;
               return (
                 <article className={styles.compatibilityItem} key={item.name}>
-                  <Icon aria-hidden="true" color="#72b7ff" size={23} />
+                  <Icon aria-hidden="true" size={23} />
                   <strong>{item.name}</strong>
                   <span>{item.description}</span>
                 </article>
@@ -439,7 +472,7 @@ export function WebsiteHomePage() {
 
               return (
                 <article className={styles.trustCard} key={item.title}>
-                  <Icon aria-hidden="true" color="#73b8ff" size={24} />
+                  <Icon aria-hidden="true" size={24} />
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </article>

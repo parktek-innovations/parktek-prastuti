@@ -42,6 +42,20 @@ test("homepage carries the approved positioning and truthful status labels", asy
   assert.doesNotMatch(html, /99\.9% uptime|10M\+ vehicles|1,000\+ locations/);
 });
 
+test("homepage footer exposes only verified app destinations with accessible names", async () => {
+  const html = await outputFile("index.html");
+
+  assert.match(
+    html,
+    /aria-label="Download ParkTek on Google Play"[^>]+href="https:\/\/play\.google\.com\/store\/apps\/details\?id=com\.parktek\.app&amp;pcampaignid=web_share"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
+  );
+  assert.match(
+    html,
+    /aria-label="Download ParkTek on the App Store"[^>]+href="https:\/\/apps\.apple\.com\/ca\/app\/parktek\/id6760598237"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
+  );
+  assert.doesNotMatch(html, /href="https:\/\/(?:x|linkedin|youtube)\.com"/);
+});
+
 test("lead pages render the shared accessible form contract", async () => {
   const leadRoutes = [
     "residential-access-control/index.html",
