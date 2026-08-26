@@ -1,10 +1,8 @@
 .page {
   min-height: 70vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 82% 4%, rgba(29, 124, 242, 0.14), transparent 28rem),
-    var(--navy-950);
-  color: var(--ink);
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-primary);
 }
 
 .container {
@@ -15,19 +13,12 @@
 .hero {
   position: relative;
   padding-block: clamp(54px, 8vw, 100px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--prastuti-border);
+  background: var(--prastuti-background);
 }
 
 .hero::after {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, black, transparent 90%);
-  content: "";
-  pointer-events: none;
+  display: none;
 }
 
 .heroInner,
@@ -49,14 +40,14 @@
   gap: 8px;
   margin: 0;
   padding: 0;
-  color: #8fa4ba;
+  color: var(--prastuti-text-muted);
   font-size: 0.78rem;
   list-style: none;
 }
 
 .breadcrumb li:not(:last-child)::after {
   margin-left: 8px;
-  color: #526b83;
+  color: color-mix(in srgb, var(--prastuti-text-muted) 68%, var(--prastuti-border));
   content: "/";
 }
 
@@ -76,7 +67,7 @@
   flex-wrap: wrap;
   gap: 10px;
   margin: 0;
-  color: var(--teal);
+  color: var(--prastuti-primary);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -93,6 +84,7 @@
 .title {
   max-width: 18ch;
   margin: 0;
+  color: var(--prastuti-text-primary);
   font-size: clamp(2.9rem, 6vw, 6.2rem);
   line-height: 0.97;
   text-wrap: balance;
@@ -106,7 +98,7 @@
 .lead {
   max-width: 68ch;
   margin: 0;
-  color: #b7c6d5;
+  color: var(--prastuti-text-muted);
   font-size: clamp(1.05rem, 1.5vw, 1.25rem);
   line-height: 1.72;
 }
@@ -131,36 +123,37 @@
 
 .primaryButton {
   padding: 0 20px;
-  border: 1px solid var(--primary);
-  background: var(--primary);
-  color: #fff;
+  border: 1px solid var(--prastuti-primary);
+  background: var(--prastuti-primary);
+  color: var(--prastuti-background);
 }
 
 .primaryButton:hover {
-  border-color: var(--primary-hover);
-  background: var(--primary-hover);
+  border-color: var(--prastuti-primary-hover);
+  background: var(--prastuti-primary-hover);
 }
 
 .secondaryButton {
   padding: 0 20px;
-  border: 1px solid rgba(170, 200, 231, 0.32);
-  background: rgba(8, 24, 42, 0.7);
-  color: #e6f1fc;
+  border: 1px solid var(--prastuti-border);
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-primary);
 }
 
 .secondaryButton:hover {
-  border-color: #76aff0;
-  background: #0b2037;
+  border-color: var(--prastuti-primary-subtle-border);
+  background: var(--prastuti-muted-background);
 }
 
 .section,
 .formSection {
   padding-block: clamp(52px, 7vw, 88px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--prastuti-border);
+  background: var(--prastuti-background);
 }
 
 .sectionMuted {
-  background: rgba(7, 21, 38, 0.72);
+  background: var(--prastuti-muted-background);
 }
 
 .sectionHeader {
@@ -185,7 +178,7 @@
 .contactCard > p {
   max-width: 66ch;
   margin: 0;
-  color: #aebdcd;
+  color: var(--prastuti-text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -208,9 +201,9 @@
 .policy,
 .deletionCard,
 .screenshotCard {
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 14px;
-  background: rgba(9, 27, 46, 0.78);
+  background: var(--prastuti-background);
 }
 
 .card,
@@ -237,19 +230,19 @@
   gap: 1px;
   margin: 18px 0 0;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 12px;
-  background: var(--line);
+  background: var(--prastuti-border);
 }
 
 .caseFacts div {
   min-width: 0;
   padding: 16px;
-  background: #071628;
+  background: var(--prastuti-surface);
 }
 
 .caseFacts dt {
-  color: #8fa4ba;
+  color: var(--prastuti-text-muted);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -258,7 +251,7 @@
 
 .caseFacts dd {
   margin: 6px 0 0;
-  color: #edf6ff;
+  color: var(--prastuti-text-primary);
   font-size: 0.88rem;
   line-height: 1.5;
 }
@@ -271,24 +264,24 @@
 .caseImageGrid img {
   width: 100%;
   height: auto;
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 12px;
 }
 
 .caseQuote {
   margin: 14px 0 0;
-  color: #bac7d3;
+  color: var(--prastuti-text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
 
 .faqList {
   max-width: 920px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--prastuti-border);
 }
 
 .faqItem {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--prastuti-border);
 }
 
 .faqItem summary {
@@ -297,7 +290,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  color: #edf6ff;
+  color: var(--prastuti-text-primary);
   cursor: pointer;
   font-weight: 700;
   list-style: none;
@@ -308,7 +301,7 @@
 }
 
 .faqItem summary::after {
-  color: var(--teal);
+  color: var(--prastuti-primary);
   content: "+";
   font-size: 1.3rem;
   font-weight: 400;
@@ -322,7 +315,7 @@
   max-width: 72ch;
   margin: 0;
   padding: 0 42px 22px 0;
-  color: #aebdcd;
+  color: var(--prastuti-text-muted);
   line-height: 1.75;
 }
 
@@ -345,7 +338,7 @@
 .screenshotCard p,
 .factPanel p {
   margin: 14px 0 0;
-  color: #aebdcd;
+  color: var(--prastuti-text-muted);
   font-size: 0.94rem;
   line-height: 1.7;
 }
@@ -356,7 +349,7 @@
 .policy ul {
   margin: 18px 0 0;
   padding-left: 20px;
-  color: #b9c7d4;
+  color: var(--prastuti-text-muted);
 }
 
 .card li,
@@ -372,22 +365,22 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 14px;
-  background: var(--line);
+  background: var(--prastuti-border);
 }
 
 .flowItem {
   min-height: 220px;
   padding: 26px;
-  background: #08172a;
+  background: var(--prastuti-surface);
 }
 
 .flowNumber,
 .stepLabel {
   display: block;
   margin-bottom: 34px;
-  color: #71b6ff;
+  color: var(--prastuti-primary);
   font-family: "Clash Display", sans-serif;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
@@ -395,13 +388,14 @@
 
 .flowItem h3 {
   margin: 0;
+  color: var(--prastuti-text-primary);
   font-size: 1.45rem;
   line-height: 1.15;
 }
 
 .flowItem p {
   margin: 12px 0 0;
-  color: #9fb0c1;
+  color: var(--prastuti-text-muted);
   font-size: 0.9rem;
   line-height: 1.65;
 }
@@ -431,9 +425,9 @@
   align-items: start;
   gap: 20px;
   padding: 22px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 12px;
-  background: rgba(9, 27, 46, 0.7);
+  background: var(--prastuti-surface);
 }
 
 .modeRow h3,
@@ -442,29 +436,30 @@
 }
 
 .modeRow h3 {
+  color: var(--prastuti-text-primary);
   font-size: 1.18rem;
 }
 
 .modeRow p {
-  color: #aebdcd;
+  color: var(--prastuti-text-muted);
   font-size: 0.92rem;
   line-height: 1.65;
 }
 
 .notice {
-  border-color: rgba(242, 184, 75, 0.38);
-  background: rgba(62, 44, 10, 0.35);
+  border-color: var(--prastuti-primary-subtle-border);
+  background: var(--prastuti-primary-subtle);
 }
 
 .notice strong {
   display: block;
   margin-bottom: 8px;
-  color: #ffe09b;
+  color: var(--prastuti-text-primary);
 }
 
 .notice p {
   margin: 0;
-  color: #d8c79f;
+  color: var(--prastuti-text-muted);
   line-height: 1.65;
 }
 
@@ -484,7 +479,7 @@
   position: relative;
   min-height: 30px;
   padding-left: 30px;
-  color: #c0cedb;
+  color: var(--prastuti-text-muted);
   line-height: 1.65;
 }
 
@@ -496,9 +491,9 @@
   width: 18px;
   height: 18px;
   place-items: center;
-  border: 1px solid rgba(67, 210, 213, 0.58);
+  border: 1px solid var(--prastuti-primary-subtle-border);
   border-radius: 50%;
-  color: var(--teal);
+  color: var(--prastuti-primary);
   font-size: 10px;
   content: "✓";
 }
@@ -509,7 +504,7 @@
 }
 
 .caseMeta {
-  color: #8fa4ba;
+  color: var(--prastuti-text-muted);
   font-size: 0.78rem;
   line-height: 1.5;
 }
@@ -519,11 +514,11 @@
   justify-content: flex-start;
   width: fit-content;
   min-height: 44px;
-  color: #78baff;
+  color: var(--prastuti-primary);
 }
 
 .textLink:hover {
-  color: #fff;
+  color: var(--prastuti-primary-hover);
 }
 
 .placeholder {
@@ -531,10 +526,10 @@
   min-height: 220px;
   place-items: center;
   padding: 24px;
-  border: 1px dashed rgba(143, 164, 186, 0.42);
+  border: 1px dashed var(--prastuti-border);
   border-radius: 12px;
-  background: #061323;
-  color: #8fa4ba;
+  background: var(--prastuti-muted-background);
+  color: var(--prastuti-text-muted);
   font-size: 0.9rem;
   text-align: center;
 }
@@ -563,7 +558,7 @@
 }
 
 .contactList dt {
-  color: #8fa4ba;
+  color: var(--prastuti-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -572,13 +567,13 @@
 
 .contactList dd {
   margin: 0;
-  color: #edf6ff;
+  color: var(--prastuti-text-primary);
   line-height: 1.55;
 }
 
 .contactList a {
   text-decoration: underline;
-  text-decoration-color: rgba(120, 186, 255, 0.45);
+  text-decoration-color: var(--prastuti-primary-subtle-border);
   text-underline-offset: 4px;
 }
 
@@ -591,7 +586,7 @@
 .policy > section + section {
   margin-top: 42px;
   padding-top: 42px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--prastuti-border);
 }
 
 .policy h2 {
@@ -605,12 +600,12 @@
 
 .policy p {
   margin: 14px 0 0;
-  color: #bac7d3;
+  color: var(--prastuti-text-muted);
   line-height: 1.75;
 }
 
 .policy a {
-  color: #83bfff;
+  color: var(--prastuti-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -648,14 +643,14 @@
 
 .screenshotFrame {
   padding: 18px;
-  border-top: 1px solid var(--line);
-  background: #05111f;
+  border-top: 1px solid var(--prastuti-border);
+  background: var(--prastuti-muted-background);
 }
 
 .screenshotFrame img {
   width: 100%;
   height: auto;
-  border: 1px solid var(--line);
+  border: 1px solid var(--prastuti-border);
   border-radius: 10px;
 }
 
@@ -707,7 +702,7 @@
 
   .screenshotFrame {
     border-top: 0;
-    border-left: 1px solid var(--line);
+    border-left: 1px solid var(--prastuti-border);
   }
 }
 
@@ -758,7 +753,7 @@
   }
 
   .screenshotFrame {
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--prastuti-border);
     border-left: 0;
   }
 

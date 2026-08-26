@@ -64,6 +64,15 @@ test("primary actions use the current Samhita semantic bridge", async () => {
   assert.doesNotMatch(homepage, /\.primaryButton\s*\{[^}]+pk-color-brand-primary/s);
 });
 
+test("shared marketing routes use the light Samhita page foundation", async () => {
+  const marketing = await sourceFile("app/marketing-pages.module.css");
+
+  assert.match(marketing, /\.page\s*\{[^}]+background:\s*var\(--prastuti-background\)/s);
+  assert.match(marketing, /\.sectionMuted\s*\{[^}]+background:\s*var\(--prastuti-muted-background\)/s);
+  assert.match(marketing, /\.secondaryButton\s*\{[^}]+border:\s*1px solid var\(--prastuti-border\)[^}]+background:\s*var\(--prastuti-background\)[^}]+color:\s*var\(--prastuti-text-primary\)/s);
+  assert.doesNotMatch(marketing, /var\(--navy-|radial-gradient|rgba?\(|#[0-9a-f]{3,8}\b/i);
+});
+
 test("homepage footer exposes only verified app and social destinations with accessible names", async () => {
   const html = await outputFile("index.html");
 
