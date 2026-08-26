@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element -- responsive AVIF/JPEG picture sources are pre-generated for static export */
+import Image from "next/image";
 import {
   Activity,
   ArrowRight,
   Building2,
   Camera,
-  CarFront,
   CircleDot,
   Cpu,
   Gauge,
@@ -100,28 +99,31 @@ function HeroHud({ className, icon: Icon, label, value }) {
   );
 }
 
-function WorldImage({ alt, ariaHidden = false, className, eager = false, name, sizes }) {
+function ParkingCar({ className = "" }) {
   return (
-    <picture>
-      <source
-        sizes={sizes}
-        srcSet={`/worlds/${name}-720.avif 720w, /worlds/${name}-1440.avif 1440w`}
-        type="image/avif"
-      />
-      <img
-        alt={ariaHidden ? "" : alt}
-        aria-hidden={ariaHidden || undefined}
-        className={className}
-        decoding="async"
-        fetchPriority={eager ? "high" : "auto"}
-        height="941"
-        loading={eager ? "eager" : "lazy"}
-        sizes={sizes}
-        src={`/worlds/${name}.jpg`}
-        srcSet={`/worlds/${name}-720.jpg 720w, /worlds/${name}.jpg 1672w`}
-        width="1672"
-      />
-    </picture>
+    <span aria-hidden="true" className={`${styles.parkingCar} ${className}`}>
+      <span className={styles.carCabin} />
+      <span className={styles.carWindshield} />
+      <span className={styles.carLightLeft} />
+      <span className={styles.carLightRight} />
+      <span className={styles.carWheelLeft} />
+      <span className={styles.carWheelRight} />
+    </span>
+  );
+}
+
+function BarrierGate({ className = "" }) {
+  return (
+    <span aria-hidden="true" className={`${styles.barrierGate} ${className}`}>
+      <span className={styles.barrierColumn}>
+        <span className={styles.barrierSignal} />
+      </span>
+      <span className={styles.barrierArm}>
+        <span />
+        <span />
+        <span />
+      </span>
+    </span>
   );
 }
 
@@ -140,9 +142,7 @@ function SectionHeading({ eyebrow, title, lead }) {
 export function WebsiteHomePage() {
   const caseStudy = CASE_STUDIES[0];
   const verifiedMetrics = METRICS.filter((metric) => metric.verified);
-  const footprintItems = verifiedMetrics.length
-    ? verifiedMetrics
-    : MODULES.map((module) => ({ value: module.status, label: module.name }));
+  const approvedProductProof = PRODUCT_PROOF.filter((proof) => proof.approved && proof.image);
 
   return (
     <main className={styles.page} id="main-content">
@@ -183,24 +183,34 @@ export function WebsiteHomePage() {
             </ul>
           </div>
 
-          <div className={styles.worldFrame} aria-label="ParkTek connected residential access scene">
-            <img
-              alt="A bright illustrated ParkTek access-control site with vehicles, barrier infrastructure and camera monitoring."
-              className={styles.heroIllustration}
-              decoding="async"
-              fetchPriority="high"
-              height="2160"
-              src="/figma/SVG.svg"
-              width="1728"
-            />
-            <div aria-hidden="true" className={styles.heroAccessCue}>
-              <span className={styles.heroVehicle}>
-                <CarFront size={34} strokeWidth={1.7} />
+          <div
+            aria-label="A ParkTek-controlled parking lane with an approaching car, RFID reader, camera, local controller and opening barrier."
+            className={styles.worldFrame}
+            role="img"
+          >
+            <div aria-hidden="true" className={styles.heroScene}>
+              <span className={styles.heroBuilding}>
+                <span /><span /><span /><span />
               </span>
-              <span className={styles.heroBarrierPost} />
-              <span className={styles.heroBarrierArm} />
+              <span className={styles.heroLandscape} />
+              <span className={styles.heroLane}>
+                <span className={styles.heroLaneMarker} />
+                <span className={styles.heroRouteTrace} />
+              </span>
+              <ParkingCar className={styles.heroCar} />
+              <BarrierGate className={styles.heroBarrier} />
+              <span className={styles.heroReader}>
+                <span className={styles.readerWave} />
+                <span className={styles.readerLight} />
+              </span>
+              <span className={styles.heroCamera}>
+                <span className={styles.cameraHead} />
+              </span>
+              <span className={styles.heroController}>
+                <span className={styles.controllerLight} />
+                <span className={styles.controllerVent} />
+              </span>
             </div>
-            <span className={styles.scanLine} aria-hidden="true" />
             <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
             <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
             <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
@@ -208,24 +218,19 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="footprint-title">
-        <div className="sr-only" id="footprint-title">
-          {verifiedMetrics.length ? "ParkTek operating footprint" : "ParkTek capability availability"}
-        </div>
-        <div className={`${styles.container} ${styles.metricsGrid}`}>
-          {footprintItems.map((metric) => (
-            <div className={styles.metric} key={metric.label}>
-              <span className={styles.metricValue}>{metric.value}</span>
-              <span className={styles.metricLabel}>{metric.label}</span>
-            </div>
-          ))}
-        </div>
-        <p className={`${styles.container} ${styles.metricsNotice}`}>
-          {verifiedMetrics.length
-            ? "Verified ParkTek operating footprint."
-            : "Provisional traction metrics are hidden until founder verification."}
-        </p>
-      </section>
+      {verifiedMetrics.length ? (
+        <section aria-labelledby="footprint-title">
+          <h2 className="sr-only" id="footprint-title">ParkTek operating footprint</h2>
+          <div className={`${styles.container} ${styles.metricsGrid}`}>
+            {verifiedMetrics.map((metric) => (
+              <div className={styles.metric} key={metric.label}>
+                <span className={styles.metricValue}>{metric.value}</span>
+                <span className={styles.metricLabel}>{metric.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className={styles.section} id="solutions">
         <div className={styles.container}>
@@ -274,25 +279,29 @@ export function WebsiteHomePage() {
                 className={styles.flowScene}
                 role="img"
               >
-                <div aria-hidden="true" className={styles.flowRoad}>
-                  <span className={`${styles.flowNode} ${styles.flowIdentify}`}>
-                    <Camera size={22} strokeWidth={1.7} />
-                    <span>Identify</span>
+                <div aria-hidden="true" className={styles.operationsScene}>
+                  <span className={styles.operationsBuilding}>
+                    <span className={styles.operationsCanopy} />
+                    <span className={styles.operationsOffice} />
                   </span>
-                  <span className={styles.flowVehicle}>
-                    <CarFront size={46} strokeWidth={1.55} />
+                  <span className={styles.operationsLandscape} />
+                  <span className={styles.operationsLane}>
+                    <span className={styles.operationsLaneLabel}>ENTRY</span>
+                    <span className={styles.operationsArrow} />
                   </span>
-                  <span className={styles.flowBarrier}>
-                    <span className={styles.flowBarrierPost} />
-                    <span className={styles.flowBarrierArm} />
+                  <ParkingCar className={styles.operationsCar} />
+                  <BarrierGate className={styles.operationsBarrier} />
+                  <span className={styles.operationsReader}>
+                    <span className={styles.readerWave} />
+                    <span className={styles.readerLight} />
                   </span>
-                  <span className={`${styles.flowNode} ${styles.flowDecide}`}>
-                    <Cpu size={22} strokeWidth={1.7} />
-                    <span>Decide</span>
+                  <span className={styles.operationsController}>
+                    <span className={styles.controllerLight} />
+                    <span className={styles.controllerVent} />
                   </span>
-                  <span className={`${styles.flowNode} ${styles.flowRecord}`}>
-                    <Activity size={22} strokeWidth={1.7} />
-                    <span>Record</span>
+                  <span className={styles.operationsEvent}>
+                    <span>ACCESS EVENT</span>
+                    <strong>Recorded</strong>
                   </span>
                 </div>
               </div>
@@ -384,28 +393,30 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section className={styles.section} id="product-proof">
-        <div className={styles.container}>
-          <SectionHeading
-            eyebrow="Product proof"
-            lead="The experience is ready to hold real dashboard, POS and field-deployment evidence without substituting invented interface mockups."
-            title="Show the product as it is deployed."
-          />
-          <div className={styles.proofGrid}>
-            {PRODUCT_PROOF.map((proof) => (
-              <article className={styles.proofCard} key={proof.title}>
-                <div className={styles.proofCanvas}>
-                  <div className={styles.placeholder}>{proof.placeholder}</div>
-                </div>
-                <div className={styles.proofCopy}>
-                  <h3>{proof.title}</h3>
-                  <p>{proof.note}</p>
-                </div>
-              </article>
-            ))}
+      {approvedProductProof.length ? (
+        <section className={styles.section} id="product-proof">
+          <div className={styles.container}>
+            <SectionHeading
+              eyebrow="Product proof"
+              lead="Approved current product and deployment evidence."
+              title="See ParkTek in operation."
+            />
+            <div className={styles.proofGrid}>
+              {approvedProductProof.map((proof) => (
+                <article className={styles.proofCard} key={proof.title}>
+                  <div className={styles.proofCanvas}>
+                    <Image alt={proof.alt || proof.title} fill sizes="(max-width: 820px) 100vw, 33vw" src={proof.image} />
+                  </div>
+                  <div className={styles.proofCopy}>
+                    <h3>{proof.title}</h3>
+                    <p>{proof.note}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <section className={`${styles.section} ${styles.sectionAlt}`} id="compatibility">
         <div className={styles.container}>

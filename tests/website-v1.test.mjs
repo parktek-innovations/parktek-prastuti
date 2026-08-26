@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const output = new URL("../out/", import.meta.url);
+const source = new URL("../", import.meta.url);
 
 const requiredRoutes = [
   "index.html",
@@ -22,6 +23,10 @@ async function outputFile(path) {
   return readFile(new URL(path, output), "utf8");
 }
 
+async function sourceFile(path) {
+  return readFile(new URL(path, source), "utf8");
+}
+
 test("static export contains every Website V1 route", async () => {
   for (const route of requiredRoutes) {
     const html = await outputFile(route);
@@ -39,10 +44,27 @@ test("homepage carries the approved positioning and truthful status labels", asy
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
   assert.match(html, /In development/);
+  assert.match(html, /RFID access live/);
+  assert.match(html, /ANPR pilot/);
+  assert.match(html, /Commercial workflows launching/);
   assert.doesNotMatch(html, /99\.9% uptime|10M\+ vehicles|1,000\+ locations/);
+  assert.doesNotMatch(html, /Provisional traction metrics|ParkTek capability availability|footprint-title/);
+  assert.doesNotMatch(html, /Product proof|Residential dashboard screenshot|POS interface/);
 });
 
-test("homepage footer exposes only verified app destinations with accessible names", async () => {
+test("primary actions use the current Samhita semantic bridge", async () => {
+  const globals = await sourceFile("app/globals.css");
+  const homepage = await sourceFile("components/website/home-page.module.css");
+  const shared = await sourceFile("components/website/website.module.css");
+
+  assert.match(globals, /--prastuti-primary:\s*#1d4ed8/i);
+  assert.match(globals, /--prastuti-primary-hover:\s*#1e40af/i);
+  assert.match(homepage, /\.primaryButton\s*\{[^}]+background:\s*var\(--prastuti-primary\)/s);
+  assert.match(shared, /--primary:\s*var\(--prastuti-primary\)/);
+  assert.doesNotMatch(homepage, /\.primaryButton\s*\{[^}]+pk-color-brand-primary/s);
+});
+
+test("homepage footer exposes only verified app and social destinations with accessible names", async () => {
   const html = await outputFile("index.html");
 
   assert.match(
@@ -53,7 +75,11 @@ test("homepage footer exposes only verified app destinations with accessible nam
     html,
     /aria-label="Download ParkTek on the App Store"[^>]+href="https:\/\/apps\.apple\.com\/ca\/app\/parktek\/id6760598237"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
   );
-  assert.doesNotMatch(html, /href="https:\/\/(?:x|linkedin|youtube)\.com"/);
+  assert.match(
+    html,
+    /aria-label="ParkTek Innovation on LinkedIn"[^>]+href="https:\/\/in\.linkedin\.com\/company\/https-parktek\.in"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
+  );
+  assert.doesNotMatch(html, /href="https:\/\/(?:x|youtube)\.com"/);
 });
 
 test("lead pages render the shared accessible form contract", async () => {
@@ -102,6 +128,18 @@ test("central public contact details remain consistent", async () => {
 
   assert.match(html, /support@parktek\.in/);
   assert.match(html, /\+91 9899945876/);
-  assert.match(html, /SK-70, Sector 112, Noida - 201305/);
+  assert.match(html, /SK-70, Sector 112, Noida - 201301/);
   assert.doesNotMatch(html, /sales@parktek\.in/);
+});
+
+test("verified legal identity is consistent in pages and structured data", async () => {
+  for (const route of ["index.html", "about/index.html", "contact/index.html"]) {
+    const html = await outputFile(route);
+    assert.match(html, /PARKTEK INNOVATION PRIVATE LIMITED/);
+    assert.doesNotMatch(html, /ParkTek Technologies Pvt\. Ltd\./);
+  }
+
+  const home = await outputFile("index.html");
+  assert.match(home, /"legalName":"PARKTEK INNOVATION PRIVATE LIMITED"/);
+  assert.match(home, /"postalCode":"201301"/);
 });

@@ -1,6 +1,6 @@
 .page {
-  background: var(--pk-color-surface-page);
-  color: var(--pk-color-text-primary);
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-primary);
 }
 
 .container {
@@ -9,8 +9,8 @@
 }
 
 .announcement {
-  border-bottom: 1px solid var(--pk-color-border-default);
-  background: var(--pk-color-surface-section);
+  border-bottom: 1px solid var(--prastuti-border);
+  background: var(--prastuti-muted-background);
 }
 
 .announcement a {
@@ -33,21 +33,12 @@
 .hero {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--pk-color-border-default);
-  background: var(--pk-color-surface-card);
+  border-bottom: 1px solid var(--prastuti-border);
+  background: var(--prastuti-background);
 }
 
 .hero::before {
-  position: absolute;
-  top: -18rem;
-  left: -15rem;
-  width: 44rem;
-  height: 44rem;
-  border: 1px solid var(--pk-color-border-default);
-  border-radius: 50%;
-  content: "";
-  opacity: 0.55;
-  pointer-events: none;
+  display: none;
 }
 
 .heroInner {
@@ -125,26 +116,27 @@
 
 .primaryButton {
   padding: 0 20px;
-  border: 2px solid var(--pk-color-brand-primary-strong);
+  border: 2px solid var(--prastuti-primary);
   border-radius: 10px;
-  background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  background: var(--prastuti-primary);
+  color: #ffffff;
 }
 
 .primaryButton:hover {
-  background: var(--pk-color-brand-primary-strong);
+  border-color: var(--prastuti-primary-hover);
+  background: var(--prastuti-primary-hover);
   transform: translateY(-2px);
 }
 
 .commercialLayout .primaryButton {
-  border-color: var(--pk-color-action-primary-background);
-  background: var(--pk-color-action-primary-background);
-  color: var(--pk-color-action-primary-foreground);
+  border-color: var(--prastuti-primary);
+  background: var(--prastuti-primary);
+  color: #ffffff;
 }
 
 .commercialLayout .primaryButton:hover {
-  border-color: var(--pk-color-action-primary-background-hover);
-  background: var(--pk-color-action-primary-background-hover);
+  border-color: var(--prastuti-primary-hover);
+  background: var(--prastuti-primary-hover);
 }
 
 .secondaryButton {
@@ -203,87 +195,317 @@
   position: relative;
   min-height: 650px;
   overflow: hidden;
-  border: 1px solid var(--pk-color-border-default);
+  border: 1px solid var(--prastuti-border);
   border-radius: 18px;
-  background: var(--pk-color-surface-card);
+  background: var(--prastuti-surface);
   box-shadow: var(--shadow);
   isolation: isolate;
 }
 
-.heroIllustration {
+.heroScene {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 48%;
+  overflow: hidden;
+  background: var(--prastuti-surface);
 }
 
-.heroAccessCue {
+.heroScene::before {
   position: absolute;
-  z-index: 3;
-  right: 23%;
-  bottom: 38%;
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-  color: var(--pk-color-text-primary);
-  filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--pk-color-text-primary) 18%, transparent));
+  inset: 0 0 auto;
+  height: 34%;
+  border-bottom: 1px solid var(--prastuti-border);
+  background: var(--prastuti-background);
+  content: "";
 }
 
-.heroVehicle {
+.heroBuilding {
+  position: absolute;
+  z-index: 1;
+  top: 8%;
+  right: -3%;
   display: grid;
-  width: 62px;
-  height: 62px;
-  place-items: center;
-  border: 1px solid var(--pk-color-border-strong);
-  border-radius: 18px 18px 12px 12px;
-  background: var(--pk-color-surface-elevated);
+  width: 54%;
+  height: 30%;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 28px 32px;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 12px 0 0 12px;
+  background: #ffffff;
+  box-shadow: 0 16px 32px rgb(15 23 42 / 8%);
 }
 
-.heroBarrierPost {
-  width: 10px;
-  height: 52px;
-  border: 1px solid var(--pk-color-border-strong);
-  border-radius: 5px 5px 2px 2px;
-  background: var(--pk-color-action-primary-background);
+.heroBuilding span {
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  border-radius: 4px;
+  background: var(--prastuti-primary-subtle);
 }
 
-.heroBarrierArm {
-  width: 96px;
-  height: 8px;
-  margin: 0 0 34px -14px;
-  border: 1px solid var(--pk-color-border-strong);
-  border-radius: 999px;
-  background: var(--pk-color-brand-primary);
-  transform: rotate(-8deg);
-  transform-origin: left center;
-}
-
-.worldImage {
+.heroLandscape {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  z-index: 2;
+  top: 31%;
+  right: -4%;
+  width: 58%;
+  height: 8%;
+  border: 1px solid #bbd8be;
+  border-radius: 5px 0 0 5px;
+  background: #dff1e1;
 }
 
-.worldImageOpen {
-  animation: scene-switch 9s ease-in-out infinite;
-  opacity: 0;
-}
-
-.scanLine {
+.heroLane {
   position: absolute;
-  z-index: 4;
+  z-index: 1;
+  top: 27%;
+  bottom: -8%;
+  left: 16%;
+  width: 58%;
+  overflow: hidden;
+  border-right: 9px solid #ffffff;
+  border-left: 9px solid #ffffff;
+  background: #dce3ea;
+  clip-path: polygon(23% 0, 77% 0, 100% 100%, 0 100%);
+}
+
+.heroLaneMarker {
+  position: absolute;
   top: 0;
   bottom: 0;
-  left: -25%;
-  width: 22%;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pk-color-link-default) 18%, transparent), transparent);
-  transform: skewX(-12deg);
-  animation: scan 7s linear infinite;
-  pointer-events: none;
+  left: calc(50% - 2px);
+  width: 4px;
+  background: repeating-linear-gradient(to bottom, #ffffff 0 24px, transparent 24px 48px);
+  opacity: 0.9;
+}
+
+.heroRouteTrace {
+  position: absolute;
+  right: 22%;
+  bottom: 5%;
+  width: 4px;
+  height: 58%;
+  border-radius: 999px;
+  background: var(--prastuti-primary);
+  box-shadow: 0 0 0 5px rgb(29 78 216 / 10%);
+  animation: route-activate 5.2s ease-in-out infinite;
+}
+
+.parkingCar {
+  position: absolute;
+  z-index: 4;
+  display: block;
+  width: 92px;
+  height: 164px;
+  border: 2px solid #0f172a;
+  border-radius: 34px 34px 26px 26px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  box-shadow: 0 18px 30px rgb(15 23 42 / 24%);
+}
+
+.carCabin {
+  position: absolute;
+  inset: 30px 14px 42px;
+  border: 1px solid #64748b;
+  border-radius: 24px 24px 18px 18px;
+  background: #334155;
+}
+
+.carWindshield {
+  position: absolute;
+  top: 36px;
+  right: 19px;
+  left: 19px;
+  height: 31px;
+  border-radius: 16px 16px 5px 5px;
+  background: #b9d7e8;
+}
+
+.carLightLeft,
+.carLightRight {
+  position: absolute;
+  top: 8px;
+  width: 17px;
+  height: 8px;
+  border-radius: 6px;
+  background: #dbeafe;
+}
+
+.carLightLeft { left: 14px; }
+.carLightRight { right: 14px; }
+
+.carWheelLeft,
+.carWheelRight {
+  position: absolute;
+  top: 52px;
+  width: 7px;
+  height: 42px;
+  border-radius: 4px;
+  background: #020617;
+}
+
+.carWheelLeft { left: -6px; }
+.carWheelRight { right: -6px; }
+
+.heroCar {
+  bottom: 8%;
+  left: 40%;
+  transform: rotate(-2deg);
+  animation: vehicle-approach 5.2s ease-in-out infinite;
+}
+
+.barrierGate {
+  position: absolute;
+  z-index: 5;
+  display: block;
+  width: 220px;
+  height: 90px;
+}
+
+.barrierColumn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 34px;
+  height: 70px;
+  border: 1px solid #1e3a8a;
+  border-radius: 8px 8px 3px 3px;
+  background: var(--prastuti-primary);
+  box-shadow: 0 8px 16px rgb(15 23 42 / 18%);
+}
+
+.barrierSignal {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: var(--prastuti-status-success);
+}
+
+.barrierArm {
+  position: absolute;
+  bottom: 49px;
+  left: 28px;
+  display: flex;
+  width: 188px;
+  height: 14px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 5px 12px rgb(15 23 42 / 14%);
+  transform: rotate(-8deg);
+  transform-origin: 2px 50%;
+  animation: barrier-open 5.2s ease-in-out infinite;
+}
+
+.barrierArm span {
+  width: 28px;
+  height: 100%;
+  margin-right: 28px;
+  background: var(--prastuti-primary);
+  transform: skewX(-18deg);
+}
+
+.heroBarrier {
+  top: 39%;
+  left: 15%;
+}
+
+.heroReader,
+.operationsReader,
+.heroController,
+.operationsController,
+.heroCamera {
+  position: absolute;
+  z-index: 5;
+  display: block;
+  border: 1px solid #94a3b8;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgb(15 23 42 / 12%);
+}
+
+.heroReader {
+  top: 43%;
+  left: 70%;
+  width: 27px;
+  height: 58px;
+  border-radius: 6px 6px 3px 3px;
+}
+
+.readerLight,
+.controllerLight {
+  position: absolute;
+  top: 9px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--prastuti-status-success);
+  animation: signal-pulse 2.6s ease-in-out infinite;
+}
+
+.readerWave {
+  position: absolute;
+  top: 22px;
+  left: 7px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--prastuti-primary);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+}
+
+.heroCamera {
+  top: 29%;
+  left: 67%;
+  width: 8px;
+  height: 86px;
+  border-radius: 4px;
+  background: #64748b;
+}
+
+.cameraHead {
+  position: absolute;
+  top: -6px;
+  left: -16px;
+  width: 34px;
+  height: 16px;
+  border: 1px solid #475569;
+  border-radius: 4px 10px 10px 4px;
+  background: #ffffff;
+  transform: rotate(12deg);
+}
+
+.cameraHead::after {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--prastuti-primary);
+  content: "";
+}
+
+.heroController {
+  right: 8%;
+  bottom: 19%;
+  width: 52px;
+  height: 86px;
+  border-radius: 7px;
+}
+
+.controllerVent {
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+  left: 10px;
+  height: 16px;
+  border-top: 2px solid #94a3b8;
+  border-bottom: 2px solid #94a3b8;
 }
 
 .hud,
@@ -297,16 +519,38 @@
   gap: 12px;
   width: min(270px, 45%);
   padding: 13px 14px;
-  border: 1px solid var(--pk-color-border-default);
+  border: 1px solid var(--prastuti-border);
   border-radius: 12px;
-  background: var(--pk-color-surface-card);
-  box-shadow: 0 12px 30px color-mix(in srgb, var(--pk-color-text-primary) 10%, transparent);
-  color: var(--pk-color-text-primary);
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 12px 30px rgb(15 23 42 / 10%);
+  color: var(--prastuti-text-primary);
+  backdrop-filter: blur(10px);
 }
 
 .hud {
   top: 6%;
   right: 4%;
+}
+
+.hud::after,
+.occupancyHud::after,
+.gateHud::after {
+  position: absolute;
+  z-index: -1;
+  width: 48px;
+  border-top: 1px solid var(--prastuti-primary-subtle-border);
+  content: "";
+}
+
+.hud::after,
+.occupancyHud::after {
+  top: 50%;
+  right: 100%;
+}
+
+.gateHud::after {
+  top: 50%;
+  left: 100%;
 }
 
 .occupancyHud {
@@ -324,10 +568,10 @@
   width: 42px;
   height: 42px;
   place-items: center;
-  border: 1px solid var(--pk-color-border-default);
+  border: 1px solid var(--prastuti-primary-subtle-border);
   border-radius: 50%;
-  background: var(--pk-color-action-information-background-subtle);
-  color: var(--pk-color-action-information-foreground-subtle);
+  background: var(--prastuti-primary-subtle);
+  color: var(--prastuti-primary);
 }
 
 .hudCopy {
@@ -336,7 +580,7 @@
 
 .hudLabel {
   display: block;
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -346,7 +590,7 @@
 .hudValue {
   display: block;
   margin-top: 8px;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-size: 0.86rem;
   font-weight: 700;
 }
@@ -355,18 +599,19 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--pk-color-status-success-background);
-  box-shadow: 0 0 0 4px var(--pk-color-status-information-background);
+  background: var(--prastuti-status-success);
+  box-shadow: 0 0 0 4px rgb(22 163 74 / 12%);
+  animation: signal-pulse 2.6s ease-in-out infinite;
 }
 
 .section {
-  border-bottom: 1px solid var(--pk-color-border-default);
+  border-bottom: 1px solid var(--prastuti-border);
   padding-block: clamp(80px, 9vw, 132px);
-  background: var(--pk-color-surface-card);
+  background: var(--prastuti-background);
 }
 
 .sectionAlt {
-  background: var(--pk-color-surface-section);
+  background: var(--prastuti-muted-background);
 }
 
 .sectionHeading {
@@ -399,9 +644,9 @@
   grid-template-columns: repeat(4, 1fr);
   margin-top: 28px;
   overflow: hidden;
-  border: 1px solid var(--pk-color-border-default);
+  border: 1px solid var(--prastuti-border);
   border-radius: 14px;
-  background: var(--pk-color-surface-card);
+  background: var(--prastuti-background);
 }
 
 .metric {
@@ -428,14 +673,6 @@
   color: var(--pk-color-text-muted);
   font-size: 0.8rem;
   line-height: 1.45;
-}
-
-.metricsNotice {
-  margin-block: 12px 0;
-  color: var(--pk-color-text-muted);
-  font-size: 0.72rem;
-  line-height: 1.5;
-  text-align: right;
 }
 
 .solutionGrid,
@@ -554,140 +791,199 @@
   top: calc(var(--header-height) + 24px);
   height: fit-content;
   overflow: hidden;
-  border: 1px solid var(--pk-color-border-default);
+  border: 1px solid var(--prastuti-border);
   border-radius: 14px;
-  background: var(--pk-color-surface-card);
+  background: var(--prastuti-background);
 }
 
 .flowScene {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background: var(--pk-color-surface-elevated);
+  background: var(--prastuti-surface);
 }
 
-.flowScene::before,
-.flowScene::after {
+.operationsScene {
   position: absolute;
-  border: 1px solid var(--pk-color-border-default);
-  border-radius: 50%;
-  content: "";
+  inset: 0;
+  overflow: hidden;
+  background: var(--prastuti-surface);
 }
 
-.flowScene::before {
-  top: -32%;
-  right: -12%;
-  width: 66%;
-  aspect-ratio: 1;
+.operationsBuilding {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  right: 4%;
+  width: 27%;
+  height: 34%;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 24px rgb(15 23 42 / 9%);
 }
 
-.flowScene::after {
-  bottom: -42%;
-  left: -18%;
-  width: 72%;
-  aspect-ratio: 1;
+.operationsCanopy {
+  position: absolute;
+  top: 12%;
+  right: 10%;
+  left: 10%;
+  height: 18%;
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  background: var(--prastuti-primary-subtle);
 }
 
-.flowRoad {
+.operationsOffice {
+  position: absolute;
+  right: 18%;
+  bottom: 12%;
+  left: 18%;
+  height: 45%;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #e2e8f0;
+}
+
+.operationsLandscape {
+  position: absolute;
+  bottom: 7%;
+  left: -2%;
+  width: 28%;
+  height: 22%;
+  border: 1px solid #bbd8be;
+  border-radius: 0 8px 8px 0;
+  background: #dff1e1;
+}
+
+.operationsLane {
   position: absolute;
   z-index: 1;
-  inset: 10% 8%;
-  border: 1px solid var(--pk-color-border-strong);
-  border-radius: 18px;
-  background: var(--pk-color-surface-section);
+  top: -15%;
+  bottom: -15%;
+  left: 30%;
+  width: 35%;
+  border-right: 7px solid #ffffff;
+  border-left: 7px solid #ffffff;
+  background: #dce3ea;
+  transform: rotate(-7deg);
 }
 
-.flowRoad::before {
+.operationsLane::after {
   position: absolute;
-  top: 50%;
-  right: 8%;
-  left: 8%;
-  border-top: 2px dashed var(--pk-color-border-strong);
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 2px);
+  width: 4px;
+  background: repeating-linear-gradient(to bottom, #ffffff 0 20px, transparent 20px 42px);
   content: "";
 }
 
-.flowNode {
+.operationsLaneLabel {
   position: absolute;
-  z-index: 3;
-  display: grid;
-  min-width: 92px;
-  min-height: 78px;
-  place-items: center;
-  gap: 5px;
-  padding: 10px 12px;
-  border: 1px solid var(--pk-color-border-default);
-  border-radius: 12px;
-  background: var(--pk-color-surface-card);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--pk-color-text-primary) 8%, transparent);
-  color: var(--pk-color-action-information-foreground-subtle);
-  font-size: 0.7rem;
+  z-index: 2;
+  right: 12px;
+  bottom: 22%;
+  color: #64748b;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  writing-mode: vertical-rl;
 }
 
-.flowIdentify {
-  top: 8%;
-  left: 7%;
-}
-
-.flowDecide {
-  top: 8%;
-  right: 7%;
-}
-
-.flowRecord {
-  right: 7%;
-  bottom: 7%;
-}
-
-.flowVehicle {
+.operationsArrow {
   position: absolute;
   z-index: 2;
   bottom: 12%;
-  left: 23%;
-  display: grid;
-  width: 82px;
-  height: 106px;
-  place-items: center;
-  border: 2px solid var(--pk-color-action-primary-background);
-  border-radius: 26px 26px 18px 18px;
-  background: var(--pk-color-surface-card);
-  color: var(--pk-color-action-primary-background);
-  transform: rotate(8deg);
+  left: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+  border-top: 4px solid var(--prastuti-primary);
+  border-left: 4px solid var(--prastuti-primary);
+  transform: rotate(45deg);
 }
 
-.flowBarrier {
-  position: absolute;
-  z-index: 2;
-  bottom: 18%;
-  left: 49%;
-  display: flex;
-  align-items: flex-end;
+.operationsCar {
+  bottom: 2%;
+  left: 42%;
+  width: 64px;
+  height: 112px;
+  border-radius: 25px 25px 19px 19px;
+  transform: rotate(-7deg);
+  animation: operations-approach 5.2s ease-in-out infinite;
 }
 
-.flowBarrierPost {
-  width: 14px;
+.operationsCar .carCabin {
+  inset: 23px 10px 30px;
+}
+
+.operationsCar .carWindshield {
+  top: 27px;
+  right: 14px;
+  left: 14px;
+  height: 22px;
+}
+
+.operationsCar .carWheelLeft,
+.operationsCar .carWheelRight {
+  top: 38px;
+  height: 30px;
+}
+
+.operationsBarrier {
+  z-index: 6;
+  top: 29%;
+  left: 28%;
+  transform: rotate(-7deg);
+}
+
+.operationsBarrier .barrierArm {
+  width: 150px;
+}
+
+.operationsReader {
+  z-index: 7;
+  top: 36%;
+  left: 61%;
+  width: 24px;
+  height: 52px;
+  border-radius: 5px;
+}
+
+.operationsController {
+  z-index: 5;
+  top: 50%;
+  right: 9%;
+  width: 46px;
   height: 72px;
-  border-radius: 5px 5px 2px 2px;
-  background: var(--pk-color-action-primary-background);
+  border-radius: 6px;
 }
 
-.flowBarrierArm {
-  width: clamp(92px, 14vw, 150px);
-  height: 10px;
-  margin: 0 0 51px -3px;
-  border: 1px solid var(--pk-color-brand-primary-strong);
-  border-radius: 999px;
-  background: var(--pk-color-brand-primary);
-  transform: rotate(-17deg);
-  transform-origin: left center;
+.operationsEvent {
+  position: absolute;
+  z-index: 6;
+  right: 5%;
+  bottom: 8%;
+  display: grid;
+  min-width: 126px;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgb(15 23 42 / 9%);
+  animation: event-confirm 5.2s ease-in-out infinite;
 }
 
-.flowScene img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.operationsEvent span {
+  color: var(--prastuti-primary);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.operationsEvent strong {
+  color: var(--prastuti-text-primary);
+  font-size: 0.76rem;
 }
 
 .flowCaption {
@@ -876,20 +1172,6 @@
   object-fit: cover;
 }
 
-.placeholder {
-  position: relative;
-  display: grid;
-  width: min(74%, 440px);
-  min-height: 170px;
-  place-items: center;
-  padding: 22px;
-  border: 1px dashed var(--pk-color-border-strong);
-  background: var(--pk-color-surface-card);
-  color: var(--pk-color-text-muted);
-  font-size: 0.84rem;
-  text-align: center;
-}
-
 .proofCopy {
   padding: 24px;
 }
@@ -1060,21 +1342,20 @@
 .finalCta {
   position: relative;
   overflow: hidden;
+  border-top: 1px solid var(--prastuti-primary-subtle-border);
+  border-bottom: 1px solid var(--prastuti-primary-subtle-border);
   padding-block: clamp(72px, 8vw, 112px);
-  background: var(--pk-color-selection-background);
+  background: var(--prastuti-primary-subtle);
 }
 
 .finalCta::after {
   position: absolute;
-  top: 50%;
-  right: -130px;
-  width: 480px;
-  height: 480px;
-  border: 1px solid var(--pk-color-selection-border);
-  border-radius: 50%;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 4px;
+  background: var(--prastuti-primary);
   content: "";
-  opacity: 0.32;
-  transform: translateY(-50%);
 }
 
 .finalInner {
@@ -1096,27 +1377,37 @@
   font-size: 1.06rem;
 }
 
-@keyframes scene-switch {
-  0%,
-  42% {
-    opacity: 0;
-  }
-  52%,
-  88% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+@keyframes vehicle-approach {
+  0%, 12% { transform: translateY(18px) rotate(-2deg); }
+  44%, 72% { transform: translateY(-20px) rotate(-2deg); }
+  100% { transform: translateY(18px) rotate(-2deg); }
 }
 
-@keyframes scan {
-  from {
-    left: -25%;
-  }
-  to {
-    left: 125%;
-  }
+@keyframes operations-approach {
+  0%, 12% { transform: translateY(12px) rotate(-7deg); }
+  44%, 72% { transform: translateY(-18px) rotate(-7deg); }
+  100% { transform: translateY(12px) rotate(-7deg); }
+}
+
+@keyframes barrier-open {
+  0%, 34%, 88%, 100% { transform: rotate(-8deg); }
+  48%, 76% { transform: rotate(-55deg); }
+}
+
+@keyframes route-activate {
+  0%, 18%, 92%, 100% { opacity: 0.18; }
+  34%, 82% { opacity: 1; }
+}
+
+@keyframes signal-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(22 163 74 / 20%); }
+  50% { box-shadow: 0 0 0 7px rgb(22 163 74 / 0%); }
+}
+
+@keyframes event-confirm {
+  0%, 44% { opacity: 0.55; transform: translateY(3px); }
+  58%, 88% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0.55; transform: translateY(3px); }
 }
 
 @media (max-width: 1180px) {
@@ -1267,15 +1558,29 @@
     border-radius: 12px;
   }
 
-  .heroAccessCue {
-    right: 12%;
-    bottom: 42%;
-    transform: scale(0.82);
-    transform-origin: right center;
+  .heroLane {
+    left: 8%;
+    width: 72%;
   }
 
-  .worldImage {
-    object-position: 62% center;
+  .heroBuilding {
+    width: 62%;
+    padding: 22px 20px;
+  }
+
+  .heroCar {
+    left: 37%;
+    transform: scale(0.82) rotate(-2deg);
+  }
+
+  .heroBarrier {
+    left: 7%;
+    transform: scale(0.82);
+    transform-origin: left center;
+  }
+
+  .heroReader {
+    left: 76%;
   }
 
   .hud,
@@ -1304,6 +1609,12 @@
 
   .occupancyHud {
     bottom: 4%;
+  }
+
+  .hud::after,
+  .occupancyHud::after,
+  .gateHud::after {
+    display: none;
   }
 
   .section {
@@ -1390,46 +1701,39 @@
     min-height: 240px;
   }
 
-  .finalCta::after {
-    opacity: 0.2;
+  .operationsEvent {
+    right: 3%;
+    min-width: 106px;
+    padding: 9px 10px;
   }
 
-  .flowRoad {
-    inset: 8%;
+  .operationsBarrier {
+    left: 23%;
+    transform: scale(0.78) rotate(-7deg);
+    transform-origin: left center;
   }
 
-  .flowNode {
-    min-width: 78px;
-    min-height: 66px;
-    padding: 8px;
-    font-size: 0.62rem;
-  }
-
-  .flowVehicle {
-    bottom: 9%;
-    left: 15%;
-    width: 66px;
-    height: 88px;
-  }
-
-  .flowBarrier {
-    bottom: 15%;
-    left: 43%;
-  }
-
-  .flowBarrierArm {
-    width: 90px;
+  .operationsController {
+    right: 5%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .worldImageOpen,
-  .scanLine {
-    display: none;
+  .heroCar,
+  .operationsCar,
+  .barrierArm,
+  .heroRouteTrace,
+  .readerLight,
+  .controllerLight,
+  .hudStatus,
+  .operationsEvent {
     animation: none;
   }
 
-  .primaryButton:hover {
+  .primaryButton:hover,
+  .heroCar,
+  .operationsCar,
+  .operationsBarrier {
     transform: none;
   }
 }

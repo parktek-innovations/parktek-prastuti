@@ -10,8 +10,8 @@
   --line-strong: var(--pk-color-border-strong);
   --text: var(--pk-color-text-primary);
   --muted: var(--pk-color-text-muted);
-  --primary: var(--pk-color-action-primary-background);
-  --primary-hover: var(--pk-color-action-primary-background-hover);
+  --primary: var(--prastuti-primary);
+  --primary-hover: var(--prastuti-primary-hover);
 }
 
 .siteHeader {
@@ -182,16 +182,16 @@
 
 .headerCta {
   display: none;
-  border-color: var(--pk-color-brand-primary-strong);
-  background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
   padding: 0 18px;
 }
 
 .headerCta:hover,
 .mobileCta:hover {
-  border-color: var(--pk-color-brand-primary-strong);
-  background: var(--pk-color-brand-primary-strong);
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
 }
 
 .submitButton:hover:not(:disabled) {
@@ -316,15 +316,15 @@
 .mobileCta {
   flex: none;
   margin: auto 20px 24px;
-  border-color: var(--pk-color-brand-primary-strong);
-  background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
   padding: 0 20px;
 }
 
 .siteFooter {
-  padding: 30px 24px 0;
-  background: var(--pk-color-surface-card);
+  padding: 30px 24px;
+  background: var(--prastuti-surface);
   color: var(--text);
 }
 
@@ -333,7 +333,7 @@
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid var(--pk-color-border-default);
-  border-radius: 18px 18px 0 0;
+  border-radius: 18px;
   background: var(--pk-color-surface-card);
 }
 
@@ -368,7 +368,7 @@
   width: 34px;
   height: 3px;
   border-radius: 999px;
-  background: var(--pk-color-brand-primary);
+  background: var(--prastuti-primary);
   content: "";
 }
 

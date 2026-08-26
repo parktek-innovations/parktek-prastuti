@@ -55,6 +55,19 @@
 
 :root {
   color-scheme: light;
+  /* Repo-local semantic bridge to the current Samhita light product palette.
+     The checked-in generated adapter remains an immutable 0.2.0 release artifact. */
+  --prastuti-background: #ffffff;
+  --prastuti-surface: #f8fafc;
+  --prastuti-muted-background: #f1f5f9;
+  --prastuti-text-primary: #0b0f14;
+  --prastuti-text-muted: #475569;
+  --prastuti-border: #e2e8f0;
+  --prastuti-primary: #1d4ed8;
+  --prastuti-primary-hover: #1e40af;
+  --prastuti-primary-subtle: #eff6ff;
+  --prastuti-primary-subtle-border: #bfdbfe;
+  --prastuti-status-success: #16a34a;
   /* Temporary compatibility aliases for dark legacy routes pending their scoped migration. */
   --ink: #f7fbff;
   --muted: #9fb0c5;
@@ -66,8 +79,8 @@
   --surface-strong: #0c223a;
   --line: rgba(148, 184, 222, 0.17);
   --line-strong: rgba(84, 172, 255, 0.45);
-  --primary: #1d4ed8;
-  --primary-hover: #1e40af;
+  --primary: var(--prastuti-primary);
+  --primary-hover: var(--prastuti-primary-hover);
   --primary-soft: rgba(29, 78, 216, 0.15);
   --teal: #43d2d5;
   --success: #37c98a;
@@ -86,7 +99,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 20px);
   overflow-x: clip;
-  background: var(--pk-color-surface-page);
+  background: var(--prastuti-background);
 }
 
 [id] {
@@ -97,8 +110,8 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: clip;
-  background: var(--pk-color-surface-page);
-  color: var(--pk-color-text-primary);
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-primary);
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.6;

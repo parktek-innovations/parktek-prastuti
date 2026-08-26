@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { StatusPill } from "@/components/website/status-pill";
 import StructuredData from "@/components/website/structured-data";
-import { CONTACT, MODULES, TEAM } from "@/lib/website-content";
+import { CONTACT, MODULES, SITE, TEAM } from "@/lib/website-content";
 import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
 
 import styles from "../marketing-pages.module.css";
@@ -136,7 +136,7 @@ export default function AboutPage() {
                 </article>
               ))}
               <aside className={styles.contactCard}>
-                <h2>ParkTek Technologies Pvt. Ltd.</h2>
+                <h2>{SITE.legalName}</h2>
                 <p>Company and public enquiry details.</p>
                 <dl className={styles.contactList}>
                   <div>

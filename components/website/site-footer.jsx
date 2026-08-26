@@ -37,6 +37,14 @@ const VERIFIED_APP_LINKS = [
   },
 ];
 
+const VERIFIED_SOCIAL_LINKS = [
+  {
+    label: "ParkTek Innovation on LinkedIn",
+    href: "https://in.linkedin.com/company/https-parktek.in",
+    icon: "/figma/footer/social-linkedin.svg",
+  },
+];
+
 export function SiteFooter({ className = "" }) {
   return (
     <footer className={[styles.siteFooter, className].filter(Boolean).join(" ")}>
@@ -96,8 +104,8 @@ export function SiteFooter({ className = "" }) {
             <Image alt={SITE.name} height="54" src="/brand/parktek-logo-black.svg" width="152" />
           </Link>
           <div className={styles.footerBrandMeta}>
-            <nav aria-label="ParkTek apps" className={styles.footerSocialRow}>
-              {VERIFIED_APP_LINKS.map((item) => (
+            <nav aria-label="ParkTek apps and social profiles" className={styles.footerSocialRow}>
+              {[...VERIFIED_APP_LINKS, ...VERIFIED_SOCIAL_LINKS].map((item) => (
                 <a
                   aria-label={item.label}
                   className={styles.footerSocialLink}
