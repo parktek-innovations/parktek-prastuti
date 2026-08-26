@@ -1,7 +1,6 @@
 function serialize(data) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
-
 export default function StructuredData({ data }) {
   const entries = (Array.isArray(data) ? data : [data]).filter(Boolean);
 

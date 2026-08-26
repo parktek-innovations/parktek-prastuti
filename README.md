@@ -91,4 +91,4 @@ Before release, verify navigation, forms, metadata, keyboard access, reduced mot
 
 - `support@parktek.in`
 - `+91 9899945876`
-- `SK-70, Sector 112, Noida - 201305`
+- `SK-70, Sector 112, Noida - 201301`
