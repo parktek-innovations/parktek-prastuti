@@ -63,6 +63,7 @@ export default function ContactPage() {
             <LeadForm
               description="Share your site or product question. For an active service issue, include the society or property name and the affected gate."
               heading="Send ParkTek an enquiry"
+              preserveEnquiryContext
               source="Contact page"
             />
           </div>

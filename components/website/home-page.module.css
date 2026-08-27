@@ -377,9 +377,11 @@
 .carWheelRight { right: -6px; }
 
 .heroCar {
+  --hero-car-scale: 1;
+
   bottom: 8%;
   left: 40%;
-  transform: rotate(-2deg);
+  transform: rotate(-2deg) scale(var(--hero-car-scale));
   animation: vehicle-approach 5.2s ease-in-out infinite;
 }
 
@@ -1712,9 +1714,9 @@
 }
 
 @keyframes vehicle-approach {
-  0%, 12% { transform: translateY(18px) rotate(-2deg); }
-  44%, 72% { transform: translateY(-20px) rotate(-2deg); }
-  100% { transform: translateY(18px) rotate(-2deg); }
+  0%, 12% { transform: translateY(18px) rotate(-2deg) scale(var(--hero-car-scale)); }
+  44%, 72% { transform: translateY(-20px) rotate(-2deg) scale(var(--hero-car-scale)); }
+  100% { transform: translateY(18px) rotate(-2deg) scale(var(--hero-car-scale)); }
 }
 
 @keyframes operations-approach {
@@ -1921,8 +1923,9 @@
   }
 
   .heroCar {
+    --hero-car-scale: 0.82;
+
     left: 37%;
-    transform: scale(0.82) rotate(-2deg);
   }
 
   .heroBarrier {
@@ -2125,9 +2128,12 @@
   }
 
   .primaryButton:hover,
-  .heroCar,
   .operationsCar,
   .operationsBarrier {
     transform: none;
+  }
+
+  .heroCar {
+    transform: rotate(-2deg) scale(var(--hero-car-scale));
   }
 }

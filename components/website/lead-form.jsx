@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import {
   MINIMUM_COMPLETION_TIME_MS,
@@ -8,6 +8,7 @@ import {
   TIMELINES,
   validateLead,
 } from "@/lib/lead-form-contract.mjs";
+import { contactQueryContext } from "@/lib/contact-query-context.mjs";
 import { CONTACT, SITE } from "@/lib/website-content";
 
 import styles from "./website.module.css";
@@ -58,15 +59,35 @@ export function LeadForm({
   className = "",
   description = "Tell us about your site, gates and current parking workflow. We’ll follow up to plan the right assessment.",
   heading = "Book a site assessment",
+  preserveEnquiryContext = false,
   source = "ParkTek website",
   submitLabel = SITE.primaryCta.label,
 }) {
   const idPrefix = useId();
   const startedAt = useRef(Date.now());
   const [values, setValues] = useState(INITIAL_VALUES);
+  const [resolvedSource, setResolvedSource] = useState(source);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    setResolvedSource(source);
+  }, [source]);
+
+  useEffect(() => {
+    if (!preserveEnquiryContext) return;
+
+    const context = contactQueryContext(window.location.search);
+    if (!context) return;
+
+    setResolvedSource(context.source);
+    setValues((current) => ({
+      ...current,
+      message: current.message || context.message,
+      requirement: current.requirement || context.requirement,
+    }));
+  }, [preserveEnquiryContext]);
 
   function fieldId(name) {
     return `${idPrefix}-${name}`;
@@ -108,7 +129,7 @@ export function LeadForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          source,
+          source: resolvedSource,
         }),
       });
       const payload = await response.json().catch(() => null);

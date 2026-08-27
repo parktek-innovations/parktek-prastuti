@@ -671,6 +671,145 @@
   text-underline-offset: 4px;
 }
 
+.policyCompany {
+  margin: 0;
+  color: var(--prastuti-text-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.policyMeta,
+.policyFacts {
+  display: grid;
+  margin: 0;
+}
+
+.policyMeta {
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  gap: 12px 28px;
+}
+
+.policyMeta div,
+.policyFacts div {
+  display: grid;
+  gap: 4px;
+}
+
+.policyMeta dt,
+.policyFacts dt {
+  color: var(--prastuti-text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.policyMeta dd,
+.policyFacts dd {
+  margin: 0;
+  color: var(--prastuti-text-primary);
+  line-height: 1.65;
+}
+
+.policyMeta a {
+  color: var(--prastuti-primary);
+  text-underline-offset: 4px;
+}
+
+.policySummary {
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--prastuti-border);
+  border-radius: 12px;
+  background: var(--prastuti-muted-background);
+}
+
+.policyFacts {
+  gap: 0;
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 10px;
+  background: var(--prastuti-background);
+}
+
+.policyFacts div {
+  grid-template-columns: minmax(145px, 0.32fr) minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 18px;
+}
+
+.policyFacts div + div {
+  border-top: 1px solid var(--prastuti-border);
+}
+
+.policyTableWrap {
+  max-width: 100%;
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 10px;
+}
+
+.policyTable {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.policyTable th,
+.policyTable td {
+  padding: 16px;
+  border-right: 1px solid var(--prastuti-border);
+  border-bottom: 1px solid var(--prastuti-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.policyTable tr > :last-child {
+  border-right: 0;
+}
+
+.policyTable tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.policyTable thead th,
+.policyTable tbody th {
+  color: var(--prastuti-text-primary);
+  font-weight: 700;
+}
+
+.policyTable thead th {
+  background: var(--prastuti-muted-background);
+}
+
+.policyImportant {
+  margin-top: 42px;
+  padding: 22px;
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  border-radius: 12px;
+  background: var(--prastuti-primary-subtle);
+}
+
+.policyImportant strong {
+  color: var(--prastuti-text-primary);
+}
+
+.policyImportant p {
+  margin-top: 8px;
+}
+
+.policy .policyCopyright {
+  margin-top: 28px;
+  color: var(--prastuti-text-primary);
+  font-weight: 700;
+  text-align: center;
+}
+
 .deletionGrid,
 .screenshotGrid {
   display: grid;
@@ -794,6 +933,11 @@
   .flow,
   .deletionGrid,
   .caseFacts {
+    grid-template-columns: 1fr;
+  }
+
+  .policyMeta,
+  .policyFacts div {
     grid-template-columns: 1fr;
   }
 

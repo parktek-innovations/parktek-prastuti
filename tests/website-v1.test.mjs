@@ -64,8 +64,67 @@ test("FASTag and E-Challan routes keep transactional claims behind a support bou
 
   assert.match(fastag, /does not claim payment processing or recharge completion/i);
   assert.match(fastag, /action="\/contact\/"/);
+  assert.match(fastag, /type="hidden" name="service" value="fastag"/);
+  assert.match(fastag, /name="vehicle"/);
   assert.match(challan, /does not retrieve official records or process challan payments/i);
   assert.match(challan, /action="\/contact\/"/);
+  assert.match(challan, /type="hidden" name="service" value="e-challan"/);
+  assert.match(challan, /name="vehicle"/);
+  assert.match(challan, /name="challan"/);
+});
+
+test("privacy policy export contains the complete 28 August 2026 policy", async () => {
+  const html = await outputFile("privacy-policy/index.html");
+  const sectionTitles = [
+    "Who We Are and What This Policy Covers",
+    "ParkTek’s Role in Different Deployments",
+    "Personal Data We Collect",
+    "How We Collect Personal Data",
+    "Why We Process Personal Data",
+    "Vehicle Access, RFID, ANPR and Rule-Based Decisions",
+    "Consent, Device Permissions and Your Choices",
+    "FASTag, E-Challan and Payment Information",
+    "Cookies, Website Logs and Analytics",
+    "How We Share Personal Data",
+    "Data Security and Personal Data Breaches",
+    "Data Retention, Deletion and Backups",
+    "Your Privacy Rights and Requests",
+    "Children’s Personal Data",
+    "International and Cross-Border Processing",
+    "Third-Party Services and Links",
+    "Changes to This Policy",
+    "Privacy and Grievance Contact",
+    "How to Delete Your ParkTek Account",
+  ];
+
+  assert.match(html, /Effective date<\/dt><dd>28 August 2026/);
+  assert.match(html, /PARKTEK INNOVATION PRIVATE LIMITED/);
+  assert.match(html, /support@parktek\.in/);
+  sectionTitles.forEach((title, index) => {
+    assert.ok(html.includes(`${index + 1}. ${title}`), `privacy section ${index + 1} missing`);
+  });
+  assert.match(html, /<table[^>]*>.*Category.*Examples.*Main purposes.*Transaction-related \(if enabled\)/s);
+  assert.match(html, /STEP 1.*Open your profile.*STEP 4.*Account access is deactivated/s);
+  assert.match(html, /This Privacy Policy should be read together with any feature-specific notice/);
+  assert.match(html, /© 2026 PARKTEK INNOVATION PRIVATE LIMITED/);
+  assert.doesNotMatch(html, /Screenshot update in progress/i);
+  assert.doesNotMatch(html, /children under 13 years of age/i);
+  assert.doesNotMatch(html, /does not collect or store any payment or financial information/i);
+  assert.doesNotMatch(html, /respects your privacy and is committed to protecting your personal data/i);
+});
+
+test("footer privacy destination remains stable", async () => {
+  const html = await outputFile("index.html");
+  assert.match(html, /href="\/privacy-policy\/"[^>]*>Privacy<\/a>/);
+});
+
+test("mobile hero animation preserves its responsive scale", async () => {
+  const homepage = await sourceFile("components/website/home-page.module.css");
+
+  assert.match(homepage, /\.heroCar\s*\{[^}]*--hero-car-scale:\s*1;[^}]*scale\(var\(--hero-car-scale\)\)/s);
+  assert.match(homepage, /@keyframes vehicle-approach\s*\{[^}]*scale\(var\(--hero-car-scale\)\)/s);
+  assert.match(homepage, /@media \(max-width: 620px\)[\s\S]*?\.heroCar\s*\{[^}]*--hero-car-scale:\s*0\.82;/);
+  assert.match(homepage, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.heroCar\s*\{[^}]*scale\(var\(--hero-car-scale\)\)/);
 });
 
 test("primary actions use the current Samhita semantic bridge", async () => {
