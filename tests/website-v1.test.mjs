@@ -9,6 +9,8 @@ const requiredRoutes = [
   "index.html",
   "residential-access-control/index.html",
   "commercial-parking-management/index.html",
+  "fastag/index.html",
+  "e-challan/index.html",
   "case-studies/index.html",
   "case-studies/residential-access-deployment/index.html",
   "about/index.html",
@@ -39,7 +41,7 @@ test("homepage carries the approved positioning and truthful status labels", asy
   const html = await outputFile("index.html");
 
   assert.match(html, /Every gate\. Every vehicle\. Every parking/);
-  assert.match(html, /transaction—connected/);
+  assert.match(html, /transaction<span class="[^"]+">—connected\.<\/span>/);
   assert.match(html, /Book a Site Assessment/);
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
@@ -49,7 +51,21 @@ test("homepage carries the approved positioning and truthful status labels", asy
   assert.match(html, /Commercial workflows launching/);
   assert.doesNotMatch(html, /99\.9% uptime|10M\+ vehicles|1,000\+ locations/);
   assert.doesNotMatch(html, /Provisional traction metrics|ParkTek capability availability|footprint-title/);
-  assert.doesNotMatch(html, /Product proof|Residential dashboard screenshot|POS interface/);
+  assert.match(html, /Product proof/);
+  assert.match(html, /Future approved-proof slot/);
+  assert.match(html, /Residential dashboard screenshot to be added/);
+  assert.match(html, /Commercial POS pilot image to be added/);
+  assert.doesNotMatch(html, /Approved current product and deployment evidence/);
+});
+
+test("FASTag and E-Challan routes keep transactional claims behind a support boundary", async () => {
+  const fastag = await outputFile("fastag/index.html");
+  const challan = await outputFile("e-challan/index.html");
+
+  assert.match(fastag, /does not claim payment processing or recharge completion/i);
+  assert.match(fastag, /action="\/contact\/"/);
+  assert.match(challan, /does not retrieve official records or process challan payments/i);
+  assert.match(challan, /action="\/contact\/"/);
 });
 
 test("primary actions use the current Samhita semantic bridge", async () => {

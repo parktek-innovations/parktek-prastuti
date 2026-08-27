@@ -467,6 +467,67 @@
   margin-top: 24px;
 }
 
+.lookupPanel {
+  display: grid;
+  gap: 14px;
+  max-width: 920px;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--prastuti-border);
+  border-radius: 14px;
+  background: var(--prastuti-background);
+}
+
+.lookupLabel {
+  color: var(--prastuti-text-primary);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.lookupRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.lookupFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lookupField {
+  display: grid;
+  gap: 8px;
+}
+
+.lookupInput {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 15px;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 9px;
+  outline: none;
+  background: var(--prastuti-surface);
+  color: var(--prastuti-text-primary);
+  font: inherit;
+}
+
+.lookupInput::placeholder {
+  color: var(--prastuti-text-muted);
+}
+
+.lookupInput:focus-visible {
+  border-color: var(--prastuti-primary);
+  box-shadow: 0 0 0 3px var(--prastuti-primary-subtle);
+}
+
+.lookupHelp {
+  margin: 0;
+  color: var(--prastuti-text-muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
 .checkList {
   display: grid;
   gap: 12px;
@@ -723,6 +784,11 @@
   .primaryButton,
   .secondaryButton {
     width: 100%;
+  }
+
+  .lookupRow,
+  .lookupFields {
+    grid-template-columns: 1fr;
   }
 
   .flow,

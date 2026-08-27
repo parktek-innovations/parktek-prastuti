@@ -182,16 +182,16 @@
 
 .headerCta {
   display: none;
-  border-color: var(--primary);
-  background: var(--primary);
-  color: #ffffff;
+  border-color: var(--pk-color-brand-primary);
+  background: var(--pk-color-brand-primary);
+  color: var(--pk-color-text-primary);
   padding: 0 18px;
 }
 
 .headerCta:hover,
 .mobileCta:hover {
-  border-color: var(--primary-hover);
-  background: var(--primary-hover);
+  border-color: var(--pk-color-brand-primary-strong);
+  background: var(--pk-color-brand-primary-strong);
 }
 
 .submitButton:hover:not(:disabled) {
@@ -316,9 +316,9 @@
 .mobileCta {
   flex: none;
   margin: auto 20px 24px;
-  border-color: var(--primary);
-  background: var(--primary);
-  color: #ffffff;
+  border-color: var(--pk-color-brand-primary);
+  background: var(--pk-color-brand-primary);
+  color: var(--pk-color-text-primary);
   padding: 0 20px;
 }
 
@@ -329,8 +329,13 @@
 }
 
 .footerShell {
-  width: 100%;
+  width: min(calc(100% - 40px), var(--max-width));
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--pk-color-border-default);
+  border-radius: 18px;
   background: var(--pk-color-surface-card);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--pk-color-text-primary) 4%, transparent);
 }
 
 .footerInner {
@@ -353,7 +358,7 @@
   padding-bottom: 12px;
   color: var(--pk-color-text-primary);
   font-family: "Clash Display", "Montserrat", sans-serif;
-  font-size: 1.22rem;
+  font-size: 1.35rem;
   font-weight: 700;
 }
 
@@ -364,7 +369,7 @@
   width: 34px;
   height: 3px;
   border-radius: 999px;
-  background: var(--prastuti-primary);
+  background: var(--pk-color-brand-primary);
   content: "";
 }
 
@@ -373,7 +378,7 @@
   min-height: 44px;
   align-items: center;
   color: var(--pk-color-text-secondary);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.55;
   text-decoration: none;
 }
@@ -383,17 +388,20 @@
 }
 
 .footerAbout {
-  max-width: 40ch;
+  max-width: 28ch;
   margin: 0;
   color: var(--pk-color-text-secondary);
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.65;
 }
 
-.footerSolutionLinks {
-  display: grid;
-  gap: 4px;
-  margin-top: 8px;
+.footerContactIntro {
+  max-width: 30ch;
+  margin: 0 0 4px;
+  color: var(--pk-color-text-secondary);
+  font-size: 16px;
+  line-height: 1.65;
 }
 
 .footerContactLink {
@@ -402,8 +410,8 @@
 
 .footerContactIcon {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
   flex: none;
   place-items: center;
   border: 1px solid var(--pk-color-border-default);
@@ -424,6 +432,7 @@
 
 .footerBrandGroup {
   display: flex;
+  width: 100%;
   min-width: 0;
   align-items: center;
   flex-wrap: wrap;
@@ -435,34 +444,39 @@
   flex: none;
 }
 
-.footerBrandRow img {
+.footerBrandLogo {
   width: 152px;
   height: auto;
-}
-
-.footerBrandRow p {
-  margin: 0 0 0 auto;
-  color: var(--pk-color-text-muted);
-  font-size: 13px;
-  text-align: right;
 }
 
 .footerSocialRow {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.footerSocialLink {
+.footerSocialLink,
+.footerSocialIcon {
   display: grid;
   width: 44px;
   height: 44px;
   place-items: center;
   border-radius: 50%;
+  background: var(--pk-color-text-primary);
+  color: var(--pk-color-action-primary-foreground);
+}
+
+.footerSocialLink {
   transition: opacity 150ms ease, transform 150ms ease;
 }
 
-.footerSocialLink img {
+.footerSocialGlyph {
+  width: 20px;
+  height: 20px;
+}
+
+.footerAppIcon {
   width: 44px;
   height: 44px;
 }
@@ -835,18 +849,6 @@
     width: 152px;
   }
 
-  .desktopNav {
-    display: flex;
-  }
-
-  .headerCta {
-    display: inline-flex;
-  }
-
-  .menuToggle {
-    display: none;
-  }
-
   .footerInner {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: clamp(48px, 6vw, 88px);
@@ -868,9 +870,32 @@
   }
 }
 
+@media (min-width: 1180px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .headerCta {
+    display: inline-flex;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+
+  .footerShell {
+    width: min(calc(100% - 32px), 1580px);
+  }
+}
+
 @media (max-width: 639px) {
   .headerInner {
     padding-inline: 16px;
+  }
+
+  .footerShell {
+    width: calc(100% - 28px);
+    border-radius: 14px;
   }
 
   .formIntro,
@@ -906,12 +931,8 @@
     flex-direction: column;
   }
 
-  .footerBrandRow p {
-    margin-left: 0;
-    text-align: left;
-  }
-
   .footerAbout,
+  .footerContactIntro,
   .footerColumn a,
   .footerBottom {
     font-size: 16px;

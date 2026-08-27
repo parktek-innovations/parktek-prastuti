@@ -105,7 +105,7 @@ export function SiteHeader({ className = "" }) {
   }, [open]);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 1040px)");
+    const media = window.matchMedia("(min-width: 1180px)");
     const closeAtDesktop = (event) => {
       if (event.matches) setOpen(false);
     };

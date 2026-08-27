@@ -2,17 +2,12 @@ import Image from "next/image";
 import {
   Activity,
   ArrowRight,
-  Building2,
   Camera,
   CircleDot,
   Cpu,
   Gauge,
-  MapPinned,
   Radio,
-  ShieldCheck,
-  Smartphone,
-  Tag,
-  Wrench
+  Tag
 } from "lucide-react";
 
 import { CaseStudyCard } from "@/components/website/case-study-card";
@@ -28,6 +23,7 @@ import {
   PRODUCT_PROOF,
   SITE,
   SOLUTIONS,
+  STATUS_LABELS,
   STEPS
 } from "@/lib/website-content";
 import { StatusPill } from "@/components/website/status-pill";
@@ -41,39 +37,61 @@ const moduleIcons = {
   pos: Gauge
 };
 
+const commercialCapabilityIcons = {
+  "Entry and exit": "/figma/commercial/entry-exit.svg",
+  "Tariff engine": "/figma/commercial/tariff.svg",
+  "POS operations": "/figma/commercial/pos-terminal.svg",
+  Reporting: "/figma/commercial/reporting.svg",
+  Reliability: "/figma/commercial/reliability.svg"
+};
+
+const commercialStatusIcons = {
+  [STATUS_LABELS.launching]: "/figma/commercial/status-launching.svg",
+  [STATUS_LABELS.inDevelopment]: "/figma/commercial/status-in-development.svg"
+};
+
+const compatibilityIcons = {
+  "Boom barriers": "/figma/compatibility/boom-barrier.svg",
+  "RFID readers": "/figma/compatibility/rfid-reader.svg",
+  "ANPR cameras": "/figma/compatibility/anpr-camera.svg",
+  Controllers: "/figma/compatibility/controller.svg",
+  "POS hardware": "/figma/compatibility/pos-hardware.svg",
+  "APIs and webhooks": "/figma/compatibility/api-webhooks.svg"
+};
+
 const trustItems = [
   {
-    icon: ShieldCheck,
+    icon: "/figma/security/role-based-access.svg",
     title: "Role-based access",
     description:
       "Product access is scoped to authorized roles and the relevant society or operating context."
   },
   {
-    icon: Activity,
+    icon: "/figma/security/audit-context.svg",
     title: "Audit context",
     description:
       "Access events, sensitive gate lookups, controller state and support work retain operating context."
   },
   {
-    icon: ShieldCheck,
+    icon: "/figma/security/encryption-boundaries.svg",
     title: "Encryption boundaries",
     description:
       "Production web and API traffic uses HTTPS/TLS; environment-specific storage controls are confirmed during security review."
   },
   {
-    icon: Cpu,
+    icon: "/figma/security/retention-deletion.svg",
     title: "Retention and deletion scope",
     description:
       "Requirements are agreed for the deployed environment; ParkTek does not claim a universal automated retention control."
   },
   {
-    icon: Smartphone,
+    icon: "/figma/security/customer-permissions.svg",
     title: "Customer-controlled permissions",
     description:
       "Authorized customer teams control who can use society- and site-scoped operating workflows."
   },
   {
-    icon: Camera,
+    icon: "/figma/security/responsible-vehicle-data.svg",
     title: "Responsible vehicle data",
     description:
       "Vehicle, plate and access data is limited to the approved operating purpose and handled within documented boundaries."
@@ -139,10 +157,26 @@ function SectionHeading({ eyebrow, title, lead }) {
   );
 }
 
+function CommercialStatusTile({ status }) {
+  const statusClass = status === STATUS_LABELS.launching
+    ? styles.commercialStatusLaunching
+    : styles.commercialStatusDevelopment;
+
+  return (
+    <div className={`${styles.commercialStatusTile} ${statusClass}`}>
+      <span
+        aria-hidden="true"
+        className={styles.commercialStatusIcon}
+        style={{ "--commercial-icon": `url("${commercialStatusIcons[status]}")` }}
+      />
+      <strong>{status}</strong>
+    </div>
+  );
+}
+
 export function WebsiteHomePage() {
   const caseStudy = CASE_STUDIES[0];
   const verifiedMetrics = METRICS.filter((metric) => metric.verified);
-  const approvedProductProof = PRODUCT_PROOF.filter((proof) => proof.approved && proof.image);
 
   return (
     <main className={styles.page} id="main-content">
@@ -161,14 +195,14 @@ export function WebsiteHomePage() {
           <div className={styles.heroCopy}>
             <span className={styles.eyebrow}>Connected parking operations</span>
             <h1 className={styles.heroTitle}>
-              Every gate. Every vehicle. Every parking transaction—connected.
+              Every gate. Every vehicle. Every parking transaction<span className={styles.heroAccent}>—connected.</span>
             </h1>
             <p className={styles.heroLead}>
               Secure residential access with RFID, local barrier control and live operations today—while guarded
               ANPR remains in pilot and commercial POS and payment-record workflows launch in phases.
             </p>
             <div className={styles.actionRow}>
-              <a className={styles.primaryButton} href={SITE.primaryCta.href}>
+              <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
                 {SITE.primaryCta.label}
                 <ArrowIcon />
               </a>
@@ -177,9 +211,9 @@ export function WebsiteHomePage() {
               </a>
             </div>
             <ul className={styles.reassurance} aria-label="Capability availability">
-              <li>RFID access live</li>
-              <li>ANPR pilot</li>
-              <li>Commercial workflows launching</li>
+              <li className={styles.reassuranceLive}>RFID access live</li>
+              <li className={styles.reassurancePilot}>ANPR pilot</li>
+              <li className={styles.reassuranceLaunching}>Commercial workflows launching</li>
             </ul>
           </div>
 
@@ -232,7 +266,7 @@ export function WebsiteHomePage() {
         </section>
       ) : null}
 
-      <section className={styles.section} id="solutions">
+      <section className={`${styles.section} ${styles.solutionsSection}`} id="solutions">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Two operating environments"
@@ -325,7 +359,7 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section className={styles.section} id="platform">
+      <section className={`${styles.section} ${styles.platformSection}`} id="platform">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Platform modules"
@@ -361,7 +395,7 @@ export function WebsiteHomePage() {
 
       <section className={styles.section} id="commercial-parking">
         <div className={`${styles.container} ${styles.commercialLayout}`}>
-          <div>
+          <div className={styles.commercialIntro}>
             <span className={styles.sectionKicker}>Commercial parking + POS</span>
             <h2 className={styles.sectionTitle}>From parking entry to revenue reconciliation.</h2>
             <p className={styles.sectionLead}>
@@ -378,47 +412,65 @@ export function WebsiteHomePage() {
           </div>
           <div className={styles.capabilityList}>
             {COMMERCIAL_PRODUCT_GROUPS.map((capability) => (
-              <article className={styles.capability} key={capability.title}>
-                <div>
+              <article className={styles.commercialCapability} key={capability.title}>
+                <span aria-hidden="true" className={styles.commercialCapabilityIconArea}>
+                  <span
+                    className={styles.commercialCapabilityIcon}
+                    style={{
+                      "--commercial-icon": `url("${commercialCapabilityIcons[capability.title]}")`
+                    }}
+                  />
+                </span>
+                <div className={styles.commercialCapabilityContent}>
                   <h3>{capability.title}</h3>
                   <p>{capability.description}</p>
                   <ul>
                     {capability.items.map((item) => <li key={item}>{item}</li>)}
                   </ul>
                 </div>
-                <StatusPill status={capability.status} />
+                <CommercialStatusTile status={capability.status} />
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {approvedProductProof.length ? (
-        <section className={styles.section} id="product-proof">
-          <div className={styles.container}>
-            <SectionHeading
-              eyebrow="Product proof"
-              lead="Approved current product and deployment evidence."
-              title="See ParkTek in operation."
-            />
-            <div className={styles.proofGrid}>
-              {approvedProductProof.map((proof) => (
-                <article className={styles.proofCard} key={proof.title}>
-                  <div className={styles.proofCanvas}>
-                    <Image alt={proof.alt || proof.title} fill sizes="(max-width: 820px) 100vw, 33vw" src={proof.image} />
-                  </div>
-                  <div className={styles.proofCopy}>
-                    <h3>{proof.title}</h3>
-                    <p>{proof.note}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+      <section className={`${styles.section} ${styles.proofSection}`} id="product-proof">
+        <div className={styles.container}>
+          <SectionHeading
+            eyebrow="Product proof"
+            lead="These reserved slots describe the evidence still needed. They are placeholders, not approved product proof."
+            title="Product evidence, once it is approved."
+          />
+          <div className={styles.proofGrid}>
+            {PRODUCT_PROOF.map((proof) => (
+              <article className={styles.proofCard} key={proof.title}>
+                <div className={styles.proofCanvas}>
+                  {proof.approved && proof.image ? (
+                    <Image
+                      alt={proof.alt || proof.title}
+                      fill
+                      sizes="(max-width: 820px) 100vw, (max-width: 1180px) 50vw, 33vw"
+                      src={proof.image}
+                    />
+                  ) : (
+                    <div className={styles.proofPlaceholder}>
+                      <span>Future approved-proof slot</span>
+                      <strong>{proof.placeholder}</strong>
+                    </div>
+                  )}
+                </div>
+                <div className={styles.proofCopy}>
+                  <h3>{proof.title}</h3>
+                  <p>{proof.note}</p>
+                </div>
+              </article>
+            ))}
           </div>
-        </section>
-      ) : null}
+        </div>
+      </section>
 
-      <section className={`${styles.section} ${styles.sectionAlt}`} id="compatibility">
+      <section className={`${styles.section} ${styles.sectionAlt} ${styles.compatibilitySection}`} id="compatibility">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Compatibility"
@@ -426,22 +478,29 @@ export function WebsiteHomePage() {
             title="Upgrade your parking operation without replacing everything."
           />
           <div className={styles.compatibilityGrid}>
-            {COMPATIBILITY.map((item, index) => {
-              const icons = [Building2, Radio, Camera, MapPinned];
-              const Icon = icons[index] || Wrench;
-              return (
-                <article className={styles.compatibilityItem} key={item.name}>
-                  <Icon aria-hidden="true" size={23} />
-                  <strong>{item.name}</strong>
-                  <span>{item.description}</span>
-                </article>
-              );
-            })}
+            {COMPATIBILITY.map((item) => (
+              <article className={styles.compatibilityItem} key={item.name}>
+                <span aria-hidden="true" className={styles.compatibilityIconArea}>
+                  <svg className={styles.compatibilityIcon} focusable="false" viewBox="0 0 48 48">
+                    <use
+                      className={styles.compatibilityIconMain}
+                      href={`${compatibilityIcons[item.name]}#icon-main`}
+                    />
+                    <use
+                      className={styles.compatibilityIconAccent}
+                      href={`${compatibilityIcons[item.name]}#icon-accent`}
+                    />
+                  </svg>
+                </span>
+                <strong>{item.name}</strong>
+                <span>{item.description}</span>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className={styles.section} id="deployment">
+      <section className={`${styles.section} ${styles.deploymentSection}`} id="deployment">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Deployment and support"
@@ -459,18 +518,18 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.sectionAlt}`} id="case-study">
+      <section className={`${styles.section} ${styles.sectionAlt} ${styles.storiesSection}`} id="case-study">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Deployment stories"
             lead="Only customer-approved scope, images and outcomes will be published. No placeholder metrics are presented as results."
             title="Evidence, once it is verified."
           />
-          <CaseStudyCard featured study={caseStudy} />
+          <CaseStudyCard featured study={caseStudy} variant="prastuti" />
         </div>
       </section>
 
-      <section className={styles.section} id="security">
+      <section className={`${styles.section} ${styles.securitySection}`} id="security">
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Security and trust"
@@ -478,17 +537,18 @@ export function WebsiteHomePage() {
             title="Control at the gate. Context across the platform."
           />
           <div className={styles.trustGrid}>
-            {trustItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <article className={styles.trustCard} key={item.title}>
-                  <Icon aria-hidden="true" size={24} />
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </article>
-              );
-            })}
+            {trustItems.map((item) => (
+              <article className={styles.trustCard} key={item.title}>
+                <span aria-hidden="true" className={styles.trustIconArea}>
+                  <svg className={styles.trustIcon} focusable="false" viewBox="0 0 48 48">
+                    <use className={styles.trustIconMain} href={`${item.icon}#icon-main`} />
+                    <use className={styles.trustIconAccent} href={`${item.icon}#icon-accent`} />
+                  </svg>
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
           </div>
           <a className={styles.textLink} href="/security/">
             Read the security overview

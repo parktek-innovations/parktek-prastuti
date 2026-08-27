@@ -3,12 +3,18 @@ import Link from "next/link";
 
 import styles from "./case-study-card.module.css";
 
-export function CaseStudyCard({ featured = false, headingLevel = "h3", study }) {
+export function CaseStudyCard({ featured = false, headingLevel = "h3", study, variant = "default" }) {
   const Heading = headingLevel;
   const image = study.images?.[0] || study.image;
 
   return (
-    <article className={[styles.card, featured ? styles.featured : ""].filter(Boolean).join(" ")}>
+    <article
+      className={[
+        styles.card,
+        featured ? styles.featured : "",
+        variant === "prastuti" ? styles.prastuti : ""
+      ].filter(Boolean).join(" ")}
+    >
       <div className={styles.media}>
         {image ? (
           <Image
