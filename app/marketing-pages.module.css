@@ -639,30 +639,42 @@
 }
 
 .policy {
-  max-width: 920px;
+  max-width: 1200px;
   margin-inline: auto;
-  padding: clamp(24px, 5vw, 54px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .policy > section + section {
-  margin-top: 42px;
-  padding-top: 42px;
+  margin-top: clamp(44px, 5vw, 64px);
+  padding-top: clamp(44px, 5vw, 64px);
   border-top: 1px solid var(--prastuti-border);
 }
 
 .policy h2 {
-  font-size: clamp(1.55rem, 3vw, 2.3rem);
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  line-height: 1.18;
 }
 
 .policy h3 {
   margin: 24px 0 0;
   font-size: 1.2rem;
+  line-height: 1.35;
 }
 
 .policy p {
   margin: 14px 0 0;
+  max-width: 96ch;
   color: var(--prastuti-text-muted);
-  line-height: 1.75;
+  font-size: 1.0625rem;
+  line-height: 1.72;
+}
+
+.policy > section > ul {
+  max-width: 96ch;
+  font-size: 1.0625rem;
 }
 
 .policy a {
@@ -678,24 +690,16 @@
   letter-spacing: 0.04em;
 }
 
-.policyMeta,
 .policyFacts {
   display: grid;
   margin: 0;
 }
 
-.policyMeta {
-  grid-template-columns: repeat(2, minmax(0, max-content));
-  gap: 12px 28px;
-}
-
-.policyMeta div,
 .policyFacts div {
   display: grid;
   gap: 4px;
 }
 
-.policyMeta dt,
 .policyFacts dt {
   color: var(--prastuti-text-muted);
   font-size: 0.76rem;
@@ -704,42 +708,38 @@
   text-transform: uppercase;
 }
 
-.policyMeta dd,
 .policyFacts dd {
   margin: 0;
   color: var(--prastuti-text-primary);
   line-height: 1.65;
 }
 
-.policyMeta a {
-  color: var(--prastuti-primary);
-  text-underline-offset: 4px;
-}
-
 .policySummary {
-  padding: clamp(22px, 4vw, 34px);
+  padding: clamp(24px, 4vw, 40px);
   border: 1px solid var(--prastuti-border);
   border-radius: 12px;
   background: var(--prastuti-muted-background);
 }
 
+.policySummary > p {
+  max-width: 104ch;
+}
+
 .policyFacts {
-  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
   margin-top: 24px;
-  overflow: hidden;
-  border: 1px solid var(--prastuti-border);
-  border-radius: 10px;
-  background: var(--prastuti-background);
 }
 
 .policyFacts div {
   grid-template-columns: minmax(145px, 0.32fr) minmax(0, 1fr);
   gap: 16px;
-  padding: 16px 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--prastuti-border);
 }
 
-.policyFacts div + div {
-  border-top: 1px solid var(--prastuti-border);
+.policySummary .policyFacts div:last-child {
+  grid-column: 1 / -1;
 }
 
 .policyTableWrap {
@@ -752,7 +752,7 @@
 
 .policyTable {
   width: 100%;
-  min-width: 780px;
+  min-width: 900px;
   border-collapse: collapse;
   background: var(--prastuti-background);
   color: var(--prastuti-text-muted);
@@ -895,6 +895,14 @@
     grid-template-columns: 1fr;
   }
 
+  .policyFacts {
+    grid-template-columns: 1fr;
+  }
+
+  .policySummary .policyFacts div:last-child {
+    grid-column: auto;
+  }
+
   .screenshotCard {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(220px, 0.72fr);
@@ -936,7 +944,6 @@
     grid-template-columns: 1fr;
   }
 
-  .policyMeta,
   .policyFacts div {
     grid-template-columns: 1fr;
   }

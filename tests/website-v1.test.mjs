@@ -97,7 +97,7 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
     "How to Delete Your ParkTek Account",
   ];
 
-  assert.match(html, /Effective date<\/dt><dd>28 August 2026/);
+  assert.doesNotMatch(html, /Effective date<\/dt><dd>28 August 2026/);
   assert.match(html, /PARKTEK INNOVATION PRIVATE LIMITED/);
   assert.match(html, /support@parktek\.in/);
   sectionTitles.forEach((title, index) => {
@@ -111,6 +111,16 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   assert.doesNotMatch(html, /children under 13 years of age/i);
   assert.doesNotMatch(html, /does not collect or store any payment or financial information/i);
   assert.doesNotMatch(html, /respects your privacy and is committed to protecting your personal data/i);
+});
+
+test("privacy policy uses the wide native webpage treatment", async () => {
+  const marketing = await sourceFile("app/marketing-pages.module.css");
+
+  assert.match(marketing, /\.policy\s*\{[^}]*max-width:\s*1200px;[^}]*padding:\s*0;[^}]*border:\s*0;[^}]*background:\s*transparent;/s);
+  assert.match(marketing, /\.policy p\s*\{[^}]*max-width:\s*96ch;[^}]*font-size:\s*1\.0625rem;[^}]*line-height:\s*1\.72;/s);
+  assert.match(marketing, /\.policyFacts\s*\{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/s);
+  assert.match(marketing, /\.policyTableWrap\s*\{[^}]*overflow-x:\s*auto;/s);
+  assert.match(marketing, /\.policyTable\s*\{[^}]*min-width:\s*900px;/s);
 });
 
 test("footer privacy destination remains stable", async () => {

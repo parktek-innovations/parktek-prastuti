@@ -253,10 +253,6 @@ export default function PrivacyPolicyPage() {
             <p className={styles.eyebrow}>Privacy policy</p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Privacy Policy</h1>
             <p className={styles.policyCompany}>PARKTEK INNOVATION PRIVATE LIMITED</p>
-            <dl className={styles.policyMeta}>
-              <div><dt>Effective date</dt><dd>28 August 2026</dd></div>
-              <div><dt>Website</dt><dd><a href="https://parktek.in">https://parktek.in</a></dd></div>
-            </dl>
           </div>
         </section>
 
