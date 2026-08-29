@@ -279,6 +279,43 @@ export default function PrivacyPolicyPage() {
                 <p>If you cannot access the app or need help with deletion, email <a href="mailto:support@parktek.in">support@parktek.in</a>. Account deletion does not require immediate erasure of records that ParkTek or the relevant customer must retain for legal, security, audit, operational, contractual or backup-recovery purposes. Such records will be handled under the retention section above.</p>
               </section>
 
+              <section>
+                <h2>20. Cancellation and Refunds</h2>
+                <p>This section applies to prepaid parking bookings made through ParkTek Services where parking-booking functionality is enabled.</p>
+
+                <h3>1. Prepaid bookings</h3>
+                <p>All applicable parking bookings are prepaid. The user must select the parking location, booking duration and other required booking details before confirmation. Charges are calculated according to the selected duration and the applicable rates of the relevant parking site.</p>
+
+                <h3>2. Cancellation and refunds</h3>
+                <p>Confirmed bookings are generally non-cancellable and non-refundable except in special circumstances, including where the confirmed parking service cannot be provided to the user.</p>
+
+                <h3>3. Obligation to honour a confirmed booking</h3>
+                <p>Once a parking booking has been successfully confirmed, the relevant parking owner, operator, caretaker or authorised site representative must honour the confirmed reservation and provide the reserved parking space when the ParkTek user arrives in accordance with the booking conditions.</p>
+
+                <h3>4. Additional parking time</h3>
+                <p>A confirmed booking covers only the duration paid for by the user. If the vehicle remains parked beyond the confirmed booking period, the parking facility may charge the user for the additional hours or days in accordance with the applicable parking rates. Such valid additional charges are non-refundable once incurred.</p>
+
+                <h3>5. Disputes or unavailability</h3>
+                <p>If a dispute arises between a ParkTek user and a parking owner, operator, caretaker or authorised site representative, including where a confirmed parking space is unavailable when the user arrives, the user should contact ParkTek support so that the issue can be reviewed and resolved.</p>
+                <p>
+                  Email: <a href="mailto:support@parktek.in">support@parktek.in</a><br />
+                  Phone: <a href="tel:+919899945876">+91 9899945876</a>
+                </p>
+
+                <h3>6. Alternative parking where the confirmed space is unavailable</h3>
+                <p>If the primary reason for the dispute is the unavailability of the confirmed parking space, ParkTek will arrange the nearest reasonably available alternative parking space for the user.</p>
+
+                <h3>7. Full refund where an alternative cannot be provided</h3>
+                <p>If the confirmed parking space is unavailable and ParkTek is unable to provide a suitable alternative parking space, ParkTek will refund the full eligible amount paid by the user for that booking.</p>
+                <p>ParkTek may, at its sole discretion, also provide a goodwill credit, promotional benefit or other incentive. Any such additional benefit is discretionary and is separate from the user&apos;s eligible refund.</p>
+
+                <h3>8. Other disputes</h3>
+                <p>Any dispute that cannot be resolved through ParkTek support will be handled in accordance with the applicable Terms of Service, contractual arrangements and applicable law.</p>
+
+                <h3>9. Refund processing</h3>
+                <p>Where a refund is approved, ParkTek will initiate the refund through the original payment method or another permitted payment method. The time required for the refunded amount to reflect may depend on the relevant bank, payment gateway, card network, UPI provider or other payment-service provider.</p>
+              </section>
+
               <aside className={styles.policyImportant}>
                 <strong>Important</strong>
                 <p>This Privacy Policy should be read together with any feature-specific notice, customer/society notice or consent screen shown at the point personal data is collected. If a specific service notice conflicts with this general Policy for that service, the more specific notice will govern to the extent permitted by law.</p>

@@ -52,10 +52,33 @@ test("homepage carries the approved positioning and requested availability label
   assert.doesNotMatch(html, /99\.9% uptime|10M\+ vehicles|1,000\+ locations/);
   assert.doesNotMatch(html, /Provisional traction metrics|ParkTek capability availability|footprint-title/);
   assert.match(html, /Product proof/);
-  assert.match(html, /Future approved-proof slot/);
-  assert.match(html, /Residential dashboard screenshot to be added/);
-  assert.match(html, /Commercial POS pilot image to be added/);
-  assert.doesNotMatch(html, /Approved current product and deployment evidence/);
+  const productProof = html.match(/<section[^>]*id="product-proof"[\s\S]*?<\/section>/)?.[0] || "";
+  assert.equal((productProof.match(/<article/g) || []).length, 6);
+  assert.doesNotMatch(productProof, /Transaction report|Future approved-proof slot|to be added/);
+  assert.doesNotMatch(productProof, /Concept UI|In development/);
+  let previousTitleIndex = -1;
+  for (const title of [
+    "Barrier &amp; controller hardware",
+    "Residential dashboard",
+    "Site installation",
+    "Commercial operations dashboard",
+    "Vehicle entry screen",
+    "POS interface"
+  ]) {
+    const titleIndex = productProof.indexOf(title);
+    assert.ok(titleIndex > previousTitleIndex, `${title} must render in the requested Product Proof order`);
+    previousTitleIndex = titleIndex;
+  }
+  for (const image of [
+    "barrier-controller-hardware.png",
+    "residential-dashboard.png",
+    "site-installation.png",
+    "commercial-operations-dashboard.png",
+    "vehicle-entry-screen.png",
+    "pos-interface.png"
+  ]) {
+    assert.match(productProof, new RegExp(`/figma/product-proof/${image}`));
+  }
 });
 
 test("deployment stories stay hidden while header and case-study routes remain", async () => {

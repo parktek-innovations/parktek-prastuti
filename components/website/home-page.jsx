@@ -119,6 +119,95 @@ const trustItems = [
   }
 ];
 
+const partnerSocieties = [
+  {
+    name: "Arihant Group",
+    src: "/figma/partner-societies/arihant-group.png",
+    width: 1254,
+    height: 1254
+  },
+  {
+    name: "Orris",
+    src: "/figma/partner-societies/orris.png",
+    width: 1536,
+    height: 1024
+  },
+  {
+    name: "Godrej Properties",
+    src: "/figma/partner-societies/godrej-properties.png",
+    width: 1968,
+    height: 799
+  },
+  {
+    name: "Godrej Living",
+    src: "/figma/partner-societies/godrej-living.png",
+    width: 1748,
+    height: 900
+  },
+  {
+    name: "Mahagun",
+    src: "/figma/partner-societies/mahagun.png",
+    width: 1539,
+    height: 1022
+  },
+  {
+    name: "Presidency Infraheights",
+    src: "/figma/partner-societies/presidency-infraheights.png",
+    width: 1254,
+    height: 1254
+  },
+  {
+    name: "Gaurs",
+    src: "/figma/partner-societies/gaurs.png",
+    width: 1536,
+    height: 1024
+  },
+  {
+    name: "Supertech",
+    src: "/figma/partner-societies/supertech.png",
+    width: 1536,
+    height: 1024
+  },
+  {
+    name: "Purvanchal",
+    src: "/figma/partner-societies/purvanchal.png",
+    width: 1846,
+    height: 852
+  },
+  {
+    name: "Aditya",
+    src: "/figma/partner-societies/aditya.png",
+    width: 1639,
+    height: 960
+  },
+  {
+    name: "Saya",
+    src: "/figma/partner-societies/saya.png",
+    width: 1610,
+    height: 977
+  },
+  {
+    name: "Dream Heights",
+    src: "/figma/partner-societies/dream-heights.png",
+    width: 1722,
+    height: 913
+  },
+  {
+    name: "Rudra",
+    src: "/figma/partner-societies/rudra.png",
+    width: 1665,
+    height: 945
+  },
+  {
+    name: "Apex South City",
+    src: "/figma/partner-societies/apex-south-city.png",
+    width: 1254,
+    height: 1254
+  }
+];
+
+const partnerSocietyRows = [partnerSocieties.slice(0, 7), partnerSocieties.slice(7)];
+
 function ArrowIcon() {
   return <ArrowRight aria-hidden="true" size={17} strokeWidth={2} />;
 }
@@ -175,6 +264,52 @@ function SectionHeading({ eyebrow, title, lead }) {
       </div>
       <p className={styles.sectionLead}>{lead}</p>
     </div>
+  );
+}
+
+function PartnerLogoGroup({ logos, duplicate = false }) {
+  return (
+    <div aria-hidden={duplicate || undefined} className={styles.partnerLogoGroup}>
+      {logos.map((logo) => (
+        <div className={styles.partnerLogoCell} key={logo.name}>
+          <Image
+            alt={duplicate ? "" : `${logo.name} logo`}
+            className={styles.partnerLogoImage}
+            height={logo.height}
+            sizes="(max-width: 620px) 132px, 180px"
+            src={logo.src}
+            width={logo.width}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PartnerSocieties() {
+  return (
+    <section aria-labelledby="partner-societies-title" className={styles.partnerSocieties}>
+      <div className={styles.container}>
+        <span className={`${styles.sectionKicker} ${styles.partnerSocietiesKicker}`}>Partner societies</span>
+        <div className={styles.partnerSocietiesPanel}>
+          <div className={styles.partnerSocietiesHeader}>
+            <h2 id="partner-societies-title">Trusted across connected societies</h2>
+            <p>ParkTek is active in residential communities and connected parking sites.</p>
+          </div>
+
+          <div className={styles.partnerLogoRows}>
+            {partnerSocietyRows.map((logos, index) => (
+              <div className={styles.partnerLogoViewport} key={`partner-row-${index + 1}`}>
+                <div className={styles.partnerLogoTrack} data-row={index + 1}>
+                  <PartnerLogoGroup logos={logos} />
+                  <PartnerLogoGroup duplicate logos={logos} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -252,6 +387,8 @@ export function WebsiteHomePage() {
           </div>
         </div>
       </section>
+
+      <PartnerSocieties />
 
       {verifiedMetrics.length ? (
         <section aria-labelledby="footprint-title">
@@ -440,26 +577,19 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Product proof"
-            lead="These reserved slots describe the evidence still needed. They are placeholders, not approved product proof."
-            title="Product evidence, once it is approved."
+            lead="Product views and installation imagery across residential and commercial parking workflows."
+            title="Product and deployment evidence."
           />
           <div className={styles.proofGrid}>
             {PRODUCT_PROOF.map((proof) => (
               <article className={styles.proofCard} key={proof.title}>
                 <div className={styles.proofCanvas}>
-                  {proof.approved && proof.image ? (
-                    <Image
-                      alt={proof.alt || proof.title}
-                      fill
-                      sizes="(max-width: 820px) 100vw, (max-width: 1180px) 50vw, 33vw"
-                      src={proof.image}
-                    />
-                  ) : (
-                    <div className={styles.proofPlaceholder}>
-                      <span>Future approved-proof slot</span>
-                      <strong>{proof.placeholder}</strong>
-                    </div>
-                  )}
+                  <Image
+                    alt={proof.alt}
+                    fill
+                    sizes="(max-width: 620px) 100vw, (max-width: 1180px) 50vw, 33vw"
+                    src={proof.image}
+                  />
                 </div>
                 <div className={styles.proofCopy}>
                   <h3>{proof.title}</h3>

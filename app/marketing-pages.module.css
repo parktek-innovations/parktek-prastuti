@@ -732,6 +732,12 @@
   max-width: 104ch;
 }
 
+.policy > section:not(.policySummary) > p,
+.policy > section:not(.policySummary) > h3,
+.policy > section:not(.policySummary) > ul {
+  max-width: 110ch;
+}
+
 .policyFacts {
   grid-template-columns: 1fr;
   gap: 0;
@@ -804,10 +810,13 @@
 
 .policyImportant p {
   margin-top: 8px;
+  max-width: 110ch;
 }
 
 .policy .policyCopyright {
+  width: 100%;
   margin-top: 28px;
+  max-width: none;
   color: var(--prastuti-text-primary);
   font-weight: 700;
   text-align: center;
