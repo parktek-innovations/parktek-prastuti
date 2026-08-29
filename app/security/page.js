@@ -17,11 +17,11 @@ const securityAreas = [
   },
   {
     title: "Encryption boundaries",
-    description: "Production web and API traffic uses HTTPS/TLS. Environment-specific storage and backup controls are confirmed during security review.",
+    description: "Production web and API traffic uses HTTPS/TLS. Environment-specific storage and backup controls are reviewed for each deployment.",
   },
   {
     title: "Retention and deletion scope",
-    description: "Customer requirements are documented against the capabilities of the deployed environment; no universal automated retention control is claimed.",
+    description: "Retention and deletion requirements are documented for each supported deployment.",
   },
   {
     title: "Customer-controlled permissions",

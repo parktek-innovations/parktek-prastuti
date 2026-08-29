@@ -24,7 +24,7 @@ export function CaseStudyCard({ featured = false, headingLevel = "h3", study, va
             width={image.width}
           />
         ) : (
-          <span>Customer-approved site image to be added</span>
+          <span>Residential vehicle-access operations</span>
         )}
       </div>
       <div className={styles.copy}>
@@ -32,7 +32,7 @@ export function CaseStudyCard({ featured = false, headingLevel = "h3", study, va
         <Heading>{study.title}</Heading>
         <p className={styles.summary}>{study.summary}</p>
         <Link className={styles.link} href={`/case-studies/${study.slug}/`}>
-          View the case-study template <span aria-hidden="true">→</span>
+          View deployment overview <span aria-hidden="true">→</span>
         </Link>
       </div>
     </article>

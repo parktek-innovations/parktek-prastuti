@@ -12,7 +12,7 @@ export const metadata = {
   ...makeMetadata({
     title: "Connected parking access and operations",
     description:
-      "ParkTek connects residential gate access today with commercial parking and POS workflows launching through selected sites.",
+      "ParkTek connects live residential RFID and ANPR access with commercial parking and POS operations.",
     path: "/"
   }),
   icons: {

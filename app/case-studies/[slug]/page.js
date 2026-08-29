@@ -19,7 +19,7 @@ export function generateMetadata({ params }) {
 
   return makeMetadata({
     title: study?.title || "Case Study",
-    description: study?.summary || "ParkTek deployment story.",
+    description: study?.summary || "ParkTek deployment overview.",
     path: `/case-studies/${params.slug}/`,
     noIndex: Boolean(study?.isPlaceholder),
   });
@@ -80,7 +80,7 @@ export default function CaseStudyPage({ params }) {
                   ))}
                 </div>
               ) : (
-                <div className={styles.placeholder}>Customer-approved deployment image to be added</div>
+                <div className={styles.placeholder}>Residential vehicle-access operations</div>
               )}
               <dl className={styles.caseFacts}>
                 {facts.map(([label, value]) => (
@@ -93,10 +93,10 @@ export default function CaseStudyPage({ params }) {
             </div>
             <div className={styles.stack}>
               <article className={styles.card}>
-                <h2>Current publication status</h2>
+                <h2>Published information</h2>
                 <p>
-                  The story is intentionally a template. Customer identity, location, installation scope and
-                  outcomes have not been published because final verification is still required.
+                  This overview explains ParkTek&apos;s residential access approach. Customer-specific identity,
+                  location, installation details and results are not publicly disclosed.
                 </p>
               </article>
               <article className={styles.card}>

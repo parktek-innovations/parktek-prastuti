@@ -97,13 +97,13 @@ const trustItems = [
     icon: "/figma/security/encryption-boundaries.svg",
     title: "Encryption boundaries",
     description:
-      "Production web and API traffic uses HTTPS/TLS; environment-specific storage controls are confirmed during security review."
+      "Production web and API traffic uses HTTPS/TLS; environment-specific storage and backup controls are reviewed for each deployment."
   },
   {
     icon: "/figma/security/retention-deletion.svg",
     title: "Retention and deletion scope",
     description:
-      "Requirements are agreed for the deployed environment; ParkTek does not claim a universal automated retention control."
+      "Retention and deletion requirements are documented for each supported deployment."
   },
   {
     icon: "/figma/security/customer-permissions.svg",
@@ -360,8 +360,8 @@ export function WebsiteHomePage() {
               Every gate. Every vehicle. Every parking transaction<span className={styles.heroAccent}>—connected.</span>
             </h1>
             <p className={styles.heroLead}>
-              Secure residential access with RFID, local barrier control and live operations today—while guarded
-              ANPR remains in pilot and commercial POS and payment-record workflows launch in phases.
+              ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
+              operations in one operating workflow.
             </p>
             <div className={styles.actionRow}>
               <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
@@ -408,7 +408,7 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Two operating environments"
-            lead="One foundation, sold honestly by availability: residential access is live; commercial operations are entering a phased launch."
+            lead="One connected platform for residential access and commercial parking operations."
             title="From society gates to managed commercial parking."
           />
           <div className={styles.solutionGrid}>
@@ -441,7 +441,7 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="How ParkTek works"
-            lead="RFID, guarded ANPR, QR, POS, access rules, barriers, payment records and reporting connect in one staged operating flow. Transaction and reconciliation steps remain commercial roadmap scope."
+            lead="RFID, ANPR, QR, POS, access rules, barriers, payment records and reporting connect in one operating flow."
             title="Identify. Decide. Act. Transact. Reconcile. Analyse."
           />
           <div className={styles.flowLayout}>
@@ -501,7 +501,7 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Platform modules"
-            lead="Each module carries a visible availability label, so live capability and roadmap direction never blur together."
+            lead="Four connected modules support vehicle access, gate control, ANPR and commercial parking operations."
             title="Access. Control. Vision. Commercial POS."
           />
           <div className={styles.moduleGrid}>
@@ -538,8 +538,8 @@ export function WebsiteHomePage() {
             <h2 className={styles.sectionTitle}>From parking entry to revenue reconciliation.</h2>
             <p className={styles.sectionLead}>
               ParkTek Commercial connects gate equipment, cashier POS, payment records and operator dashboards so
-              every parking session can be tracked from entry to settlement. This is launching scope: transaction,
-              settlement and reconciliation tooling is not represented as live payment processing.
+              every parking session can be tracked from entry through operational reporting. Authorized payment
+              providers remain responsible for gateway processing and funds.
             </p>
             <div className={styles.actionRow}>
               <a className={styles.primaryButton} href="/commercial-parking-management/">
@@ -605,7 +605,7 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Compatibility"
-            lead="Support is confirmed per site. ParkTek does not claim universal hardware compatibility before a survey."
+            lead="ParkTek assesses each site's barriers, readers, cameras, controllers and POS hardware to define the supported integration."
             title="Upgrade your parking operation without replacing everything."
           />
           <div className={styles.compatibilityGrid}>
@@ -654,8 +654,8 @@ export function WebsiteHomePage() {
           <div className={styles.container}>
             <SectionHeading
               eyebrow="Deployment stories"
-              lead="Only customer-approved scope, images and outcomes will be published. No placeholder metrics are presented as results."
-              title="Evidence, once it is verified."
+              lead="Review ParkTek's residential access approach and available deployment information."
+              title="Residential access in operating environments."
             />
             <CaseStudyCard featured study={caseStudy} variant="prastuti" />
           </div>
@@ -666,7 +666,7 @@ export function WebsiteHomePage() {
         <div className={styles.container}>
           <SectionHeading
             eyebrow="Security and trust"
-            lead="Access-control messaging stays grounded in controller rules, scoped permissions and auditable operations."
+            lead="ParkTek connects controller rules, role-scoped permissions and auditable operations across each supported deployment."
             title="Control at the gate. Context across the platform."
           />
           <div className={styles.trustGrid}>

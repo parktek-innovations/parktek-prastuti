@@ -9,7 +9,7 @@ import styles from "../marketing-pages.module.css";
 
 export const metadata = makeMetadata({
   title: "Case Studies",
-  description: "Verified ParkTek deployment stories will appear here after customer approval and outcome review.",
+  description: "Explore ParkTek's residential vehicle-access approach and available deployment information.",
   path: "/case-studies/",
 });
 
@@ -32,10 +32,9 @@ export default function CaseStudiesPage() {
               </ol>
             </nav>
             <p className={styles.eyebrow}>Deployment proof</p>
-            <h1 className={[styles.title, styles.compactTitle].join(" ")}>Customer stories, published only after verification.</h1>
+            <h1 className={[styles.title, styles.compactTitle].join(" ")}>Residential access in operating environments.</h1>
             <p className={styles.lead}>
-              ParkTek will publish site context, approved imagery, deployed scope and measured outcomes here.
-              We do not use invented results while those stories are being prepared.
+              Review ParkTek&apos;s approach to vehicle identity, local gate decisions, barrier control and access records.
             </p>
           </div>
         </section>
@@ -53,15 +52,15 @@ export default function CaseStudiesPage() {
         <section className={[styles.section, styles.sectionMuted].join(" ")}>
           <div className={[styles.container, styles.split].join(" ")}>
             <div className={styles.splitCopy}>
-              <p className={styles.eyebrow}>Evidence standard</p>
-              <h2>Scope and outcomes must be attributable.</h2>
+              <p className={styles.eyebrow}>Deployment overview</p>
+              <h2>Understand the operating approach.</h2>
             </div>
             <div className={styles.factPanel}>
               <ul className={styles.checkList}>
-                <li>Customer approval before names, logos or site images are published</li>
-                <li>Deployment scope checked against implementation records</li>
-                <li>Metrics tied to a defined period and source</li>
-                <li>No outcome claim inferred from a product feature</li>
+                <li>Registered-vehicle identity through RFID and ANPR</li>
+                <li>Local controller decisions and barrier operations</li>
+                <li>Authorized handling for gate exceptions</li>
+                <li>Society-scoped access records and support</li>
               </ul>
             </div>
           </div>

@@ -15,7 +15,7 @@ const features = [
   },
   {
     title: "Vehicle-number starting point",
-    description: "Use the registration number to prepare the enquiry without claiming an official challan lookup."
+    description: "Use the registration number to prepare the enquiry, then check it against the issuing authority's official record."
   },
   {
     title: "Charge review context",
@@ -38,7 +38,7 @@ const steps = [
 const faqs = [
   {
     question: "Does this page retrieve official e-challan records?",
-    answer: "No. This basic page prepares a support enquiry and does not represent itself as an issuing-authority database or official challan lookup."
+    answer: "No. The issuing authority's official service remains the source for challan records and status."
   },
   {
     question: "Can I pay an e-challan through ParkTek here?",
@@ -82,7 +82,7 @@ export default function EChallanPage() {
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Review an e-challan enquiry before you act.</h1>
             <p className={styles.lead}>
               Prepare the vehicle and notice details, verify them with the issuing authority and use only an
-              authorized payment channel. This page does not retrieve official records or process challan payments.
+              authorized payment channel. The issuing authority remains the source for challan records and status.
             </p>
             <div className={styles.actions}>
               {SHOW_CHALLAN_ENQUIRY ? (
@@ -99,7 +99,7 @@ export default function EChallanPage() {
               <div className={styles.sectionHeader}>
                 <p className={styles.eyebrow}>Safe action area</p>
                 <h2>Start with the vehicle number, then verify officially.</h2>
-                <p>This action opens the existing ParkTek contact route. It is not an official challan lookup or payment action.</p>
+                <p>This action opens ParkTek support; use the issuing authority&apos;s official service to verify records and payment status.</p>
               </div>
               <form action="/contact/" className={styles.lookupPanel} method="get">
                 <input name="service" type="hidden" value="e-challan" />
@@ -141,7 +141,7 @@ export default function EChallanPage() {
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>What this page covers</p>
+              <p className={styles.eyebrow}>E-Challan support</p>
               <h2>A careful path from notice details to the right authority.</h2>
             </div>
             <div className={styles.grid4}>
@@ -227,7 +227,7 @@ export default function EChallanPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>E-Challan FAQ</p>
-              <h2>Understand the boundary of this basic route.</h2>
+              <h2>Common e-challan support questions.</h2>
             </div>
             <div className={styles.faqList}>
               {faqs.map((faq) => (

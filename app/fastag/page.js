@@ -11,7 +11,7 @@ const SHOW_FASTAG_ENQUIRY = false;
 const features = [
   {
     title: "Recharge guidance",
-    description: "Share the vehicle and FASTag context so ParkTek support can direct the enquiry without claiming a completed recharge."
+    description: "Share the vehicle and FASTag context so ParkTek support can direct the enquiry to the right next step."
   },
   {
     title: "Vehicle-number starting point",
@@ -38,7 +38,7 @@ const steps = [
 const faqs = [
   {
     question: "Can I complete a FASTag recharge on this page?",
-    answer: "No. This basic page does not process payments or claim that a recharge has completed. It directs the enquiry to ParkTek support."
+    answer: "No. Use your authorized FASTag issuer or payment channel to complete a recharge and confirm its status."
   },
   {
     question: "What should I have ready before contacting support?",
@@ -82,7 +82,7 @@ export default function FastagPage() {
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Start a FASTag recharge enquiry safely.</h1>
             <p className={styles.lead}>
               Use the vehicle number to prepare a support enquiry, then confirm the issuer, amount and payment
-              channel before proceeding. ParkTek does not claim payment processing or recharge completion here.
+              channel before proceeding. Recharge completion is confirmed by the authorized issuer or payment channel.
             </p>
             <div className={styles.actions}>
               {SHOW_FASTAG_ENQUIRY ? (
@@ -99,7 +99,7 @@ export default function FastagPage() {
               <div className={styles.sectionHeader}>
                 <p className={styles.eyebrow}>Vehicle lookup starting point</p>
                 <h2>Prepare the right details for support.</h2>
-                <p>This action opens the existing ParkTek contact route. It does not initiate a recharge or payment.</p>
+                <p>This action opens ParkTek support; complete any recharge through an authorized issuer or payment channel.</p>
               </div>
               <form action="/contact/" className={styles.lookupPanel} method="get">
                 <input name="service" type="hidden" value="fastag" />
@@ -126,7 +126,7 @@ export default function FastagPage() {
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>What this page covers</p>
+              <p className={styles.eyebrow}>FASTag support</p>
               <h2>A clear path from vehicle details to authorized support.</h2>
             </div>
             <div className={styles.grid4}>
@@ -190,7 +190,7 @@ export default function FastagPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>FASTag FAQ</p>
-              <h2>Know what this basic route does and does not do.</h2>
+              <h2>Common FASTag support questions.</h2>
             </div>
             <div className={styles.faqList}>
               {faqs.map((faq) => (

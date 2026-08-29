@@ -13,6 +13,10 @@ const summaryFacts = [
   },
   { label: "Sale of personal data", value: "ParkTek does not sell or rent personal data." },
   {
+    label: "Website analytics",
+    value: "The public website uses Google Analytics to measure page views, including page path, page location and page title.",
+  },
+  {
     label: "Advertising trackers",
     value: "As of the effective date, ParkTek does not intentionally deploy third-party advertising trackers on the current public website. If this changes, ParkTek will update its notices and choices as required.",
   },
@@ -109,8 +113,8 @@ const policySections = [
   {
     title: "9. Cookies, Website Logs and Analytics",
     paragraphs: [
-      "As of the effective date, ParkTek does not intentionally deploy third-party advertising trackers on the current public website. ParkTek and its hosting/network providers may process request and security logs and may use essential browser storage or cookies where needed to deliver, secure or operate the website.",
-      "If ParkTek introduces non-essential analytics, advertising or cross-site tracking technologies, ParkTek will provide additional notice and choices where required by applicable law. You can also control browser cookies using your browser settings, although blocking essential storage may affect functionality.",
+      "The public website uses Google Analytics for website usage measurement, including page-view information such as page path, page location and page title. ParkTek and its hosting/network providers may also process request and security logs and may use essential browser storage or cookies where needed to deliver, secure or operate the website.",
+      "As of the effective date, ParkTek does not intentionally deploy third-party advertising trackers on the current public website. You can control browser cookies using your browser settings, although blocking essential storage may affect functionality.",
     ],
   },
   {
@@ -118,7 +122,7 @@ const policySections = [
     paragraphs: ["ParkTek does not sell or rent personal data. We may share personal data only where reasonably necessary for a lawful purpose, including with:"],
     lists: [[
       "The relevant society, property owner, employer, parking operator or customer and its authorised personnel for access and operational purposes.",
-      "Service providers that support hosting, cloud/infrastructure, communications, monitoring, security, maintenance, support, analytics (if enabled), integration or other technology functions.",
+      "Service providers that support hosting, cloud/infrastructure, communications, monitoring, security, maintenance, support, analytics, integration or other technology functions.",
       "Payment, banking, government-linked or data-service providers where a specific enabled feature requires them.",
       "Professional advisers such as auditors, consultants, insurers or legal advisers where reasonably necessary and subject to appropriate obligations.",
       "Government, regulatory, judicial or law-enforcement authorities where disclosure is required or permitted by applicable law.",

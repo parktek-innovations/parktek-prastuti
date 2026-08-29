@@ -12,7 +12,7 @@ const QUICK_LINKS = [
   { label: "FASTag Recharge", href: "/fastag/" },
   { label: "E-Challan", href: "/e-challan/" },
   { label: "Contact", href: "/contact/" },
-  { label: "Careers", href: "/contact/" },
+  { label: "Business Enquiries", href: "/contact/" },
 ];
 
 const LEGAL_LINKS = [
@@ -69,7 +69,7 @@ export function SiteFooter({ className = "" }) {
           <div className={styles.footerColumn}>
             <p className={styles.footerHeading}>About ParkTek</p>
             <p className={styles.footerAbout}>{SITE.legalName}</p>
-            <Link href="/contact/">Join the ParkTek Team</Link>
+            <Link href="/contact/">Contact ParkTek</Link>
           </div>
 
           <div className={styles.footerColumn}>

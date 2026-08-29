@@ -21,12 +21,12 @@ const operatingFlow = [
   {
     number: "02",
     title: "Configure operations",
-    description: "Define the approved site, devices, operator access and staged commercial capabilities.",
+    description: "Configure the site, connected devices, operator access and commercial workflows.",
   },
   {
     number: "03",
     title: "Record activity",
-    description: "Build toward connected vehicle, tariff, shift and payment-record context without claiming fund custody.",
+    description: "Connect vehicle, tariff, shift and payment-record context across each parking session.",
   },
   {
     number: "04",
@@ -36,7 +36,7 @@ const operatingFlow = [
   {
     number: "05",
     title: "Reconcile records",
-    description: "Compare parking activity, shifts and recorded payment information as the tooling is developed.",
+    description: "Compare parking activity, operator shifts and recorded payment information.",
   },
   {
     number: "06",
@@ -48,7 +48,7 @@ const operatingFlow = [
 export const metadata = makeMetadata({
   title: "Commercial Parking Management System | ParkTek",
   description:
-    "Explore ParkTek's launching commercial parking workspace, with POS, tariffs, shifts, payment records, reconciliation and AMC capabilities clearly staged.",
+    "Connect commercial parking entry, exit, operator POS, payment records and reporting with ParkTek.",
   path: "/commercial-parking-management/",
 });
 
@@ -71,21 +71,20 @@ export default function CommercialParkingManagementPage() {
               </ol>
             </nav>
             <p className={styles.eyebrow}>Commercial parking <StatusPill status="Live" /></p>
-            <h1 className={styles.title}>Run every parking lane, payment and shift from one system.</h1>
+            <h1 className={styles.title}>Connect parking lanes, operator POS and reporting in one system.</h1>
             <p className={styles.lead}>
-              ParkTek Commercial connects gate access, parking POS, tariffs, payment records, operator shifts
-              and reporting for malls, offices, hospitals, hotels and paid parking facilities. Commercial
-              availability is launching in phases, with transaction tooling still in development.
+              ParkTek Commercial connects gate access, parking POS, parking sessions and reporting for malls,
+              offices, hospitals, hotels and paid parking facilities.
             </p>
             <div className={styles.actions}>
               <Link className={styles.primaryButton} href="/book-site-assessment/">Book a Site Assessment</Link>
-              <Link className={styles.secondaryButton} href="#parking-pos">Review capability status</Link>
+              <Link className={styles.secondaryButton} href="#parking-pos">Review commercial capabilities</Link>
             </div>
             <div className={styles.notice}>
-              <strong>Commercial availability is staged.</strong>
+              <strong>Payment processing boundaries</strong>
               <p>
-                ParkTek does not currently claim payment gateway processing, settlement, refunds or custody
-                of funds. Payment-record and reconciliation tooling described below is in development.
+                ParkTek provides parking-management and POS tools but does not hold customer funds. Any gateway
+                processing or refund flow must use an authorized payment arrangement.
               </p>
             </div>
           </div>
@@ -95,10 +94,9 @@ export default function CommercialParkingManagementPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>Operating model</p>
-              <h2>Connect the workflow without hiding the rollout stage.</h2>
+              <h2>Connect every step of the parking operation.</h2>
               <p>
-                The product direction covers the full site operating loop. Each commercial module is only
-                presented as available when its displayed status says so.
+                Bring entry, exit, operator workflows, parking records and reporting into one site operating model.
               </p>
             </div>
             <div className={styles.flow}>
@@ -117,10 +115,10 @@ export default function CommercialParkingManagementPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>Commercial POS</p>
-              <h2>A practical workspace, with every capability labelled.</h2>
+              <h2>A practical workspace for parking operators.</h2>
               <p>
-                No feature below is represented as live. Site scope and pilot timing are confirmed during
-                assessment and written into the implementation plan.
+                Use the live operator workspace and Parking POS alongside separately labelled capabilities for
+                tariffs, shifts, payment records, reconciliation and maintenance.
               </p>
             </div>
             <div className={styles.grid3}>
@@ -143,8 +141,7 @@ export default function CommercialParkingManagementPage() {
               <p className={styles.eyebrow}>Capability map</p>
               <h2>From parking entry to revenue reconciliation.</h2>
               <p>
-                Entry, tariff, POS, reporting and reliability scope is shown with an explicit release stage.
-                Site assessment determines which launching capabilities can enter a pilot plan.
+                Connect entry, tariffs, POS, reporting and site reliability around each property&apos;s operating requirements.
               </p>
             </div>
             <div className={styles.grid2}>
@@ -204,7 +201,7 @@ export default function CommercialParkingManagementPage() {
                 <li>Existing barriers, readers, cameras, POS equipment and connectivity</li>
                 <li>Tariff structures and operator shift responsibilities</li>
                 <li>Current payment-record and reconciliation process</li>
-                <li>Maintenance ownership, service expectations and rollout sequence</li>
+                <li>Maintenance ownership, service expectations and delivery sequence</li>
               </ul>
             </div>
           </div>
@@ -213,7 +210,7 @@ export default function CommercialParkingManagementPage() {
         <section className={styles.formSection}>
           <div className={styles.container}>
             <LeadForm
-              description="Share your site, capacity, operator workflow, current equipment and transaction-record challenges. We’ll confirm the staged scope before recommending a rollout."
+              description="Share your site, capacity, operator workflow, current equipment and transaction-record challenges. We’ll define the supported scope and next steps."
               heading="Assess your commercial parking operation"
               source="Commercial parking management page"
             />

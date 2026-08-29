@@ -4,7 +4,7 @@ import { makeMetadata } from "@/lib/seo";
 export const metadata = makeMetadata({
   title: "Smart Parking, Access Control & Parking POS | ParkTek",
   description:
-    "Every gate, vehicle and parking transaction connected across live residential access and launching commercial parking workflows.",
+    "Connect live residential RFID and ANPR access with commercial parking and POS operations through ParkTek.",
   path: "/",
   imageAlt: "ParkTek connected gate access and parking operations"
 });

@@ -35,7 +35,7 @@ export default function BookSiteAssessmentPage() {
             <h1 className={styles.title}>Start with your gates, equipment and operating reality.</h1>
             <p className={styles.lead}>
               Share enough context for ParkTek to understand the site. The follow-up will confirm fit,
-              supported equipment, capability status and the next practical step.
+              supported equipment, operating requirements and the next practical step.
             </p>
           </div>
         </section>

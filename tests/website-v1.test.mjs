@@ -123,8 +123,8 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   const fastagSource = await sourceFile("app/fastag/page.js");
   const challanSource = await sourceFile("app/e-challan/page.js");
 
-  assert.match(fastag, /does not claim payment processing or recharge completion/i);
-  assert.match(challan, /does not retrieve official records or process challan payments/i);
+  assert.match(fastag, /Recharge completion is confirmed by the authorized issuer or payment channel/i);
+  assert.match(challan, /The issuing authority remains the source for challan records and status/i);
   assert.doesNotMatch(fastag, /(?:id|href)="\#?fastag-enquiry"|Vehicle lookup starting point/);
   assert.doesNotMatch(challan, /(?:id|href)="\#?challan-enquiry"|Safe action area/);
   assert.match(fastag, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
@@ -133,6 +133,60 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
   assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
   assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
+});
+
+test("public marketing output excludes stale product-stage and builder wording", async () => {
+  const stalePublicPhrases = [
+    /ANPR remains in pilot/i,
+    /ANPR is being piloted/i,
+    /ANPR pilot/i,
+    /guarded ANPR in pilot/i,
+    /Commercial Parking & POS pilot/i,
+    /commercial operations are entering a phased launch/i,
+    /Commercial availability is launching/i,
+    /Commercial availability is staged/i,
+    /No feature below is represented as live/i,
+    /launching capabilities/i,
+    /roadmap scope, not a live public product claim/i,
+    /being developed in phases/i,
+    /sold honestly by availability/i,
+    /before it is promised/i,
+    /before promising the integration/i,
+    /pending publication approval/i,
+    /\bto be added\b/i,
+    /\bto be verified\b/i,
+    /Story in preparation/i,
+    /case-study template/i,
+    /intentionally a template/i,
+    /founder verification/i,
+    /approved-proof slot/i,
+    /Concept ParkTek/i,
+    /Concept view/i,
+  ];
+
+  for (const route of requiredRoutes) {
+    const html = await outputFile(route);
+    for (const phrase of stalePublicPhrases) {
+      assert.doesNotMatch(html, phrase, `${route} contains stale public wording: ${phrase}`);
+    }
+  }
+
+  const marketingContent = await Promise.all([
+    "lib/website-content.js",
+    "components/website/home-page.jsx",
+    "app/residential-access-control/page.js",
+    "app/commercial-parking-management/page.js",
+    "app/about/page.js",
+    "app/case-studies/page.js",
+    "app/case-studies/[slug]/page.js",
+    "components/website/case-study-card.jsx",
+  ].map(sourceFile));
+
+  for (const content of marketingContent) {
+    for (const phrase of stalePublicPhrases) {
+      assert.doesNotMatch(content, phrase, `marketing source contains stale public wording: ${phrase}`);
+    }
+  }
 });
 
 test("privacy policy export contains the complete 28 August 2026 policy", async () => {
@@ -169,6 +223,8 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   assert.match(html, /<table[^>]*>.*Category.*Examples.*Main purposes.*Transaction-related \(if enabled\)/s);
   assert.match(html, /STEP 1.*Open your profile.*STEP 4.*Account access is deactivated/s);
   assert.match(html, /This Privacy Policy should be read together with any feature-specific notice/);
+  assert.match(html, /uses Google Analytics for website usage measurement/);
+  assert.match(html, /page path, page location and page title/);
   assert.match(html, /© 2026 PARKTEK INNOVATION PRIVATE LIMITED/);
   assert.doesNotMatch(html, /Screenshot update in progress/i);
   assert.doesNotMatch(html, /children under 13 years of age/i);
@@ -207,7 +263,7 @@ test("homepage hero world preserves lifecycle, reduced-motion, and accessibility
   assert.match(world, /const colors = \{ \.\.\.DEFAULT_COLORS, \.\.\.options\.colors \}/);
 });
 
-test("pilot and launching sections now use the existing Live treatment", async () => {
+test("live product groups use the existing Live treatment", async () => {
   const content = await sourceFile("lib/website-content.js");
   const homepage = await sourceFile("components/website/home-page.module.css");
 

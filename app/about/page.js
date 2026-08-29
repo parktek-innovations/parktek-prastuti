@@ -21,8 +21,8 @@ const principles = [
     description: "Use local controller context and operational fallbacks for the conditions a real gate faces.",
   },
   {
-    title: "Label the roadmap",
-    description: "Separate live, pilot, launching and in-development capabilities instead of selling them as one finished product.",
+    title: "Connect the full operation",
+    description: "Bring residential access, commercial parking and POS workflows into one coordinated platform.",
   },
 ];
 
@@ -63,12 +63,12 @@ export default function AboutPage() {
           <div className={[styles.container, styles.split].join(" ")}>
             <div className={styles.splitCopy}>
               <p className={styles.eyebrow}>Current focus</p>
-              <h2>Reliable residential access, then a staged commercial layer.</h2>
+              <h2>Connected residential and commercial parking operations.</h2>
             </div>
             <div className={styles.factPanel}>
               <p>
-                Residential RFID, controller, dashboard and support workflows are live. Guarded ANPR is in
-                pilot. Commercial parking and POS are launching, with transaction tooling still in development.
+                ParkTek connects live residential RFID and ANPR access, local controllers, commercial parking,
+                operator POS and operational reporting.
               </p>
               <p>
                 Residential access was the initial entry point because a society gate is a focused, high-frequency
@@ -76,8 +76,7 @@ export default function AboutPage() {
                 fallback. ParkTek is carrying that gate-first discipline into commercial parking.
               </p>
               <p>
-                That status boundary is intentional: a public product claim should match what a site can
-                actually deploy and operate.
+                The same operating model connects commercial entry, POS, parking records, reporting and site support.
               </p>
             </div>
           </div>
@@ -87,7 +86,7 @@ export default function AboutPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>Platform direction</p>
-              <h2>One system, capabilities released at different stages.</h2>
+              <h2>One system for access and parking operations.</h2>
             </div>
             <div className={styles.grid4}>
               {MODULES.map((module) => (
@@ -107,7 +106,7 @@ export default function AboutPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>How ParkTek works</p>
-              <h2>Build around physical operations and honest boundaries.</h2>
+              <h2>Built around dependable physical operations.</h2>
             </div>
             <div className={styles.grid4}>
               {principles.map((principle) => (
@@ -125,7 +124,7 @@ export default function AboutPage() {
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>Leadership and team</p>
               <h2>Built by a team close to the operating site.</h2>
-              <p>Public names, roles and photographs remain configurable and will be added only after approval.</p>
+              <p>ParkTek combines site operations, access-control technology and ongoing customer support.</p>
             </div>
             <div className={styles.grid2}>
               {TEAM.map((member) => (

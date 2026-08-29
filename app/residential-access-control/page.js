@@ -49,8 +49,8 @@ const accessModes = [
     status: "Live",
   },
   {
-    title: "Guarded ANPR",
-    description: "ANPR is being piloted as an additional registered-vehicle signal. Unknown plates do not auto-open by default.",
+    title: "ANPR",
+    description: "ANPR provides an additional live registered-vehicle identity signal. Unknown plates do not auto-open by default.",
     status: "Live",
   },
 ];
@@ -164,10 +164,10 @@ export default function ResidentialAccessControlPage() {
           <div className={[styles.container, styles.split].join(" ")}>
             <div className={styles.splitCopy}>
               <p className={styles.eyebrow}>Access modes</p>
-              <h2>RFID today. Guarded vision alongside it.</h2>
+              <h2>RFID and ANPR working together at the gate.</h2>
               <p>
-                ParkTek keeps the live access path dependable while ANPR is validated as an additional
-                signal. An unrecognized plate is not permission to operate the barrier.
+                ParkTek uses RFID and ANPR as complementary registered-vehicle identity modes. An
+                unrecognized plate is not permission to operate the barrier.
               </p>
             </div>
             <div className={styles.stack}>
@@ -202,8 +202,8 @@ export default function ResidentialAccessControlPage() {
             <div className={styles.notice}>
               <strong>Remote barrier operation is not presented as a live customer surface.</strong>
               <p>
-                ParkTek&apos;s documented live path is local controller relay integration with authorized manual
-                exception handling. Any remote-control scope must be verified before it is promised.
+                ParkTek&apos;s standard operating path uses local controller relay integration with authorized manual
+                exception handling. Remote operation availability depends on the supported site configuration.
               </p>
             </div>
           </div>
@@ -213,10 +213,10 @@ export default function ResidentialAccessControlPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <p className={styles.eyebrow}>Hardware compatibility</p>
-              <h2>Assess the equipment before promising the integration.</h2>
+              <h2>Confirm compatibility for your existing gate equipment.</h2>
               <p>
                 Reader protocols, relay wiring, camera placement, networking and backup power vary by site.
-                Compatibility is confirmed during the assessment, not assumed from a logo or model name.
+                ParkTek confirms supported equipment and any required integration work during the assessment.
               </p>
             </div>
             <div className={styles.grid4}>

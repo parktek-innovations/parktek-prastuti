@@ -44,7 +44,7 @@ export default function ContactPage() {
           <div className={[styles.container, styles.contactGrid].join(" ")}>
             <aside className={styles.contactCard}>
               <h2>ParkTek contact</h2>
-              <p>Support and public enquiries use one verified contact path.</p>
+              <p>Use these details for support and general enquiries.</p>
               <dl className={styles.contactList}>
                 <div>
                   <dt>Email</dt>
