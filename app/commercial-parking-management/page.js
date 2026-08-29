@@ -70,7 +70,7 @@ export default function CommercialParkingManagementPage() {
                 <li aria-current="page">Commercial parking management</li>
               </ol>
             </nav>
-            <p className={styles.eyebrow}>Commercial parking <StatusPill status="Launching" /></p>
+            <p className={styles.eyebrow}>Commercial parking <StatusPill status="Live" /></p>
             <h1 className={styles.title}>Run every parking lane, payment and shift from one system.</h1>
             <p className={styles.lead}>
               ParkTek Commercial connects gate access, parking POS, tariffs, payment records, operator shifts

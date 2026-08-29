@@ -6,6 +6,8 @@ import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
 
 import styles from "../marketing-pages.module.css";
 
+const SHOW_CHALLAN_ENQUIRY = false;
+
 const features = [
   {
     title: "Challan reference guidance",
@@ -83,54 +85,58 @@ export default function EChallanPage() {
               authorized payment channel. This page does not retrieve official records or process challan payments.
             </p>
             <div className={styles.actions}>
-              <Link className={styles.primaryButton} href="#challan-enquiry">Prepare an enquiry</Link>
+              {SHOW_CHALLAN_ENQUIRY ? (
+                <Link className={styles.primaryButton} href="#challan-enquiry">Prepare an enquiry</Link>
+              ) : null}
               <Link className={styles.secondaryButton} href="/contact/">Contact ParkTek</Link>
             </div>
           </div>
         </section>
 
-        <section className={[styles.section, styles.sectionMuted].join(" ")} id="challan-enquiry">
-          <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>Safe action area</p>
-              <h2>Start with the vehicle number, then verify officially.</h2>
-              <p>This action opens the existing ParkTek contact route. It is not an official challan lookup or payment action.</p>
+        {SHOW_CHALLAN_ENQUIRY ? (
+          <section className={[styles.section, styles.sectionMuted].join(" ")} id="challan-enquiry">
+            <div className={styles.container}>
+              <div className={styles.sectionHeader}>
+                <p className={styles.eyebrow}>Safe action area</p>
+                <h2>Start with the vehicle number, then verify officially.</h2>
+                <p>This action opens the existing ParkTek contact route. It is not an official challan lookup or payment action.</p>
+              </div>
+              <form action="/contact/" className={styles.lookupPanel} method="get">
+                <input name="service" type="hidden" value="e-challan" />
+                <div className={styles.lookupFields}>
+                  <label className={styles.lookupField} htmlFor="challan-vehicle">
+                    <span className={styles.lookupLabel}>Vehicle registration number</span>
+                    <input
+                      aria-describedby="challan-help"
+                      className={styles.lookupInput}
+                      id="challan-vehicle"
+                      name="vehicle"
+                      placeholder="For example, UP16AB1234"
+                      type="text"
+                    />
+                  </label>
+                  <label className={styles.lookupField} htmlFor="challan-reference">
+                    <span className={styles.lookupLabel}>Challan reference (optional)</span>
+                    <input
+                      aria-describedby="challan-help"
+                      className={styles.lookupInput}
+                      id="challan-reference"
+                      name="challan"
+                      placeholder="Enter the notice reference"
+                      type="text"
+                    />
+                  </label>
+                </div>
+                <div className={styles.lookupRow}>
+                  <button className={styles.primaryButton} type="submit">Continue to support</button>
+                </div>
+                <p className={styles.lookupHelp} id="challan-help">
+                  Do not enter an OTP, PIN, full card number, bank password or wallet credentials.
+                </p>
+              </form>
             </div>
-            <form action="/contact/" className={styles.lookupPanel} method="get">
-              <input name="service" type="hidden" value="e-challan" />
-              <div className={styles.lookupFields}>
-                <label className={styles.lookupField} htmlFor="challan-vehicle">
-                  <span className={styles.lookupLabel}>Vehicle registration number</span>
-                  <input
-                    aria-describedby="challan-help"
-                    className={styles.lookupInput}
-                    id="challan-vehicle"
-                    name="vehicle"
-                    placeholder="For example, UP16AB1234"
-                    type="text"
-                  />
-                </label>
-                <label className={styles.lookupField} htmlFor="challan-reference">
-                  <span className={styles.lookupLabel}>Challan reference (optional)</span>
-                  <input
-                    aria-describedby="challan-help"
-                    className={styles.lookupInput}
-                    id="challan-reference"
-                    name="challan"
-                    placeholder="Enter the notice reference"
-                    type="text"
-                  />
-                </label>
-              </div>
-              <div className={styles.lookupRow}>
-                <button className={styles.primaryButton} type="submit">Continue to support</button>
-              </div>
-              <p className={styles.lookupHelp} id="challan-help">
-                Do not enter an OTP, PIN, full card number, bank password or wallet credentials.
-              </p>
-            </form>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         <section className={styles.section}>
           <div className={styles.container}>

@@ -253,6 +253,7 @@ export default function PrivacyPolicyPage() {
             <p className={styles.eyebrow}>Privacy policy</p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Privacy Policy</h1>
             <p className={styles.policyCompany}>PARKTEK INNOVATION PRIVATE LIMITED</p>
+            <p className={styles.policyEffective}>Effective 28 August 2026</p>
           </div>
         </section>
 

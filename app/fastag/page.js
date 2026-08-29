@@ -6,6 +6,8 @@ import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
 
 import styles from "../marketing-pages.module.css";
 
+const SHOW_FASTAG_ENQUIRY = false;
+
 const features = [
   {
     title: "Recharge guidance",
@@ -83,39 +85,43 @@ export default function FastagPage() {
               channel before proceeding. ParkTek does not claim payment processing or recharge completion here.
             </p>
             <div className={styles.actions}>
-              <Link className={styles.primaryButton} href="#fastag-enquiry">Start with vehicle number</Link>
+              {SHOW_FASTAG_ENQUIRY ? (
+                <Link className={styles.primaryButton} href="#fastag-enquiry">Start with vehicle number</Link>
+              ) : null}
               <Link className={styles.secondaryButton} href="/contact/">Contact ParkTek</Link>
             </div>
           </div>
         </section>
 
-        <section className={[styles.section, styles.sectionMuted].join(" ")} id="fastag-enquiry">
-          <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>Vehicle lookup starting point</p>
-              <h2>Prepare the right details for support.</h2>
-              <p>This action opens the existing ParkTek contact route. It does not initiate a recharge or payment.</p>
-            </div>
-            <form action="/contact/" className={styles.lookupPanel} method="get">
-              <input name="service" type="hidden" value="fastag" />
-              <label className={styles.lookupLabel} htmlFor="fastag-vehicle">Vehicle registration number</label>
-              <div className={styles.lookupRow}>
-                <input
-                  aria-describedby="fastag-help"
-                  className={styles.lookupInput}
-                  id="fastag-vehicle"
-                  name="vehicle"
-                  placeholder="For example, UP16AB1234"
-                  type="text"
-                />
-                <button className={styles.primaryButton} type="submit">Continue to support</button>
+        {SHOW_FASTAG_ENQUIRY ? (
+          <section className={[styles.section, styles.sectionMuted].join(" ")} id="fastag-enquiry">
+            <div className={styles.container}>
+              <div className={styles.sectionHeader}>
+                <p className={styles.eyebrow}>Vehicle lookup starting point</p>
+                <h2>Prepare the right details for support.</h2>
+                <p>This action opens the existing ParkTek contact route. It does not initiate a recharge or payment.</p>
               </div>
-              <p className={styles.lookupHelp} id="fastag-help">
-                Do not enter an OTP, PIN, full card number, bank password or wallet credentials.
-              </p>
-            </form>
-          </div>
-        </section>
+              <form action="/contact/" className={styles.lookupPanel} method="get">
+                <input name="service" type="hidden" value="fastag" />
+                <label className={styles.lookupLabel} htmlFor="fastag-vehicle">Vehicle registration number</label>
+                <div className={styles.lookupRow}>
+                  <input
+                    aria-describedby="fastag-help"
+                    className={styles.lookupInput}
+                    id="fastag-vehicle"
+                    name="vehicle"
+                    placeholder="For example, UP16AB1234"
+                    type="text"
+                  />
+                  <button className={styles.primaryButton} type="submit">Continue to support</button>
+                </div>
+                <p className={styles.lookupHelp} id="fastag-help">
+                  Do not enter an OTP, PIN, full card number, bank password or wallet credentials.
+                </p>
+              </form>
+            </div>
+          </section>
+        ) : null}
 
         <section className={styles.section}>
           <div className={styles.container}>

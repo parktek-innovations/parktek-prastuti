@@ -37,7 +37,7 @@ test("static export contains every Website V1 route", async () => {
   }
 });
 
-test("homepage carries the approved positioning and truthful status labels", async () => {
+test("homepage carries the approved positioning and requested availability labels", async () => {
   const html = await outputFile("index.html");
 
   assert.match(html, /Every gate\. Every vehicle\. Every parking/);
@@ -47,8 +47,8 @@ test("homepage carries the approved positioning and truthful status labels", asy
   assert.match(html, /Commercial POS/);
   assert.match(html, /In development/);
   assert.match(html, /RFID access live/);
-  assert.match(html, /ANPR pilot/);
-  assert.match(html, /Commercial workflows launching/);
+  assert.match(html, /ANPR live/);
+  assert.match(html, /Commercial workflows live/);
   assert.doesNotMatch(html, /99\.9% uptime|10M\+ vehicles|1,000\+ locations/);
   assert.doesNotMatch(html, /Provisional traction metrics|ParkTek capability availability|footprint-title/);
   assert.match(html, /Product proof/);
@@ -58,19 +58,58 @@ test("homepage carries the approved positioning and truthful status labels", asy
   assert.doesNotMatch(html, /Approved current product and deployment evidence/);
 });
 
-test("FASTag and E-Challan routes keep transactional claims behind a support boundary", async () => {
+test("deployment stories stay hidden while header and case-study routes remain", async () => {
+  const homepage = await outputFile("index.html");
+  const caseStudies = await outputFile("case-studies/index.html");
+  const homepageSource = await sourceFile("components/website/home-page.jsx");
+  const headerSource = await sourceFile("components/website/site-header.jsx");
+  const renderedHeader = homepage.match(/<header[\s\S]*?<\/header>/)?.[0] || "";
+
+  assert.doesNotMatch(homepage, /Deployment stories/i);
+  assert.match(renderedHeader, /Case Studies/);
+  assert.match(caseStudies, /Case Studies/);
+  assert.match(homepageSource, /const SHOW_DEPLOYMENT_STORIES = false/);
+  assert.match(headerSource, /const SHOW_CASE_STUDIES_NAV = true/);
+  assert.match(headerSource, /SHOW_CASE_STUDIES_NAV \|\| item\.href !== "\/case-studies\/"/);
+  assert.equal((headerSource.match(/primaryLinks\.map/g) || []).length, 2);
+});
+
+test("header navigation uses one nested Solutions hierarchy on desktop and mobile", async () => {
+  const content = await sourceFile("lib/website-content.js");
+  const header = await sourceFile("components/website/site-header.jsx");
+
+  assert.doesNotMatch(content, /label: "Industries"/);
+  assert.match(content, /label: "Residential",[\s\S]*?label: "ANPR and RFID",[\s\S]*?href: "\/residential-access-control\/#anpr-rfid"/);
+  assert.match(content, /label: "Commercial",[\s\S]*?label: "Malls and retail",[\s\S]*?href: "\/commercial-parking-management\/#malls-and-retail"/);
+  assert.match(content, /label: "Corporate and IT parks",[\s\S]*?href: "\/commercial-parking-management\/#corporate-and-it-parks"/);
+  assert.match(content, /label: "Hospitals and hotels",[\s\S]*?href: "\/commercial-parking-management\/#hospitals-and-hotels"/);
+  assert.match(content, /label: "Parking operators",[\s\S]*?href: "\/commercial-parking-management\/#parking-operators"/);
+  assert.doesNotMatch(header, /industryLinks|label="Industries"/);
+  assert.match(header, /function DesktopSolutionsMenu/);
+  assert.match(header, /onMouseEnter=\{\(\) => setActiveGroup\(item\.label\)\}/);
+  assert.match(header, /onFocusCapture=\{\(\) => setActiveGroup\(item\.label\)\}/);
+  assert.match(header, /event\.key !== "Escape"/);
+  assert.match(header, /document\.addEventListener\("pointerdown", handlePointerDown\)/);
+  assert.match(header, /function MobileNestedItem/);
+  assert.match(header, /aria-expanded=\{expanded\}/);
+});
+
+test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", async () => {
   const fastag = await outputFile("fastag/index.html");
   const challan = await outputFile("e-challan/index.html");
+  const fastagSource = await sourceFile("app/fastag/page.js");
+  const challanSource = await sourceFile("app/e-challan/page.js");
 
   assert.match(fastag, /does not claim payment processing or recharge completion/i);
-  assert.match(fastag, /action="\/contact\/"/);
-  assert.match(fastag, /type="hidden" name="service" value="fastag"/);
-  assert.match(fastag, /name="vehicle"/);
   assert.match(challan, /does not retrieve official records or process challan payments/i);
-  assert.match(challan, /action="\/contact\/"/);
-  assert.match(challan, /type="hidden" name="service" value="e-challan"/);
-  assert.match(challan, /name="vehicle"/);
-  assert.match(challan, /name="challan"/);
+  assert.doesNotMatch(fastag, /(?:id|href)="\#?fastag-enquiry"|Vehicle lookup starting point/);
+  assert.doesNotMatch(challan, /(?:id|href)="\#?challan-enquiry"|Safe action area/);
+  assert.match(fastag, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
+  assert.match(challan, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
+  assert.match(fastagSource, /const SHOW_FASTAG_ENQUIRY = false/);
+  assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
+  assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
+  assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
 });
 
 test("privacy policy export contains the complete 28 August 2026 policy", async () => {
@@ -98,6 +137,7 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   ];
 
   assert.doesNotMatch(html, /Effective date<\/dt><dd>28 August 2026/);
+  assert.match(html, /Effective 28 August 2026/);
   assert.match(html, /PARKTEK INNOVATION PRIVATE LIMITED/);
   assert.match(html, /support@parktek\.in/);
   sectionTitles.forEach((title, index) => {
@@ -117,8 +157,9 @@ test("privacy policy uses the wide native webpage treatment", async () => {
   const marketing = await sourceFile("app/marketing-pages.module.css");
 
   assert.match(marketing, /\.policy\s*\{[^}]*max-width:\s*1200px;[^}]*padding:\s*0;[^}]*border:\s*0;[^}]*background:\s*transparent;/s);
-  assert.match(marketing, /\.policy p\s*\{[^}]*max-width:\s*96ch;[^}]*font-size:\s*1\.0625rem;[^}]*line-height:\s*1\.72;/s);
-  assert.match(marketing, /\.policyFacts\s*\{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/s);
+  assert.match(marketing, /\.policy h2\s*\{[^}]*font-size:\s*clamp\(1\.5rem, 2\.1vw, 1\.95rem\)/s);
+  assert.match(marketing, /\.policy p\s*\{[^}]*max-width:\s*80ch;[^}]*font-size:\s*1\.0625rem;[^}]*line-height:\s*1\.72;/s);
+  assert.match(marketing, /\.policyFacts\s*\{[^}]*grid-template-columns:\s*1fr;/s);
   assert.match(marketing, /\.policyTableWrap\s*\{[^}]*overflow-x:\s*auto;/s);
   assert.match(marketing, /\.policyTable\s*\{[^}]*min-width:\s*900px;/s);
 });
@@ -128,13 +169,27 @@ test("footer privacy destination remains stable", async () => {
   assert.match(html, /href="\/privacy-policy\/"[^>]*>Privacy<\/a>/);
 });
 
-test("mobile hero animation preserves its responsive scale", async () => {
+test("homepage hero world preserves lifecycle, reduced-motion, and accessibility contracts", async () => {
+  const component = await sourceFile("components/website/homepage-scroll-world.jsx");
+  const world = await sourceFile("components/scroll-world/parktek-world.js");
+
+  assert.match(component, /createParktekWorld\(host, \{ colors: readHomepagePalette\(\) \}\)/);
+  assert.match(component, /prefers-reduced-motion: reduce/);
+  assert.match(component, /IntersectionObserver/);
+  assert.match(component, /visibilitychange/);
+  assert.match(component, /world\.dispose\(\)/);
+  assert.match(component, /role="img"/);
+  assert.match(component, /scrollState\.current \+= \(scrollState\.target - scrollState\.current\) \* 0\.075/);
+  assert.match(component, /progress: journeyElapsed \/ JOURNEY_DURATION_MS/);
+  assert.match(world, /const colors = \{ \.\.\.DEFAULT_COLORS, \.\.\.options\.colors \}/);
+});
+
+test("pilot and launching sections now use the existing Live treatment", async () => {
+  const content = await sourceFile("lib/website-content.js");
   const homepage = await sourceFile("components/website/home-page.module.css");
 
-  assert.match(homepage, /\.heroCar\s*\{[^}]*--hero-car-scale:\s*1;[^}]*scale\(var\(--hero-car-scale\)\)/s);
-  assert.match(homepage, /@keyframes vehicle-approach\s*\{[^}]*scale\(var\(--hero-car-scale\)\)/s);
-  assert.match(homepage, /@media \(max-width: 620px\)[\s\S]*?\.heroCar\s*\{[^}]*--hero-car-scale:\s*0\.82;/);
-  assert.match(homepage, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.heroCar\s*\{[^}]*scale\(var\(--hero-car-scale\)\)/);
+  assert.doesNotMatch(content, /status:\s*(?:"Launching"|STATUS_LABELS\.(?:pilot|launching))/);
+  assert.match(homepage, /\.commercialStatusLive\s*\{[^}]*var\(--pk-color-status-online-border\)[^}]*var\(--pk-color-status-online-background\)[^}]*var\(--pk-color-status-online-foreground\)/s);
 });
 
 test("primary actions use the current Samhita semantic bridge", async () => {

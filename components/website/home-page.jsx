@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 
 import { CaseStudyCard } from "@/components/website/case-study-card";
+import { HomepageScrollWorld } from "@/components/website/homepage-scroll-world";
 import {
   ANNOUNCEMENT,
   CASE_STUDIES,
@@ -37,6 +38,8 @@ const moduleIcons = {
   pos: Gauge
 };
 
+const SHOW_DEPLOYMENT_STORIES = false;
+
 const commercialCapabilityIcons = {
   "Entry and exit": "/figma/commercial/entry-exit.svg",
   "Tariff engine": "/figma/commercial/tariff.svg",
@@ -45,9 +48,27 @@ const commercialCapabilityIcons = {
   Reliability: "/figma/commercial/reliability.svg"
 };
 
-const commercialStatusIcons = {
-  [STATUS_LABELS.launching]: "/figma/commercial/status-launching.svg",
-  [STATUS_LABELS.inDevelopment]: "/figma/commercial/status-in-development.svg"
+const commercialCapabilityVisuals = {
+  "Entry and exit": {
+    src: "/figma/commercial/entry-exit-visual.png",
+    alt: "Vehicle approaching a ParkTek-controlled parking barrier."
+  },
+  "Tariff engine": {
+    src: "/figma/commercial/tariff-engine-visual.png",
+    alt: "Parking tariff interface with a ticket and rupee pricing controls."
+  },
+  "POS operations": {
+    src: "/figma/commercial/pos-operations-visual.png",
+    alt: "Parking operator using a POS terminal with a receipt printer and payment reader."
+  },
+  Reporting: {
+    src: "/figma/commercial/reporting-visual.png",
+    alt: "Parking operations dashboard with charts, activity records and parking occupancy."
+  },
+  Reliability: {
+    src: "/figma/commercial/reliability-visual.png",
+    alt: "Parking barrier and camera equipment connected through secured local devices and backup power."
+  }
 };
 
 const compatibilityIcons = {
@@ -157,19 +178,25 @@ function SectionHeading({ eyebrow, title, lead }) {
   );
 }
 
-function CommercialStatusTile({ status }) {
-  const statusClass = status === STATUS_LABELS.launching
-    ? styles.commercialStatusLaunching
+function CommercialCapabilityVisual({ capability }) {
+  const visual = commercialCapabilityVisuals[capability.title];
+  const statusClass = capability.status === STATUS_LABELS.live
+    ? styles.commercialStatusLive
     : styles.commercialStatusDevelopment;
 
   return (
-    <div className={`${styles.commercialStatusTile} ${statusClass}`}>
-      <span
-        aria-hidden="true"
-        className={styles.commercialStatusIcon}
-        style={{ "--commercial-icon": `url("${commercialStatusIcons[status]}")` }}
+    <div className={styles.commercialCapabilityVisual}>
+      <Image
+        alt={visual.alt}
+        className={styles.commercialCapabilityImage}
+        height={220}
+        sizes="(max-width: 620px) calc(100vw - 64px), 160px"
+        src={visual.src}
+        width={320}
       />
-      <strong>{status}</strong>
+      <strong className={`${styles.commercialStatusBadge} ${statusClass}`}>
+        {capability.status}
+      </strong>
     </div>
   );
 }
@@ -212,39 +239,13 @@ export function WebsiteHomePage() {
             </div>
             <ul className={styles.reassurance} aria-label="Capability availability">
               <li className={styles.reassuranceLive}>RFID access live</li>
-              <li className={styles.reassurancePilot}>ANPR pilot</li>
-              <li className={styles.reassuranceLaunching}>Commercial workflows launching</li>
+              <li className={styles.reassuranceLive}>ANPR live</li>
+              <li className={styles.reassuranceLive}>Commercial workflows live</li>
             </ul>
           </div>
 
-          <div
-            aria-label="A ParkTek-controlled parking lane with an approaching car, RFID reader, camera, local controller and opening barrier."
-            className={styles.worldFrame}
-            role="img"
-          >
-            <div aria-hidden="true" className={styles.heroScene}>
-              <span className={styles.heroBuilding}>
-                <span /><span /><span /><span />
-              </span>
-              <span className={styles.heroLandscape} />
-              <span className={styles.heroLane}>
-                <span className={styles.heroLaneMarker} />
-                <span className={styles.heroRouteTrace} />
-              </span>
-              <ParkingCar className={styles.heroCar} />
-              <BarrierGate className={styles.heroBarrier} />
-              <span className={styles.heroReader}>
-                <span className={styles.readerWave} />
-                <span className={styles.readerLight} />
-              </span>
-              <span className={styles.heroCamera}>
-                <span className={styles.cameraHead} />
-              </span>
-              <span className={styles.heroController}>
-                <span className={styles.controllerLight} />
-                <span className={styles.controllerVent} />
-              </span>
-            </div>
+          <div className={styles.worldFrame}>
+            <HomepageScrollWorld />
             <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
             <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
             <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
@@ -428,7 +429,7 @@ export function WebsiteHomePage() {
                     {capability.items.map((item) => <li key={item}>{item}</li>)}
                   </ul>
                 </div>
-                <CommercialStatusTile status={capability.status} />
+                <CommercialCapabilityVisual capability={capability} />
               </article>
             ))}
           </div>
@@ -518,16 +519,18 @@ export function WebsiteHomePage() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.sectionAlt} ${styles.storiesSection}`} id="case-study">
-        <div className={styles.container}>
-          <SectionHeading
-            eyebrow="Deployment stories"
-            lead="Only customer-approved scope, images and outcomes will be published. No placeholder metrics are presented as results."
-            title="Evidence, once it is verified."
-          />
-          <CaseStudyCard featured study={caseStudy} variant="prastuti" />
-        </div>
-      </section>
+      {SHOW_DEPLOYMENT_STORIES ? (
+        <section className={`${styles.section} ${styles.sectionAlt} ${styles.storiesSection}`} id="case-study">
+          <div className={styles.container}>
+            <SectionHeading
+              eyebrow="Deployment stories"
+              lead="Only customer-approved scope, images and outcomes will be published. No placeholder metrics are presented as results."
+              title="Evidence, once it is verified."
+            />
+            <CaseStudyCard featured study={caseStudy} variant="prastuti" />
+          </div>
+        </section>
+      ) : null}
 
       <section className={`${styles.section} ${styles.securitySection}`} id="security">
         <div className={styles.container}>

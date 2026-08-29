@@ -2,38 +2,159 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { NAVIGATION, SITE } from "@/lib/website-content";
 
 import styles from "./website.module.css";
 
+const SHOW_CASE_STUDIES_NAV = true;
+
 const solutionLinks = Array.isArray(NAVIGATION)
   ? NAVIGATION.find((item) => item.label === "Solutions")?.items || []
   : NAVIGATION.solutions || [];
-const industryLinks = Array.isArray(NAVIGATION)
-  ? NAVIGATION.find((item) => item.label === "Industries")?.items || []
-  : NAVIGATION.industries || [];
-const primaryLinks = Array.isArray(NAVIGATION)
-  ? NAVIGATION.filter((item) => !item.items)
-  : NAVIGATION.links || [];
+const primaryLinks = (
+  Array.isArray(NAVIGATION)
+    ? NAVIGATION.filter((item) => !item.items)
+    : NAVIGATION.links || []
+).filter((item) => SHOW_CASE_STUDIES_NAV || item.href !== "/case-studies/");
 
-function Dropdown({ items, label }) {
+function panelId(prefix, label) {
+  return `${prefix}-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+}
+
+function DesktopSolutionsMenu({ items, label }) {
+  const [activeGroup, setActiveGroup] = useState(null);
+  const [open, setOpen] = useState(false);
+  const detailsRef = useRef(null);
+  const summaryRef = useRef(null);
+
+  const closeDropdown = useCallback((restoreFocus = false) => {
+    if (detailsRef.current) detailsRef.current.open = false;
+    setActiveGroup(null);
+    setOpen(false);
+    if (restoreFocus) summaryRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    function handlePointerDown(event) {
+      if (detailsRef.current?.open && !detailsRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key !== "Escape" || !detailsRef.current?.open) return;
+      event.preventDefault();
+      closeDropdown(true);
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeDropdown]);
+
   return (
-    <details className={styles.navDropdown}>
-      <summary className={styles.navSummary}>
+    <details
+      className={styles.navDropdown}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) closeDropdown();
+      }}
+      onToggle={(event) => {
+        const nextOpen = event.currentTarget.open;
+        setOpen(nextOpen);
+        if (!nextOpen) setActiveGroup(null);
+      }}
+      ref={detailsRef}
+    >
+      <summary
+        aria-expanded={open}
+        aria-haspopup="true"
+        className={styles.navSummary}
+        ref={summaryRef}
+      >
         {label}
         <span aria-hidden="true" className={styles.chevron} />
       </summary>
-      <div className={styles.dropdownPanel}>
-        {items.map((item) => (
-          <Link className={styles.dropdownLink} href={item.href} key={item.href}>
-            <span>{item.label}</span>
-            {item.status ? <span className={styles.dropdownMeta}>{item.status}</span> : null}
+      <div className={`${styles.dropdownPanel} ${styles.solutionsPanel}`}>
+        {items.map((item) => {
+          const expanded = activeGroup === item.label;
+          const nestedPanelId = panelId("desktop-solution", item.label);
+
+          return (
+            <div
+              className={styles.nestedNavItem}
+              key={item.label}
+              onFocusCapture={() => setActiveGroup(item.label)}
+              onMouseEnter={() => setActiveGroup(item.label)}
+            >
+              <button
+                aria-controls={nestedPanelId}
+                aria-expanded={expanded}
+                aria-haspopup="true"
+                className={styles.nestedNavTrigger}
+                onClick={() => setActiveGroup(expanded ? null : item.label)}
+                type="button"
+              >
+                <span>{item.label}</span>
+                <span aria-hidden="true" className={styles.nestedArrow} />
+              </button>
+              <div className={styles.nestedFlyout} hidden={!expanded} id={nestedPanelId}>
+                {item.items.map((nestedItem) => (
+                  <Link
+                    className={styles.dropdownLink}
+                    href={nestedItem.href}
+                    key={nestedItem.href}
+                    onClick={() => closeDropdown()}
+                  >
+                    <span>{nestedItem.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  );
+}
+
+function MobileNestedItem({ item, onNavigate }) {
+  const [expanded, setExpanded] = useState(false);
+  const nestedPanelId = panelId("mobile-solution", item.label);
+
+  return (
+    <div className={styles.mobileNestedGroup}>
+      <button
+        aria-controls={nestedPanelId}
+        aria-expanded={expanded}
+        className={styles.mobileNestedToggle}
+        onClick={() => setExpanded((current) => !current)}
+        type="button"
+      >
+        <span>{item.label}</span>
+        <span
+          aria-hidden="true"
+          className={styles.mobileNestedChevron}
+          data-open={expanded ? "true" : "false"}
+        />
+      </button>
+      <div className={styles.mobileNestedLinks} hidden={!expanded} id={nestedPanelId}>
+        {item.items.map((nestedItem) => (
+          <Link
+            className={`${styles.mobileLink} ${styles.mobileNestedLink}`}
+            href={nestedItem.href}
+            key={nestedItem.href}
+            onClick={onNavigate}
+          >
+            <span>{nestedItem.label}</span>
           </Link>
         ))}
       </div>
-    </details>
+    </div>
   );
 }
 
@@ -42,10 +163,14 @@ function MobileGroup({ items, label, onNavigate }) {
     <div className={styles.mobileGroup}>
       <p className={styles.mobileGroupTitle}>{label}</p>
       {items.map((item) => (
-        <Link className={styles.mobileLink} href={item.href} key={item.href} onClick={onNavigate}>
-          <span>{item.label}</span>
-          {item.status ? <span className={styles.mobileMeta}>{item.status}</span> : null}
-        </Link>
+        item.items ? (
+          <MobileNestedItem item={item} key={item.label} onNavigate={onNavigate} />
+        ) : (
+          <Link className={styles.mobileLink} href={item.href} key={item.href} onClick={onNavigate}>
+            <span>{item.label}</span>
+            {item.status ? <span className={styles.mobileMeta}>{item.status}</span> : null}
+          </Link>
+        )
       ))}
     </div>
   );
@@ -79,7 +204,8 @@ export function SiteHeader({ className = "" }) {
 
       if (event.key !== "Tab" || !menuRef.current) return;
 
-      const focusable = Array.from(menuRef.current.querySelectorAll(focusableSelector));
+      const focusable = Array.from(menuRef.current.querySelectorAll(focusableSelector))
+        .filter((element) => !element.closest("[hidden]"));
       if (!focusable.length) return;
 
       const first = focusable[0];
@@ -134,8 +260,7 @@ export function SiteHeader({ className = "" }) {
         </Link>
 
         <nav aria-label="Primary navigation" className={styles.desktopNav}>
-          <Dropdown items={solutionLinks} label="Solutions" />
-          <Dropdown items={industryLinks} label="Industries" />
+          <DesktopSolutionsMenu items={solutionLinks} label="Solutions" />
           {primaryLinks.map((item) => (
             <Link className={styles.headerLink} href={item.href} key={item.href}>
               {item.label}
@@ -187,7 +312,6 @@ export function SiteHeader({ className = "" }) {
 
             <nav aria-label="Mobile navigation" className={styles.mobileNav}>
               <MobileGroup items={solutionLinks} label="Solutions" onNavigate={closeMenu} />
-              <MobileGroup items={industryLinks} label="Industries" onNavigate={closeMenu} />
               <div className={styles.mobileGroup}>
                 {primaryLinks.map((item) => (
                   <Link className={styles.mobileLink} href={item.href} key={item.href} onClick={closeMenu}>

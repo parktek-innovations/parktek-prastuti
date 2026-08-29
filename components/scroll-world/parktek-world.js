@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const COLORS = {
+const DEFAULT_COLORS = {
   background: 0xf8fafc,
   surface: 0xffffff,
   muted: 0xf1f5f9,
@@ -15,7 +15,15 @@ const COLORS = {
   success: 0x16a34a,
   landscape: 0xcddfce,
   landscapeDark: 0x7e9c82,
-  warm: 0xf6e7c1
+  warm: 0xf6e7c1,
+  glass: 0x9fc3df,
+  treeTrunk: 0x80634b,
+  vehicleNeutral: 0x64748b,
+  vehicleTeal: 0x0f766e,
+  vehicleWarm: 0xb45309,
+  vehicleMuted: 0x475569,
+  hemisphereGround: 0x9aa8b8,
+  light: 0xffffff
 };
 
 function standardMaterial(color, options = {}) {
@@ -92,15 +100,9 @@ function addApartment(group, x, z, floors, width, materials) {
 function createVehicle(color, materials) {
   const vehicle = new THREE.Group();
   const bodyMaterial = standardMaterial(color, { roughness: 0.38, metalness: 0.18 });
-  const glassMaterial = standardMaterial(0x9fc3df, {
-    roughness: 0.18,
-    metalness: 0.12,
-    transparent: true,
-    opacity: 0.84
-  });
 
   addBox(vehicle, [3.3, 0.9, 5.4], [0, 0.95, 0], bodyMaterial);
-  addBox(vehicle, [2.7, 0.85, 2.9], [0, 1.75, -0.35], glassMaterial);
+  addBox(vehicle, [2.7, 0.85, 2.9], [0, 1.75, -0.35], materials.glass);
   addBox(vehicle, [2.25, 0.13, 0.2], [0, 1.05, -2.73], materials.ink, {
     castShadow: false
   });
@@ -141,7 +143,7 @@ function addParkingMarkings(group, materials) {
   }
 }
 
-function addGate(group, materials) {
+function addGate(group, materials, colors) {
   const gate = new THREE.Group();
   gate.position.z = 26;
 
@@ -181,7 +183,7 @@ function addGate(group, materials) {
   const scannerRings = [];
   for (let index = 0; index < 3; index += 1) {
     const ringMaterial = new THREE.MeshBasicMaterial({
-      color: COLORS.primary,
+      color: colors.primary,
       transparent: true,
       opacity: 0.22 - index * 0.05,
       side: THREE.DoubleSide,
@@ -200,7 +202,7 @@ function addGate(group, materials) {
   return { barrierPivot, scannerRings };
 }
 
-function addControllerHub(group, materials) {
+function addControllerHub(group, materials, colors) {
   const hub = new THREE.Group();
   hub.position.set(0, 0, -105);
 
@@ -237,7 +239,7 @@ function addControllerHub(group, materials) {
     const line = new THREE.Line(
       geometry,
       new THREE.LineBasicMaterial({
-        color: index % 2 === 0 ? COLORS.primary : COLORS.teal,
+        color: index % 2 === 0 ? colors.primary : colors.teal,
         transparent: true,
         opacity: 0.38
       })
@@ -246,7 +248,7 @@ function addControllerHub(group, materials) {
 
     const pulse = new THREE.Mesh(
       new THREE.SphereGeometry(0.24, 12, 12),
-      new THREE.MeshBasicMaterial({ color: index % 2 === 0 ? COLORS.primary : COLORS.teal })
+      new THREE.MeshBasicMaterial({ color: index % 2 === 0 ? colors.primary : colors.teal })
     );
     group.add(pulse);
     pulses.push({ pulse, start: point.clone(), end: hubPoint.clone(), phase: index * 0.23 });
@@ -256,43 +258,49 @@ function addControllerHub(group, materials) {
   return { beacon, pulses };
 }
 
-function createMaterials() {
+function createMaterials(colors) {
   return {
-    surface: standardMaterial(COLORS.surface),
-    muted: standardMaterial(COLORS.muted),
-    border: standardMaterial(COLORS.border),
-    ink: standardMaterial(COLORS.ink, { roughness: 0.6, metalness: 0.08 }),
-    road: standardMaterial(COLORS.road, { roughness: 0.9 }),
-    roadSoft: standardMaterial(COLORS.roadSoft, { roughness: 0.86 }),
-    primary: standardMaterial(COLORS.primary, {
+    surface: standardMaterial(colors.surface),
+    muted: standardMaterial(colors.muted),
+    border: standardMaterial(colors.border),
+    ink: standardMaterial(colors.ink, { roughness: 0.6, metalness: 0.08 }),
+    road: standardMaterial(colors.road, { roughness: 0.9 }),
+    roadSoft: standardMaterial(colors.roadSoft, { roughness: 0.86 }),
+    primary: standardMaterial(colors.primary, {
       roughness: 0.42,
       metalness: 0.08,
-      emissive: COLORS.primary,
+      emissive: colors.primary,
       emissiveIntensity: 0.08
     }),
-    primaryDark: standardMaterial(COLORS.primaryDark, {
+    primaryDark: standardMaterial(colors.primaryDark, {
       roughness: 0.45,
-      emissive: COLORS.primaryDark,
+      emissive: colors.primaryDark,
       emissiveIntensity: 0.2
     }),
-    primarySoft: standardMaterial(COLORS.primarySoft),
-    teal: standardMaterial(COLORS.teal, {
+    primarySoft: standardMaterial(colors.primarySoft),
+    teal: standardMaterial(colors.teal, {
       roughness: 0.35,
-      emissive: COLORS.teal,
+      emissive: colors.teal,
       emissiveIntensity: 0.5
     }),
-    success: standardMaterial(COLORS.success, {
-      emissive: COLORS.success,
+    success: standardMaterial(colors.success, {
+      emissive: colors.success,
       emissiveIntensity: 0.6
     }),
-    landscape: standardMaterial(COLORS.landscape),
-    landscapeDark: standardMaterial(COLORS.landscapeDark),
-    treeTrunk: standardMaterial(0x80634b),
-    warm: standardMaterial(COLORS.warm)
+    landscape: standardMaterial(colors.landscape),
+    landscapeDark: standardMaterial(colors.landscapeDark),
+    treeTrunk: standardMaterial(colors.treeTrunk),
+    warm: standardMaterial(colors.warm),
+    glass: standardMaterial(colors.glass, {
+      roughness: 0.18,
+      metalness: 0.12,
+      transparent: true,
+      opacity: 0.84
+    })
   };
 }
 
-function createWorldGeometry(scene, materials) {
+function createWorldGeometry(scene, materials, colors) {
   const world = new THREE.Group();
   scene.add(world);
 
@@ -342,10 +350,10 @@ function createWorldGeometry(scene, materials) {
   }
 
   const parkedVehicles = [
-    [-15, -29, 0x64748b],
-    [15, -39, 0x0f766e],
-    [-15, -58, 0xb45309],
-    [15, -68, 0x475569]
+    [-15, -29, colors.vehicleNeutral],
+    [15, -39, colors.vehicleTeal],
+    [-15, -58, colors.vehicleWarm],
+    [15, -68, colors.vehicleMuted]
   ];
   parkedVehicles.forEach(([x, z, color]) => {
     const vehicle = createVehicle(color, materials);
@@ -354,19 +362,20 @@ function createWorldGeometry(scene, materials) {
     world.add(vehicle);
   });
 
-  const gate = addGate(world, materials);
-  const controller = addControllerHub(world, materials);
-  const activeVehicle = createVehicle(COLORS.primary, materials);
+  const gate = addGate(world, materials, colors);
+  const controller = addControllerHub(world, materials, colors);
+  const activeVehicle = createVehicle(colors.primary, materials);
   activeVehicle.scale.setScalar(0.88);
   world.add(activeVehicle);
 
   return { world, gate, controller, activeVehicle };
 }
 
-export function createParktekWorld(host) {
+export function createParktekWorld(host, options = {}) {
+  const colors = { ...DEFAULT_COLORS, ...options.colors };
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(COLORS.background);
-  scene.fog = new THREE.Fog(COLORS.background, 54, 180);
+  scene.background = new THREE.Color(colors.background);
+  scene.fog = new THREE.Fog(colors.background, 54, 180);
 
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 400);
   const renderer = new THREE.WebGLRenderer({
@@ -382,10 +391,10 @@ export function createParktekWorld(host) {
   renderer.domElement.className = "parktek-world-canvas";
   host.appendChild(renderer.domElement);
 
-  const hemisphere = new THREE.HemisphereLight(0xffffff, 0x9aa8b8, 2.2);
+  const hemisphere = new THREE.HemisphereLight(colors.light, colors.hemisphereGround, 2.2);
   scene.add(hemisphere);
 
-  const sun = new THREE.DirectionalLight(0xffffff, 3.6);
+  const sun = new THREE.DirectionalLight(colors.light, 3.6);
   sun.position.set(-34, 58, 42);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
@@ -397,8 +406,8 @@ export function createParktekWorld(host) {
   sun.shadow.camera.far = 180;
   scene.add(sun);
 
-  const materials = createMaterials();
-  const geometry = createWorldGeometry(scene, materials);
+  const materials = createMaterials(colors);
+  const geometry = createWorldGeometry(scene, materials, colors);
 
   const cameraCurve = new THREE.CatmullRomCurve3(
     [

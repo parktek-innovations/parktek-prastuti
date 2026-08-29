@@ -51,7 +51,7 @@ const accessModes = [
   {
     title: "Guarded ANPR",
     description: "ANPR is being piloted as an additional registered-vehicle signal. Unknown plates do not auto-open by default.",
-    status: "Pilot",
+    status: "Live",
   },
 ];
 

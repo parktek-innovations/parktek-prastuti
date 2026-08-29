@@ -122,6 +122,7 @@
 
 .dropdownPanel {
   position: absolute;
+  z-index: 10;
   top: calc(100% + 8px);
   left: 0;
   display: grid;
@@ -151,6 +152,68 @@
 
 .dropdownLink:hover {
   background: var(--navy-800);
+}
+
+.solutionsPanel {
+  width: 240px;
+}
+
+.nestedNavItem {
+  position: relative;
+}
+
+.nestedNavTrigger {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--pk-color-text-primary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nestedNavTrigger:hover,
+.nestedNavTrigger[aria-expanded="true"] {
+  background: var(--navy-800);
+}
+
+.nestedArrow {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.nestedFlyout {
+  position: absolute;
+  z-index: 11;
+  top: -8px;
+  left: calc(100% + 8px);
+  display: grid;
+  width: 300px;
+  gap: 2px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--pk-color-surface-elevated);
+  box-shadow: 0 18px 42px color-mix(in srgb, var(--pk-color-text-primary) 10%, transparent);
+  animation: dropdown-in 140ms ease-out both;
+}
+
+.nestedFlyout[hidden],
+.mobileNestedLinks[hidden] {
+  display: none;
 }
 
 .dropdownMeta,
@@ -311,6 +374,61 @@
 
 .mobileLink:hover {
   background: var(--navy-800);
+}
+
+.mobileNestedGroup,
+.mobileNestedLinks {
+  display: grid;
+  gap: 4px;
+}
+
+.mobileNestedToggle {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--pk-color-text-primary);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobileNestedToggle:hover,
+.mobileNestedToggle[aria-expanded="true"] {
+  background: var(--navy-800);
+}
+
+.mobileNestedChevron {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 150ms ease;
+}
+
+.mobileNestedChevron[data-open="true"] {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.mobileNestedLinks {
+  margin: 2px 0 6px 18px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+}
+
+.mobileNestedLink {
+  min-height: 44px;
+  font-size: 15px;
 }
 
 .mobileCta {
@@ -783,10 +901,12 @@
 .navSummary:focus-visible,
 .headerLink:focus-visible,
 .dropdownLink:focus-visible,
+.nestedNavTrigger:focus-visible,
 .headerCta:focus-visible,
 .menuToggle:focus-visible,
 .mobileClose:focus-visible,
 .mobileLink:focus-visible,
+.mobileNestedToggle:focus-visible,
 .mobileCta:focus-visible,
 .footerColumn a:focus-visible,
 .footerBrandRow a:focus-visible,

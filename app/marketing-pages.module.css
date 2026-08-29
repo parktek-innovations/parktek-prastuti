@@ -654,7 +654,7 @@
 }
 
 .policy h2 {
-  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  font-size: clamp(1.5rem, 2.1vw, 1.95rem);
   line-height: 1.18;
 }
 
@@ -666,14 +666,14 @@
 
 .policy p {
   margin: 14px 0 0;
-  max-width: 96ch;
+  max-width: 80ch;
   color: var(--prastuti-text-muted);
   font-size: 1.0625rem;
   line-height: 1.72;
 }
 
 .policy > section > ul {
-  max-width: 96ch;
+  max-width: 80ch;
   font-size: 1.0625rem;
 }
 
@@ -688,6 +688,13 @@
   color: var(--prastuti-text-primary);
   font-weight: 700;
   letter-spacing: 0.04em;
+}
+
+.policyEffective {
+  margin: -14px 0 0;
+  color: var(--prastuti-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .policyFacts {
@@ -726,20 +733,16 @@
 }
 
 .policyFacts {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 32px;
+  grid-template-columns: 1fr;
+  gap: 0;
   margin-top: 24px;
 }
 
 .policyFacts div {
-  grid-template-columns: minmax(145px, 0.32fr) minmax(0, 1fr);
+  grid-template-columns: minmax(190px, 0.28fr) minmax(0, 1fr);
   gap: 16px;
   padding: 16px 0;
   border-top: 1px solid var(--prastuti-border);
-}
-
-.policySummary .policyFacts div:last-child {
-  grid-column: 1 / -1;
 }
 
 .policyTableWrap {
@@ -893,14 +896,6 @@
 
   .screenshotGrid {
     grid-template-columns: 1fr;
-  }
-
-  .policyFacts {
-    grid-template-columns: 1fr;
-  }
-
-  .policySummary .policyFacts div:last-child {
-    grid-column: auto;
   }
 
   .screenshotCard {
