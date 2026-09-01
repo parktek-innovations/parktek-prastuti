@@ -106,10 +106,12 @@ test("header navigation uses one nested Solutions hierarchy on desktop and mobil
 
   assert.doesNotMatch(content, /label: "Industries"/);
   assert.match(content, /label: "Residential",[\s\S]*?label: "ANPR and RFID",[\s\S]*?href: "\/residential-access-control\/#anpr-rfid"/);
+  assert.match(content, /label: "Residential",[\s\S]*?label: "Others",[\s\S]*?href: "\/book-site-assessment\/"/);
   assert.match(content, /label: "Commercial",[\s\S]*?label: "Malls and retail",[\s\S]*?href: "\/commercial-parking-management\/#malls-and-retail"/);
   assert.match(content, /label: "Corporate and IT parks",[\s\S]*?href: "\/commercial-parking-management\/#corporate-and-it-parks"/);
   assert.match(content, /label: "Hospitals and hotels",[\s\S]*?href: "\/commercial-parking-management\/#hospitals-and-hotels"/);
   assert.match(content, /label: "Parking operators",[\s\S]*?href: "\/commercial-parking-management\/#parking-operators"/);
+  assert.match(content, /label: "Commercial",[\s\S]*?label: "Others",[\s\S]*?href: "\/book-site-assessment\/"/);
   assert.doesNotMatch(header, /industryLinks|label="Industries"/);
   assert.match(header, /function DesktopSolutionsMenu/);
   assert.match(header, /onMouseEnter=\{\(\) => setActiveGroup\(item\.label\)\}/);
@@ -409,6 +411,7 @@ test("lead pages render the shared accessible form contract", async () => {
       assert.match(html, new RegExp(label), `${route} missing ${label}`);
     }
     assert.match(html, /I agree that ParkTek may contact me/);
+    assert.match(html, /<option[^>]*>Others<\/option>/);
   }
 });
 
