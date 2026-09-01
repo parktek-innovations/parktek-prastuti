@@ -229,6 +229,43 @@
   isolation: isolate;
 }
 
+.worldFrame::after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--prastuti-background) 42%, transparent), transparent 38%),
+    linear-gradient(0deg, color-mix(in srgb, var(--prastuti-background) 24%, transparent), transparent 46%);
+  content: "";
+  pointer-events: none;
+}
+
+.worldImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.worldImageOpen {
+  animation: scene-switch 9s ease-in-out infinite;
+  opacity: 0;
+}
+
+.scanLine {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  left: -25%;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--prastuti-primary) 16%, transparent), transparent);
+  transform: skewX(-12deg);
+  animation: scan 7s linear infinite;
+  pointer-events: none;
+}
+
 .heroScene {
   position: absolute;
   inset: 0;
@@ -964,6 +1001,12 @@
   border: 1px solid var(--prastuti-border);
   border-radius: 14px;
   background: var(--prastuti-background);
+}
+
+.flowVisual img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
 }
 
 .flowScene {
@@ -1796,6 +1839,32 @@
   font-size: 1.06rem;
 }
 
+@keyframes scene-switch {
+  0%,
+  42% {
+    opacity: 0;
+  }
+
+  52%,
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  from {
+    left: -25%;
+  }
+
+  to {
+    left: 125%;
+  }
+}
+
 @keyframes vehicle-approach {
   0%, 12% { transform: translateY(18px) rotate(-2deg) scale(var(--hero-car-scale)); }
   44%, 72% { transform: translateY(-20px) rotate(-2deg) scale(var(--hero-car-scale)); }
@@ -2029,6 +2098,10 @@
     border-radius: 12px;
   }
 
+  .worldImage {
+    object-position: 62% center;
+  }
+
   .heroLane {
     left: 8%;
     width: 72%;
@@ -2221,6 +2294,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .worldImageOpen,
+  .scanLine,
   .heroCar,
   .operationsCar,
   .barrierArm,
@@ -2240,6 +2315,11 @@
 
   .heroCar {
     transform: rotate(-2deg) scale(var(--hero-car-scale));
+  }
+
+  .worldImageOpen,
+  .scanLine {
+    display: none;
   }
 
   .partnerLogoTrack {

@@ -323,19 +323,23 @@ test("footer privacy destination remains stable", async () => {
   assert.match(html, /href="\/privacy-policy\/"[^>]*>Privacy<\/a>/);
 });
 
-test("homepage hero world preserves lifecycle, reduced-motion, and accessibility contracts", async () => {
-  const component = await sourceFile("components/website/homepage-scroll-world.jsx");
-  const world = await sourceFile("components/scroll-world/parktek-world.js");
+test("homepage animated worlds use the archived gate and ecosystem assets", async () => {
+  const homepage = await sourceFile("components/website/home-page.jsx");
+  const styles = await sourceFile("components/website/home-page.module.css");
 
-  assert.match(component, /createParktekWorld\(host, \{ colors: readHomepagePalette\(\) \}\)/);
-  assert.match(component, /prefers-reduced-motion: reduce/);
-  assert.match(component, /IntersectionObserver/);
-  assert.match(component, /visibilitychange/);
-  assert.match(component, /world\.dispose\(\)/);
-  assert.match(component, /role="img"/);
-  assert.match(component, /scrollState\.current \+= \(scrollState\.target - scrollState\.current\) \* 0\.075/);
-  assert.match(component, /progress: journeyElapsed \/ JOURNEY_DURATION_MS/);
-  assert.match(world, /const colors = \{ \.\.\.DEFAULT_COLORS, \.\.\.options\.colors \}/);
+  assert.match(homepage, /function WorldImage/);
+  assert.match(homepage, /name="parktek-gate-closed"/);
+  assert.match(homepage, /name="parktek-gate-open"/);
+  assert.match(homepage, /name="parktek-ecosystem"/);
+  assert.match(homepage, /aria-label="Animated ParkTek gate access scene"/);
+  assert.match(homepage, /role="img"/);
+  assert.match(homepage, /ariaHidden/);
+  assert.match(homepage, /Illustrative connected-site view/);
+  assert.match(styles, /\.worldImageOpen\s*\{[\s\S]*animation:\s*scene-switch 9s ease-in-out infinite/);
+  assert.match(styles, /@keyframes scene-switch/);
+  assert.match(styles, /@keyframes scan/);
+  assert.match(styles, /\.flowVisual img\s*\{[\s\S]*aspect-ratio:\s*16 \/ 10;/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)\s*\{[\s\S]*\.worldImageOpen,[\s\S]*\.scanLine[\s\S]*display:\s*none;/);
 });
 
 test("live product groups use the existing Live treatment", async () => {

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- responsive AVIF/JPEG picture sources are pre-generated for static export */
 import Image from "next/image";
 import {
   Activity,
@@ -11,7 +12,6 @@ import {
 } from "lucide-react";
 
 import { CaseStudyCard } from "@/components/website/case-study-card";
-import { HomepageScrollWorld } from "@/components/website/homepage-scroll-world";
 import {
   ANNOUNCEMENT,
   CASE_STUDIES,
@@ -212,6 +212,31 @@ function ArrowIcon() {
   return <ArrowRight aria-hidden="true" size={17} strokeWidth={2} />;
 }
 
+function WorldImage({ alt, ariaHidden = false, className, eager = false, name, sizes }) {
+  return (
+    <picture>
+      <source
+        sizes={sizes}
+        srcSet={`/worlds/${name}-720.avif 720w, /worlds/${name}-1440.avif 1440w`}
+        type="image/avif"
+      />
+      <img
+        alt={ariaHidden ? "" : alt}
+        aria-hidden={ariaHidden || undefined}
+        className={className}
+        decoding="async"
+        fetchPriority={eager ? "high" : "auto"}
+        height="941"
+        loading={eager ? "eager" : "lazy"}
+        sizes={sizes}
+        src={`/worlds/${name}.jpg`}
+        srcSet={`/worlds/${name}-720.jpg 720w, /worlds/${name}.jpg 1672w`}
+        width="1672"
+      />
+    </picture>
+  );
+}
+
 function HeroHud({ className, icon: Icon, label, value }) {
   return (
     <div className={className}>
@@ -224,34 +249,6 @@ function HeroHud({ className, icon: Icon, label, value }) {
       </span>
       <span aria-hidden="true" className={styles.hudStatus} />
     </div>
-  );
-}
-
-function ParkingCar({ className = "" }) {
-  return (
-    <span aria-hidden="true" className={`${styles.parkingCar} ${className}`}>
-      <span className={styles.carCabin} />
-      <span className={styles.carWindshield} />
-      <span className={styles.carLightLeft} />
-      <span className={styles.carLightRight} />
-      <span className={styles.carWheelLeft} />
-      <span className={styles.carWheelRight} />
-    </span>
-  );
-}
-
-function BarrierGate({ className = "" }) {
-  return (
-    <span aria-hidden="true" className={`${styles.barrierGate} ${className}`}>
-      <span className={styles.barrierColumn}>
-        <span className={styles.barrierSignal} />
-      </span>
-      <span className={styles.barrierArm}>
-        <span />
-        <span />
-        <span />
-      </span>
-    </span>
   );
 }
 
@@ -379,8 +376,21 @@ export function WebsiteHomePage() {
             </ul>
           </div>
 
-          <div className={styles.worldFrame}>
-            <HomepageScrollWorld />
+          <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene" role="img">
+            <WorldImage
+              alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
+              className={styles.worldImage}
+              eager
+              name="parktek-gate-closed"
+              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+            />
+            <WorldImage
+              ariaHidden
+              className={`${styles.worldImage} ${styles.worldImageOpen}`}
+              name="parktek-gate-open"
+              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+            />
+            <span className={styles.scanLine} aria-hidden="true" />
             <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
             <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
             <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
@@ -446,39 +456,13 @@ export function WebsiteHomePage() {
           />
           <div className={styles.flowLayout}>
             <figure className={styles.flowVisual}>
-              <div
-                aria-label="A light ParkTek access schematic showing a vehicle identified at a controlled barrier, a local controller decision and an operating event recorded."
-                className={styles.flowScene}
-                role="img"
-              >
-                <div aria-hidden="true" className={styles.operationsScene}>
-                  <span className={styles.operationsBuilding}>
-                    <span className={styles.operationsCanopy} />
-                    <span className={styles.operationsOffice} />
-                  </span>
-                  <span className={styles.operationsLandscape} />
-                  <span className={styles.operationsLane}>
-                    <span className={styles.operationsLaneLabel}>ENTRY</span>
-                    <span className={styles.operationsArrow} />
-                  </span>
-                  <ParkingCar className={styles.operationsCar} />
-                  <BarrierGate className={styles.operationsBarrier} />
-                  <span className={styles.operationsReader}>
-                    <span className={styles.readerWave} />
-                    <span className={styles.readerLight} />
-                  </span>
-                  <span className={styles.operationsController}>
-                    <span className={styles.controllerLight} />
-                    <span className={styles.controllerVent} />
-                  </span>
-                  <span className={styles.operationsEvent}>
-                    <span>ACCESS EVENT</span>
-                    <strong>Recorded</strong>
-                  </span>
-                </div>
-              </div>
+              <WorldImage
+                alt="A connected parking ecosystem showing multiple gates, vehicles, parking lanes and an operations room."
+                name="parktek-ecosystem"
+                sizes="(max-width: 820px) calc(100vw - 48px), 64vw"
+              />
               <figcaption className={styles.flowCaption}>
-                <span>Illustrative local gate decision</span>
+                <span>Illustrative connected-site view</span>
                 <span className={styles.liveDot}>Access live</span>
               </figcaption>
             </figure>
