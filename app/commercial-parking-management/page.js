@@ -117,8 +117,8 @@ export default function CommercialParkingManagementPage() {
               <p className={styles.eyebrow}>Commercial POS</p>
               <h2>A practical workspace for parking operators.</h2>
               <p>
-                Use the live operator workspace and Parking POS alongside separately labelled capabilities for
-                tariffs, shifts, payment records, reconciliation and maintenance.
+                Use the live operator workspace and Parking POS for tariffs, shifts, payment records,
+                reconciliation and maintenance.
               </p>
             </div>
             <div className={styles.grid3}>
@@ -168,7 +168,7 @@ export default function CommercialParkingManagementPage() {
               <h2>For properties and teams with real operating constraints.</h2>
             </div>
             <div className={styles.grid3}>
-              {INDUSTRIES.filter((industry) => industry.status !== "Live").map((industry) => (
+              {INDUSTRIES.map((industry) => (
                 <article
                   className={styles.card}
                   id={industry.href.split("#")[1]}

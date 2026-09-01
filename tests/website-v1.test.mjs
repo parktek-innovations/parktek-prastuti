@@ -45,7 +45,6 @@ test("homepage carries the approved positioning and requested availability label
   assert.match(html, /Book a Site Assessment/);
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
-  assert.match(html, /In development/);
   assert.match(html, /RFID access live/);
   assert.match(html, /ANPR live/);
   assert.match(html, /Commercial workflows live/);
@@ -81,18 +80,22 @@ test("homepage carries the approved positioning and requested availability label
   }
 });
 
-test("deployment stories stay hidden while header and case-study routes remain", async () => {
+test("case studies stay unpromoted while implementation remains", async () => {
   const homepage = await outputFile("index.html");
   const caseStudies = await outputFile("case-studies/index.html");
+  const caseStudyDetail = await outputFile("case-studies/residential-access-deployment/index.html");
+  const sitemap = await outputFile("sitemap.xml");
   const homepageSource = await sourceFile("components/website/home-page.jsx");
   const headerSource = await sourceFile("components/website/site-header.jsx");
   const renderedHeader = homepage.match(/<header[\s\S]*?<\/header>/)?.[0] || "";
 
   assert.doesNotMatch(homepage, /Deployment stories/i);
-  assert.match(renderedHeader, /Case Studies/);
-  assert.match(caseStudies, /Case Studies/);
+  assert.doesNotMatch(renderedHeader, /Case Studies/);
+  assert.match(caseStudies, /Residential access in operating environments/);
+  assert.match(caseStudyDetail, /<meta name="robots" content="noindex, nofollow"/);
+  assert.doesNotMatch(sitemap, /\/case-studies\//);
   assert.match(homepageSource, /const SHOW_DEPLOYMENT_STORIES = false/);
-  assert.match(headerSource, /const SHOW_CASE_STUDIES_NAV = true/);
+  assert.match(headerSource, /const SHOW_CASE_STUDIES_NAV = false/);
   assert.match(headerSource, /SHOW_CASE_STUDIES_NAV \|\| item\.href !== "\/case-studies\/"/);
   assert.equal((headerSource.match(/primaryLinks\.map/g) || []).length, 2);
 });
@@ -115,6 +118,70 @@ test("header navigation uses one nested Solutions hierarchy on desktop and mobil
   assert.match(header, /document\.addEventListener\("pointerdown", handlePointerDown\)/);
   assert.match(header, /function MobileNestedItem/);
   assert.match(header, /aria-expanded=\{expanded\}/);
+});
+
+test("commercial navigation fragments match rendered industry card ids", async () => {
+  const content = await sourceFile("lib/website-content.js");
+  const commercialSource = await sourceFile("app/commercial-parking-management/page.js");
+  const commercial = await outputFile("commercial-parking-management/index.html");
+  const fragments = [...new Set(
+    [...content.matchAll(/href: "\/commercial-parking-management\/#([^"]+)"/g)]
+      .map((match) => match[1])
+  )];
+
+  assert.deepEqual(fragments, [
+    "malls-and-retail",
+    "corporate-and-it-parks",
+    "hospitals-and-hotels",
+    "parking-operators",
+  ]);
+  for (const fragment of fragments) {
+    assert.match(commercial, new RegExp(`id="${fragment}"`));
+  }
+  assert.doesNotMatch(commercialSource, /INDUSTRIES\.filter/);
+});
+
+test("commercial capabilities use consistent Live availability", async () => {
+  const homepage = await outputFile("index.html");
+  const commercial = await outputFile("commercial-parking-management/index.html");
+  const capabilityHeadings = [
+    "Tariff configuration",
+    "Shift management",
+    "Payment records",
+    "Reconciliation",
+    "AMC management",
+  ];
+
+  for (const heading of capabilityHeadings) {
+    const headingIndex = commercial.indexOf(`<h3>${heading}</h3>`);
+    assert.ok(headingIndex >= 0, `${heading} card missing`);
+    const articleStart = commercial.lastIndexOf("<article", headingIndex);
+    const articleEnd = commercial.indexOf("</article>", headingIndex);
+    const card = commercial.slice(articleStart, articleEnd + "</article>".length);
+    assert.match(card, />Live<\/span>/, `${heading} must be Live`);
+    assert.doesNotMatch(card, /In development/i, `${heading} must not contradict Live status`);
+  }
+
+  for (const capability of [
+    "Configurable tariffs",
+    "Operator shifts",
+    "Payment records",
+    "Revenue reconciliation",
+  ]) {
+    assert.match(homepage, new RegExp(`>${capability}<`));
+  }
+  assert.doesNotMatch(homepage, /(?:Configurable tariffs|Operator shifts|Payment records|Revenue reconciliation)[^<]*In development/i);
+  assert.match(homepage, /commercial parking and Parking POS are live, including tariffs, operator shifts, payment records, reconciliation and AMC workflows/i);
+  assert.match(commercial, /does not hold customer funds/i);
+});
+
+test("footer quick links use stable unique React keys", async () => {
+  const footer = await sourceFile("components/website/site-footer.jsx");
+
+  assert.equal((footer.match(/href: "\/contact\/"/g) || []).length, 2);
+  assert.match(footer, /QUICK_LINKS\.map\(\(item\) => \([\s\S]*?key=\{`\$\{item\.label\}-\$\{item\.href\}`\}/);
+  const quickLinksRender = footer.match(/QUICK_LINKS\.map\(\(item\) => \([\s\S]*?\)\)\}/)?.[0] || "";
+  assert.doesNotMatch(quickLinksRender, /key=\{item\.href\}/);
 });
 
 test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", async () => {
@@ -211,6 +278,8 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
     "Changes to This Policy",
     "Privacy and Grievance Contact",
     "How to Delete Your ParkTek Account",
+    "Cancellation and Refunds",
+    "Charges and Fees",
   ];
 
   assert.doesNotMatch(html, /Effective date<\/dt><dd>28 August 2026/);
@@ -222,6 +291,10 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   });
   assert.match(html, /<table[^>]*>.*Category.*Examples.*Main purposes.*Transaction-related \(if enabled\)/s);
   assert.match(html, /STEP 1.*Open your profile.*STEP 4.*Account access is deactivated/s);
+  assert.match(html, /ParkTek Convenience Fee.*₹0.*ParkTek Platform Fee.*₹0/s);
+  assert.match(html, /Electricity Bill Payment.*FASTag Recharge.*Credit Card Bill Payment.*Other BBPS Services/s);
+  assert.match(html, /Card and Other Payment Charges.*Google Pay, PhonePe or BHIM/s);
+  assert.doesNotMatch(html, /1%\s*[–-]\s*2\.5%/);
   assert.match(html, /This Privacy Policy should be read together with any feature-specific notice/);
   assert.match(html, /uses Google Analytics for website usage measurement/);
   assert.match(html, /page path, page location and page title/);

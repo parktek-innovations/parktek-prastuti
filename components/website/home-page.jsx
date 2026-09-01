@@ -290,7 +290,7 @@ function PartnerSocieties() {
   return (
     <section aria-labelledby="partner-societies-title" className={styles.partnerSocieties}>
       <div className={styles.container}>
-        <span className={`${styles.sectionKicker} ${styles.partnerSocietiesKicker}`}>Partner societies</span>
+        <span className={`${styles.sectionKicker} ${styles.partnerSocietiesKicker}`}>Associated Partners</span>
         <div className={styles.partnerSocietiesPanel}>
           <div className={styles.partnerSocietiesHeader}>
             <h2 id="partner-societies-title">Trusted across connected societies</h2>

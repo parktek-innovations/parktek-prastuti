@@ -370,6 +370,19 @@
   background: var(--prastuti-border);
 }
 
+.flowFive {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.flowFive > .flowItem {
+  grid-column: span 2;
+}
+
+.flowFive > .flowItem:nth-child(4),
+.flowFive > .flowItem:nth-child(5) {
+  grid-column: span 3;
+}
+
 .flowItem {
   min-height: 220px;
   padding: 26px;
@@ -796,6 +809,69 @@
   background: var(--prastuti-muted-background);
 }
 
+.feeSummaryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 760px;
+  margin-top: 24px;
+}
+
+.feeSummaryCard {
+  padding: 22px;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 12px;
+  background: var(--prastuti-muted-background);
+}
+
+.feeSummaryCard h3 {
+  margin: 0;
+}
+
+.policy .feeValue {
+  margin-top: 10px;
+  color: var(--prastuti-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.feesTable {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.feesTable th:first-child,
+.feesTable td:first-child {
+  width: 68%;
+}
+
+.feesTable th:last-child,
+.feesTable td:last-child {
+  width: 32%;
+}
+
+.policy > section > .policyFootnote {
+  margin-top: 18px;
+  max-width: 110ch;
+}
+
+.policyInfoBox {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  border-radius: 12px;
+  background: var(--prastuti-primary-subtle);
+}
+
+.policyInfoBox h3 {
+  margin: 0;
+}
+
+.policyInfoBox p {
+  max-width: 110ch;
+}
+
 .policyImportant {
   margin-top: 42px;
   padding: 22px;
@@ -893,6 +969,14 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .flowFive > .flowItem {
+    grid-column: auto;
+  }
+
+  .flowFive > .flowItem:last-child {
+    grid-column: 1 / -1;
+  }
+
   .split,
   .contactGrid {
     grid-template-columns: 1fr;
@@ -944,6 +1028,7 @@
 
   .flow,
   .deletionGrid,
+  .feeSummaryGrid,
   .caseFacts {
     grid-template-columns: 1fr;
   }

@@ -320,6 +320,49 @@ export default function PrivacyPolicyPage() {
                 <p>Where a refund is approved, ParkTek will initiate the refund through the original payment method or another permitted payment method. The time required for the refunded amount to reflect may depend on the relevant bank, payment gateway, card network, UPI provider or other payment-service provider.</p>
               </section>
 
+              <section>
+                <h2>21. Charges and Fees</h2>
+                <p>ParkTek does not charge any additional convenience fee or platform fee for supported BBPS bill-payment transactions. Any charges imposed by a biller, BBPS participant, bank, card network, payment gateway or other payment partner will be clearly displayed to the customer before confirmation of the transaction.</p>
+
+                <div className={styles.feeSummaryGrid}>
+                  <article className={styles.feeSummaryCard}>
+                    <h3>ParkTek Convenience Fee</h3>
+                    <p className={styles.feeValue}>₹0</p>
+                  </article>
+                  <article className={styles.feeSummaryCard}>
+                    <h3>ParkTek Platform Fee</h3>
+                    <p className={styles.feeValue}>₹0</p>
+                  </article>
+                </div>
+
+                <div className={styles.policyTableWrap}>
+                  <table className={[styles.policyTable, styles.feesTable].join(" ")}>
+                    <thead><tr><th scope="col">Service</th><th scope="col">ParkTek Convenience Fee</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">Electricity Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">Water Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">Gas Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">Mobile Postpaid Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">Broadband / Landline Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">DTH Bill Payment</th><td>₹0</td></tr>
+                      <tr><th scope="row">FASTag Recharge</th><td>₹0*</td></tr>
+                      <tr><th scope="row">Credit Card Bill Payment</th><td>₹0*</td></tr>
+                      <tr><th scope="row">Other BBPS Services</th><td>₹0*</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <ul className={styles.policyFootnote}>
+                  <li>ParkTek does not levy an additional convenience or platform fee. Charges imposed by a biller, bank, card network, payment gateway or other payment partner may still apply and, where applicable, will be disclosed before transaction confirmation.</li>
+                </ul>
+
+                <aside className={styles.policyInfoBox}>
+                  <h3>Card and Other Payment Charges</h3>
+                  <p>Certain payment methods, including some credit or debit cards, may attract additional transaction, gateway or payment-partner charges imposed by the applicable bank, card network, payment gateway or other payment provider. Any such charge will be clearly disclosed before the customer confirms the transaction.</p>
+                  <p>UPI payment options such as Google Pay, PhonePe or BHIM may be available as alternative payment methods through ParkTek.</p>
+                </aside>
+              </section>
+
               <aside className={styles.policyImportant}>
                 <strong>Important</strong>
                 <p>This Privacy Policy should be read together with any feature-specific notice, customer/society notice or consent screen shown at the point personal data is collected. If a specific service notice conflicts with this general Policy for that service, the more specific notice will govern to the extent permitted by law.</p>

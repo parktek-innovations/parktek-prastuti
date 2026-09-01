@@ -8,42 +8,66 @@ import styles from "../marketing-pages.module.css";
 
 const securityAreas = [
   {
-    title: "Role-based access",
-    description: "Product access is tied to authorized roles and the relevant society or operating context.",
+    title: "1. Access and Permission Controls",
+    paragraphs: [
+      "Access to ParkTek dashboards, workflows and administrative functions is limited to authorised users and the relevant society, property or operating context.",
+      "Customer or site administrators are responsible for assigning appropriate permissions to their teams. Access should be removed or updated when a user’s role or relationship with the deployment changes.",
+    ],
   },
   {
-    title: "Audit logs and operating evidence",
-    description: "Access and controller events provide context for authorized monitoring, investigation and support.",
+    title: "2. Account and Credential Protection",
+    paragraphs: [
+      "Users should protect passwords, OTPs, devices and other authentication information and must not share them with unauthorised persons.",
+      "ParkTek may use authentication, session controls and other safeguards appropriate to the applicable product. Suspected unauthorised access should be reported promptly.",
+    ],
   },
   {
-    title: "Encryption boundaries",
-    description: "Production web and API traffic uses HTTPS/TLS. Environment-specific storage and backup controls are reviewed for each deployment.",
+    title: "3. Secure Communication and System Boundaries",
+    paragraphs: [
+      "Production website and API traffic uses HTTPS/TLS. Security controls for storage, backups and supporting infrastructure may vary by product and deployment and are reviewed according to the applicable operating requirements.",
+      "ParkTek does not represent every customer environment as identical; deployment-specific controls may depend on the approved architecture, integrations and customer responsibilities.",
+    ],
   },
   {
-    title: "Retention and deletion scope",
-    description: "Retention and deletion requirements are documented for each supported deployment.",
+    title: "4. Vehicle, RFID and ANPR Data Safeguards",
+    paragraphs: [
+      "Vehicle registration numbers, RFID identifiers, plate images or ANPR results, where enabled, are used only for the approved parking, access, support or operational purpose of the deployment.",
+      "Access to this information should remain limited to authorised users with a legitimate operating need. ParkTek does not use ANPR for facial recognition.",
+    ],
   },
   {
-    title: "Customer-controlled permissions",
-    description: "Authorized customer teams control who can use society- and site-scoped operating workflows.",
+    title: "5. Auditability and Operational Evidence",
+    paragraphs: [
+      "ParkTek systems may retain relevant access, controller, operator and support events so authorised teams can review activity, investigate exceptions and troubleshoot incidents.",
+      "The availability and retention of particular records depends on the product, deployment, customer requirements and applicable law.",
+    ],
   },
   {
-    title: "Responsible vehicle-data handling",
-    description: "Vehicle, plate and access data is limited to the approved operating purpose and documented customer boundary.",
+    title: "6. Controlled Gate Decisions and Customer Rules",
+    paragraphs: [
+      "Connected gate workflows are designed to act on configured identity, permit and site rules. Unknown or ineligible vehicles should not automatically receive access by default.",
+      "Societies, properties and operators remain responsible for the permissions and site rules they configure or instruct ParkTek to implement.",
+    ],
   },
   {
-    title: "Controlled gate decisions",
-    description: "Eligible identity and permit state drive automated access. Unknown plates do not auto-open by default.",
+    title: "7. Connected Hardware and Operating Continuity",
+    paragraphs: [
+      "ParkTek deployments may depend on controllers, readers, cameras, barriers, local networks and external connectivity. Where supported, local controller logic can continue using synchronised permit information and queue events during temporary connectivity interruptions.",
+      "Hardware, power, network or third-party failures can still affect availability, and recovery depends on the configuration of the applicable site.",
+    ],
   },
   {
-    title: "Local operating continuity",
-    description: "The Yantra controller can use its synced local permit view and queue events when connectivity is interrupted.",
+    title: "8. Third-Party Security Boundaries",
+    paragraphs: [
+      "Some ParkTek features may integrate with cloud, communications, payment, hardware or other authorised service providers. Those providers operate their own systems and security controls.",
+      "ParkTek seeks to use third parties only where necessary for an approved service and applies contractual or technical safeguards appropriate to the relationship where applicable.",
+    ],
   },
 ];
 
 export const metadata = makeMetadata({
   title: "Security",
-  description: "How ParkTek approaches controlled gate access, role scope, operational continuity and security reporting.",
+  description: "ParkTek security controls across people, software and connected gates.",
   path: "/security/",
 });
 
@@ -66,25 +90,20 @@ export default function SecurityPage() {
               </ol>
             </nav>
             <p className={styles.eyebrow}>Security</p>
-            <h1 className={[styles.title, styles.compactTitle].join(" ")}>Physical access needs explicit digital boundaries.</h1>
+            <h1 className={[styles.title, styles.compactTitle].join(" ")}>Security across people, software and connected gates.</h1>
             <p className={styles.lead}>
-              ParkTek combines scoped product access, eligible vehicle identity, local controller decisions
-              and authorized exception handling. No connected system can guarantee complete security.
+              ParkTek is built for environments where digital decisions can affect physical vehicle access. Our approach is to keep access scoped, actions traceable and connected systems limited to the permissions and operating purpose of each deployment. No connected system can guarantee complete security, so controls are reviewed and improved as products and deployments evolve.
             </p>
           </div>
         </section>
 
         <section className={styles.section}>
           <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>Security approach</p>
-              <h2>Controls across people, software and the gate.</h2>
-            </div>
             <div className={styles.grid3}>
               {securityAreas.map((area) => (
                 <article className={styles.card} key={area.title}>
-                  <h3>{area.title}</h3>
-                  <p>{area.description}</p>
+                  <h2>{area.title}</h2>
+                  {area.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 </article>
               ))}
             </div>
@@ -94,25 +113,14 @@ export default function SecurityPage() {
         <section className={[styles.section, styles.sectionMuted].join(" ")}>
           <div className={[styles.container, styles.split].join(" ")}>
             <div className={styles.splitCopy}>
-              <p className={styles.eyebrow}>Report a concern</p>
-              <h2>Include the context needed for a responsible review.</h2>
-              <p>
-                Email the affected service, society or site, approximate time and a clear description. Do not
-                send passwords, access tokens or unnecessary personal data.
-              </p>
+              <h2>9. Reporting a Security Concern</h2>
+              <p>If you believe you have identified a security issue affecting a ParkTek website, application, account, connected deployment or API, please report it responsibly.</p>
+              <p>Include the affected service or site, an approximate time, steps to reproduce where relevant and a clear description of the concern. Do not send passwords, OTPs, access tokens or unnecessary personal data.</p>
             </div>
             <div className={styles.contactCard}>
-              <h2>Security and privacy contact</h2>
-              <dl className={styles.contactList}>
-                <div>
-                  <dt>Email</dt>
-                  <dd><a href={CONTACT.emailHref}>{CONTACT.email}</a></dd>
-                </div>
-                <div>
-                  <dt>Phone</dt>
-                  <dd><a href={CONTACT.phoneHref}>{CONTACT.phone}</a></dd>
-                </div>
-              </dl>
+              <h2>Security contact</h2>
+              <p>Email: <a href={CONTACT.emailHref}>{CONTACT.email}</a></p>
+              <p>Phone: <a href={CONTACT.phoneHref}>{CONTACT.phone}</a></p>
             </div>
           </div>
         </section>

@@ -62,6 +62,40 @@ test("contact adapter never reports success without an upstream", async () => {
   assert.match(payload.message, /not configured/i);
 });
 
+test("contact adapter returns controlled JSON for malformed endpoint configuration", async () => {
+  const malformedValue = "not a valid URL?token=bad-config-value";
+  process.env.CONTACT_INQUIRY_API_URL = malformedValue;
+
+  try {
+    const response = await contactInquiry(request(validLead));
+    const payload = await response.json();
+
+    assert.equal(response.status, 503);
+    assert.match(response.headers.get("content-type") || "", /application\/json/i);
+    assert.match(payload.message, /not configured correctly/i);
+    assert.doesNotMatch(payload.message, new RegExp(malformedValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  } finally {
+    delete process.env.CONTACT_INQUIRY_API_URL;
+  }
+});
+
+test("contact adapter returns controlled JSON for unsupported endpoint protocol", async () => {
+  const unsupportedValue = "ftp://user:bad-config-value@example.invalid/contact";
+  process.env.CONTACT_INQUIRY_API_URL = unsupportedValue;
+
+  try {
+    const response = await contactInquiry(request(validLead));
+    const payload = await response.json();
+
+    assert.equal(response.status, 503);
+    assert.match(response.headers.get("content-type") || "", /application\/json/i);
+    assert.match(payload.message, /not configured correctly/i);
+    assert.doesNotMatch(payload.message, /bad-config-value|ftp:\/\//i);
+  } finally {
+    delete process.env.CONTACT_INQUIRY_API_URL;
+  }
+});
+
 test("contact adapter records consent and forwards the legacy Kendra contract", async () => {
   const originalFetch = globalThis.fetch;
   let forwarded;

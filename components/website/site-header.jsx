@@ -8,7 +8,7 @@ import { NAVIGATION, SITE } from "@/lib/website-content";
 
 import styles from "./website.module.css";
 
-const SHOW_CASE_STUDIES_NAV = true;
+const SHOW_CASE_STUDIES_NAV = false;
 
 const solutionLinks = Array.isArray(NAVIGATION)
   ? NAVIGATION.find((item) => item.label === "Solutions")?.items || []

@@ -17,7 +17,10 @@ export default function sitemap() {
   const caseStudyRoutes = CASE_STUDIES
     .filter((study) => !study.isPlaceholder)
     .map(({ slug }) => `/case-studies/${slug}/`);
-  const routes = [...REQUIRED_ROUTES.filter((route) => !route.includes("[slug]")), ...caseStudyRoutes];
+  const routes = [
+    ...REQUIRED_ROUTES.filter((route) => !route.includes("[slug]") && route !== "/case-studies/"),
+    ...caseStudyRoutes
+  ];
 
   return [...new Set(routes)].map((route) => ({
     url: new URL(route, SITE.url).toString(),

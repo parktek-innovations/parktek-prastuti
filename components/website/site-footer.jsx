@@ -60,7 +60,7 @@ export function SiteFooter({ className = "" }) {
           <nav aria-label="Quick links" className={styles.footerColumn}>
             <p className={styles.footerHeading}>Quick Links</p>
             {QUICK_LINKS.map((item) => (
-              <Link href={item.href} key={item.href}>
+              <Link href={item.href} key={`${item.label}-${item.href}`}>
                 {item.label}
               </Link>
             ))}

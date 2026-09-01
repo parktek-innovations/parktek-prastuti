@@ -162,7 +162,7 @@ export default function EChallanPage() {
               <h2>How e-challan payment works.</h2>
               <p>Five checks keep authority verification, charge review and receipt retention in the flow.</p>
             </div>
-            <div className={styles.flow}>
+            <div className={[styles.flow, styles.flowFive].join(" ")}>
               {steps.map((step) => (
                 <article className={styles.flowItem} key={step.number}>
                   <span className={styles.flowNumber}>{step.number}</span>
@@ -177,7 +177,7 @@ export default function EChallanPage() {
         <section className={styles.section}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <p className={styles.eyebrow}>Safety and charge guidance</p>
+              <p className={styles.eyebrow}>Safety and charges guidance</p>
               <h2>Verify the source, amount and authority before payment.</h2>
             </div>
             <div className={styles.grid2}>

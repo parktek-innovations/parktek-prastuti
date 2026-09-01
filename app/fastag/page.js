@@ -147,7 +147,7 @@ export default function FastagPage() {
               <h2>How FASTag recharge works.</h2>
               <p>Five checks keep issuer verification and transaction confirmation in the flow.</p>
             </div>
-            <div className={styles.flow}>
+            <div className={[styles.flow, styles.flowFive].join(" ")}>
               {steps.map((step) => (
                 <article className={styles.flowItem} key={step.number}>
                   <span className={styles.flowNumber}>{step.number}</span>

@@ -200,7 +200,7 @@ export default function ResidentialAccessControlPage() {
               ))}
             </div>
             <div className={styles.notice}>
-              <strong>Remote barrier operation is not presented as a live customer surface.</strong>
+              <strong>Remote barrier operation depends on site configuration.</strong>
               <p>
                 ParkTek&apos;s standard operating path uses local controller relay integration with authorized manual
                 exception handling. Remote operation availability depends on the supported site configuration.

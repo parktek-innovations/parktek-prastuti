@@ -64,7 +64,15 @@ export default async function contactInquiry(request) {
     projectContext: buildProjectContext(values, values.source, submittedAt),
   };
 
-  const endpoint = upstreamUrl();
+  let endpoint;
+  try {
+    endpoint = upstreamUrl();
+  } catch {
+    return jsonResponse(503, {
+      message: "The enquiry service is not configured correctly. Please email support@parktek.in.",
+    });
+  }
+
   if (!endpoint) {
     return jsonResponse(503, {
       message: "The enquiry service is not configured. Please email support@parktek.in.",
