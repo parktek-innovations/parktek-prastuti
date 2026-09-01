@@ -1033,6 +1033,17 @@
     grid-template-columns: 1fr;
   }
 
+  .flowFive {
+    grid-template-columns: 1fr;
+  }
+
+  .flowFive > .flowItem,
+  .flowFive > .flowItem:nth-child(4),
+  .flowFive > .flowItem:nth-child(5),
+  .flowFive > .flowItem:last-child {
+    grid-column: auto;
+  }
+
   .policyFacts div {
     grid-template-columns: 1fr;
   }

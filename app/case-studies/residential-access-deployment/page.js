@@ -8,25 +8,19 @@ import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
 
 import styles from "../../marketing-pages.module.css";
 
-export const dynamicParams = false;
+const STUDY_SLUG = "residential-access-deployment";
+const study = CASE_STUDIES.find((item) => item.slug === STUDY_SLUG);
 
-export function generateStaticParams() {
-  return CASE_STUDIES.map(({ slug }) => ({ slug }));
-}
-
-export function generateMetadata({ params }) {
-  const study = CASE_STUDIES.find((item) => item.slug === params.slug);
-
+export function generateMetadata() {
   return makeMetadata({
     title: study?.title || "Case Study",
     description: study?.summary || "ParkTek deployment overview.",
-    path: `/case-studies/${params.slug}/`,
+    path: `/case-studies/${STUDY_SLUG}/`,
     noIndex: Boolean(study?.isPlaceholder),
   });
 }
 
-export default function CaseStudyPage({ params }) {
-  const study = CASE_STUDIES.find((item) => item.slug === params.slug);
+export default function CaseStudyPage() {
   if (!study) notFound();
 
   const facts = [

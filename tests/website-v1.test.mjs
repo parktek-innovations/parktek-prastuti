@@ -191,6 +191,7 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   const challan = await outputFile("e-challan/index.html");
   const fastagSource = await sourceFile("app/fastag/page.js");
   const challanSource = await sourceFile("app/e-challan/page.js");
+  const marketingStyles = await sourceFile("app/marketing-pages.module.css");
 
   assert.match(fastag, /Recharge completion is confirmed by the authorized issuer or payment channel/i);
   assert.match(challan, /The issuing authority remains the source for challan records and status/i);
@@ -202,6 +203,8 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
   assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
   assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
+  assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive\s*\{[\s\S]*grid-template-columns:\s*1fr;/);
+  assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive > \.flowItem:nth-child\(4\),[\s\S]*grid-column:\s*auto;/);
 });
 
 test("public marketing output excludes stale product-stage and builder wording", async () => {
@@ -247,7 +250,7 @@ test("public marketing output excludes stale product-stage and builder wording",
     "app/commercial-parking-management/page.js",
     "app/about/page.js",
     "app/case-studies/page.js",
-    "app/case-studies/[slug]/page.js",
+    "app/case-studies/residential-access-deployment/page.js",
     "components/website/case-study-card.jsx",
   ].map(sourceFile));
 
