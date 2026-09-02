@@ -16,7 +16,7 @@ Start agent work with [`AGENTS.md`](AGENTS.md), then read [`../parktek-samhita/d
 - static export to `out/`
 - Netlify hosting
 - Netlify server-side lead adapter with a configurable enquiry upstream
-- procedural Three.js only on the unlisted local trial route
+- pre-generated responsive imagery for static-export performance
 
 No Higgsfield runtime or subscription is required.
 
@@ -42,8 +42,6 @@ The website does not claim payment processing, custody of funds, universal equip
 - `/security/`
 - `/privacy-policy/`
 - `/terms-of-service/`
-
-`/scroll-world-trial/` is an unlisted, noindex Three.js experiment retained for local evaluation.
 
 ## Local setup
 

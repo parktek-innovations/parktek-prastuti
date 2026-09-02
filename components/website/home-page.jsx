@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 
 import { CaseStudyCard } from "@/components/website/case-study-card";
+import { PartnerMarquee } from "@/components/website/partner-marquee";
+import { ResponsiveStaticImage } from "@/components/website/responsive-static-image";
 import {
   ANNOUNCEMENT,
   CASE_STUDIES,
@@ -269,13 +271,15 @@ function PartnerLogoGroup({ logos, duplicate = false }) {
     <div aria-hidden={duplicate || undefined} className={styles.partnerLogoGroup}>
       {logos.map((logo) => (
         <div className={styles.partnerLogoCell} key={logo.name}>
-          <Image
+          <ResponsiveStaticImage
             alt={duplicate ? "" : `${logo.name} logo`}
             className={styles.partnerLogoImage}
             height={logo.height}
+            pictureClassName={styles.partnerLogoPicture}
             sizes="(max-width: 620px) 132px, 180px"
             src={logo.src}
             width={logo.width}
+            widths={[256, 384, 512]}
           />
         </div>
       ))}
@@ -294,16 +298,18 @@ function PartnerSocieties() {
             <p>ParkTek is active in residential communities and connected parking sites.</p>
           </div>
 
-          <div className={styles.partnerLogoRows}>
-            {partnerSocietyRows.map((logos, index) => (
-              <div className={styles.partnerLogoViewport} key={`partner-row-${index + 1}`}>
-                <div className={styles.partnerLogoTrack} data-row={index + 1}>
-                  <PartnerLogoGroup logos={logos} />
-                  <PartnerLogoGroup duplicate logos={logos} />
+          <PartnerMarquee>
+            <div className={styles.partnerLogoRows}>
+              {partnerSocietyRows.map((logos, index) => (
+                <div className={styles.partnerLogoViewport} key={`partner-row-${index + 1}`}>
+                  <div className={styles.partnerLogoTrack} data-row={index + 1}>
+                    <PartnerLogoGroup logos={logos} />
+                    <PartnerLogoGroup duplicate logos={logos} />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </PartnerMarquee>
         </div>
       </div>
     </section>
@@ -318,13 +324,15 @@ function CommercialCapabilityVisual({ capability }) {
 
   return (
     <div className={styles.commercialCapabilityVisual}>
-      <Image
+      <ResponsiveStaticImage
         alt={visual.alt}
         className={styles.commercialCapabilityImage}
         height={220}
+        pictureClassName={styles.commercialCapabilityPicture}
         sizes="(max-width: 620px) calc(100vw - 64px), 160px"
         src={visual.src}
         width={320}
+        widths={[320, 640, 960]}
       />
       <strong className={`${styles.commercialStatusBadge} ${statusClass}`}>
         {capability.status}
@@ -568,11 +576,15 @@ export function WebsiteHomePage() {
             {PRODUCT_PROOF.map((proof) => (
               <article className={styles.proofCard} key={proof.title}>
                 <div className={styles.proofCanvas}>
-                  <Image
+                  <ResponsiveStaticImage
                     alt={proof.alt}
-                    fill
+                    className={styles.proofImage}
+                    height={900}
+                    pictureClassName={styles.proofPicture}
                     sizes="(max-width: 620px) 100vw, (max-width: 1180px) 50vw, 33vw"
                     src={proof.image}
+                    width={1200}
+                    widths={[480, 800, 1200]}
                   />
                 </div>
                 <div className={styles.proofCopy}>

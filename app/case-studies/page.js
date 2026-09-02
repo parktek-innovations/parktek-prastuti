@@ -11,6 +11,7 @@ export const metadata = makeMetadata({
   title: "Case Studies",
   description: "Explore ParkTek's residential vehicle-access approach and available deployment information.",
   path: "/case-studies/",
+  noIndex: true,
 });
 
 export default function CaseStudiesPage() {

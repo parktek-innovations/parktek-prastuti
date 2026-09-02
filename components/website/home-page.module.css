@@ -721,6 +721,33 @@
   gap: 14px;
 }
 
+.partnerMarqueeControls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.partnerMarqueeControl {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 1px solid var(--prastuti-primary-subtle-border);
+  border-radius: 999px;
+  background: var(--prastuti-background);
+  color: var(--prastuti-text-primary);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.partnerMarqueeControl:hover {
+  border-color: var(--prastuti-primary);
+  color: var(--prastuti-primary);
+}
+
 .partnerLogoViewport {
   overflow: hidden;
 }
@@ -756,6 +783,14 @@
   background: var(--pk-component-card-background-default);
 }
 
+.partnerLogoPicture {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
 .partnerLogoImage {
   width: auto;
   max-width: 100%;
@@ -768,6 +803,10 @@
 }
 
 .partnerLogoRows:hover .partnerLogoTrack {
+  animation-play-state: paused;
+}
+
+.partnerMarquee[data-paused="true"] .partnerLogoTrack {
   animation-play-state: paused;
 }
 
@@ -1462,6 +1501,12 @@
   object-fit: cover;
 }
 
+.commercialCapabilityPicture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .commercialStatusBadge {
   position: absolute;
   bottom: 8px;
@@ -1517,7 +1562,14 @@
   background: var(--pk-color-surface-section);
 }
 
-.proofCanvas img {
+.proofPicture {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.proofImage {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1613,7 +1665,7 @@
 .deploymentGrid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--prastuti-border) 88%, var(--prastuti-text-primary));
   border-radius: 14px;
@@ -1641,10 +1693,21 @@
   border-right: 1px solid var(--prastuti-border);
   background: var(--prastuti-background);
   counter-increment: deploy;
+  grid-column: span 2;
 }
 
-.deploymentItem:last-child {
+.deploymentItem:nth-child(3),
+.deploymentItem:nth-child(5) {
   border-right: 0;
+}
+
+.deploymentItem:nth-child(-n + 3) {
+  border-bottom: 1px solid var(--prastuti-border);
+}
+
+.deploymentItem:nth-child(4),
+.deploymentItem:nth-child(5) {
+  grid-column: span 3;
 }
 
 .deploymentItem::before {
@@ -1918,25 +1981,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .deploymentGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .deploymentGrid::before {
-    display: none;
-  }
-
-  .deploymentItem {
-    border-bottom: 1px solid var(--pk-color-border-default);
-  }
-
-  .deploymentItem:nth-child(3n) {
-    border-right: 0;
-  }
-
-  .deploymentItem:nth-last-child(-n + 2) {
-    border-bottom: 0;
-  }
 }
 
 @media (max-width: 960px) {
@@ -1988,10 +2032,17 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .deploymentGrid::before {
+    display: none;
+  }
+
   .deploymentItem,
-  .deploymentItem:nth-child(3n) {
+  .deploymentItem:nth-child(3),
+  .deploymentItem:nth-child(4),
+  .deploymentItem:nth-child(5) {
     border-right: 1px solid var(--prastuti-border);
     border-bottom: 1px solid var(--prastuti-border);
+    grid-column: auto;
   }
 
   .deploymentItem:nth-child(2n),
@@ -2001,6 +2052,7 @@
 
   .deploymentItem:last-child {
     border-bottom: 0;
+    grid-column: 1 / -1;
   }
 
   .metric:nth-child(2) {
@@ -2177,8 +2229,11 @@
   .metric,
   .metric:nth-child(2),
   .deploymentItem,
-  .deploymentItem:nth-child(3n) {
+  .deploymentItem:nth-child(3),
+  .deploymentItem:nth-child(4),
+  .deploymentItem:nth-child(5) {
     border-right: 0;
+    grid-column: auto;
   }
 
   .metric:not(:last-child),
@@ -2293,6 +2348,30 @@
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  .partnerMarqueeControl {
+    display: none;
+  }
+
+  .partnerLogoTrack {
+    width: 100%;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .partnerLogoGroup {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .partnerLogoGroup[aria-hidden="true"] {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .worldImageOpen,
   .scanLine,
@@ -2327,6 +2406,10 @@
     animation: none;
     transform: none;
     will-change: auto;
+  }
+
+  .partnerMarqueeControl {
+    display: none;
   }
 
   .partnerLogoGroup {

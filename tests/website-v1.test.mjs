@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import test from "node:test";
 
 const output = new URL("../out/", import.meta.url);
@@ -92,6 +92,7 @@ test("case studies stay unpromoted while implementation remains", async () => {
   assert.doesNotMatch(homepage, /Deployment stories/i);
   assert.doesNotMatch(renderedHeader, /Case Studies/);
   assert.match(caseStudies, /Residential access in operating environments/);
+  assert.match(caseStudies, /<meta name="robots" content="noindex, nofollow"/);
   assert.match(caseStudyDetail, /<meta name="robots" content="noindex, nofollow"/);
   assert.doesNotMatch(sitemap, /\/case-studies\//);
   assert.match(homepageSource, /const SHOW_DEPLOYMENT_STORIES = false/);
@@ -207,6 +208,23 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive > \.flowItem:nth-child\(4\),[\s\S]*grid-column:\s*auto;/);
 });
 
+test("all shared five-step deployment flows use the intentional layout", async () => {
+  const [residential, assessment, homepage, marketingStyles, homepageStyles] = await Promise.all([
+    sourceFile("app/residential-access-control/page.js"),
+    sourceFile("app/book-site-assessment/page.js"),
+    sourceFile("components/website/home-page.jsx"),
+    sourceFile("app/marketing-pages.module.css"),
+    sourceFile("components/website/home-page.module.css"),
+  ]);
+
+  assert.match(residential, /\[styles\.flow, styles\.flowFive\][\s\S]*DEPLOYMENT_STEPS\.map/);
+  assert.match(assessment, /\[styles\.flow, styles\.flowFive\][\s\S]*DEPLOYMENT_STEPS\.map/);
+  assert.match(homepage, /className=\{styles\.deploymentGrid\}[\s\S]*DEPLOYMENT_STEPS\.map/);
+  assert.match(marketingStyles, /\.flowFive\s*\{[^}]*grid-template-columns:\s*repeat\(6,/s);
+  assert.match(homepageStyles, /\.deploymentGrid\s*\{[^}]*grid-template-columns:\s*repeat\(6,/s);
+  assert.match(homepageStyles, /\.deploymentItem:nth-child\(4\),[\s\S]*\.deploymentItem:nth-child\(5\)\s*\{[^}]*grid-column:\s*span 3;/);
+});
+
 test("public marketing output excludes stale product-stage and builder wording", async () => {
   const stalePublicPhrases = [
     /ANPR remains in pilot/i,
@@ -302,7 +320,7 @@ test("privacy policy export contains the complete approved policy", async () => 
   assert.match(html, /UPI payments through supported options.*are free and carry ₹0 ParkTek convenience fee and ₹0 ParkTek platform fee/s);
   assert.match(html, /This Privacy Policy should be read together with any feature-specific notice/);
   assert.match(html, /uses Google Analytics for website usage measurement/);
-  assert.match(html, /page path, page location and page title/);
+  assert.match(html, /page pathname and a sanitized page location without query-string values, together with the page title/);
   assert.match(html, /© 2026 PARKTEK INNOVATION PRIVATE LIMITED/);
   assert.doesNotMatch(html, /Screenshot update in progress/i);
   assert.doesNotMatch(html, /children under 13 years of age/i);
@@ -320,11 +338,102 @@ test("legal exports omit review-only effective-date and jurisdiction placeholder
 
   for (const source of [privacySource, termsSource, securitySource]) {
     assert.doesNotMatch(source, /className=\{styles\.policyEffective\}/);
+    assert.doesNotMatch(source, /effective date|last-updated date|as of the effective date/i);
   }
   assert.doesNotMatch(terms, /To be approved|court-jurisdiction wording/i);
   assert.match(terms, /These Terms are governed by the laws of India/);
   assert.doesNotMatch(privacySource, /<ul className=\{styles\.policyFootnote\}>/);
   assert.match(privacySource, /<p className=\{styles\.policyFootnote\}>\* ParkTek does not levy/);
+});
+
+test("analytics page views never include query-string context", async () => {
+  const analytics = await sourceFile("app/google-analytics.js");
+
+  assert.match(analytics, /page_path:\s*pathname/);
+  assert.match(analytics, /page_location:\s*`\$\{window\.location\.origin\}\$\{pathname\}`/);
+  assert.doesNotMatch(analytics, /window\.location\.(?:href|search)|URLSearchParams|useSearchParams/);
+});
+
+test("responsive marketing images keep PNG fallbacks and smaller WebP candidates", async () => {
+  const html = await outputFile("index.html");
+  const groups = {
+    "product-proof": { count: 6, widths: [480, 800, 1200] },
+    commercial: { count: 5, widths: [320, 640, 960] },
+    "partner-societies": { count: 14, widths: [256, 384, 512] },
+  };
+
+  assert.match(html, /<picture[^>]*>[\s\S]*?<source[^>]+type="image\/webp"/);
+  for (const [group, config] of Object.entries(groups)) {
+    const directory = new URL(`../public/figma/${group}/`, import.meta.url);
+    const originals = (await readdir(directory)).filter((name) => name.endsWith(".png"));
+    assert.equal(originals.length, config.count, `${group} original count changed`);
+    for (const original of originals) {
+      const originalStats = await stat(new URL(original, directory));
+      assert.match(html, new RegExp(`/figma/${group}/${original}`));
+      for (const width of config.widths) {
+        const derivative = original.replace(/\.png$/, `-${width}.webp`);
+        const derivativeStats = await stat(new URL(derivative, directory));
+        assert.ok(derivativeStats.size < originalStats.size, `${derivative} must be smaller than its PNG`);
+        assert.match(html, new RegExp(`/figma/${group}/${derivative}`));
+      }
+    }
+  }
+});
+
+test("partner marquee can pause and becomes static for touch and reduced motion", async () => {
+  const [marquee, styles] = await Promise.all([
+    sourceFile("components/website/partner-marquee.jsx"),
+    sourceFile("components/website/home-page.module.css"),
+  ]);
+
+  assert.match(marquee, /aria-pressed=\{paused\}/);
+  assert.match(marquee, /Pause partner logo movement/);
+  assert.match(marquee, /Play partner logo movement/);
+  assert.match(styles, /\.partnerMarquee\[data-paused="true"\][\s\S]*animation-play-state:\s*paused/);
+  assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
+  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
+});
+
+test("responsive CSS keeps shared cards balanced across launch breakpoints", async () => {
+  const [globalStyles, homepageStyles, marketingStyles, websiteStyles] = await Promise.all([
+    sourceFile("app/globals.css"),
+    sourceFile("components/website/home-page.module.css"),
+    sourceFile("app/marketing-pages.module.css"),
+    sourceFile("components/website/website.module.css"),
+  ]);
+
+  assert.match(globalStyles, /body\s*\{[^}]*min-width:\s*320px;[^}]*overflow-x:\s*clip;/s);
+  for (const breakpoint of [1180, 960, 820, 620]) {
+    assert.match(homepageStyles, new RegExp(`@media \\(max-width: ${breakpoint}px\\)`));
+  }
+  assert.match(marketingStyles, /@media \(min-width: 700px\)[\s\S]*\.grid3\s*\{[^}]*repeat\(2,/);
+  assert.match(marketingStyles, /@media \(min-width: 1040px\)[\s\S]*\.grid3\s*\{[^}]*repeat\(3,/);
+  assert.match(websiteStyles, /@media \(max-width: 639px\)/);
+});
+
+test("production form configuration is explicit and missing upstream fails safely", async () => {
+  const [environment, adapter] = await Promise.all([
+    sourceFile(".env.example"),
+    sourceFile("netlify/functions/contact-inquiry.mjs"),
+  ]);
+
+  assert.match(environment, /PRODUCTION REQUIRED:[\s\S]*CONTACT_INQUIRY_API_URL=/);
+  assert.match(environment, /submissions then fail safely with HTTP 503/);
+  assert.match(environment, /Production must use the exact public origin[\s\S]*PUBLIC_SITE_ORIGIN=http:\/\/localhost:8888/);
+  assert.match(adapter, /if \(!endpoint\)\s*\{\s*return jsonResponse\(503,/);
+});
+
+test("production export excludes the removed Three.js trial", async () => {
+  const [packageJson, readme, websiteDoc] = await Promise.all([
+    sourceFile("package.json"),
+    sourceFile("README.md"),
+    sourceFile("docs/website-v1.md"),
+  ]);
+
+  await assert.rejects(outputFile("scroll-world-trial/index.html"), { code: "ENOENT" });
+  assert.doesNotMatch(packageJson, /"three"/);
+  assert.doesNotMatch(readme, /scroll-world-trial|Three\.js/i);
+  assert.doesNotMatch(websiteDoc, /scroll-world-trial|Three\.js/i);
 });
 
 test("privacy policy uses the wide native webpage treatment", async () => {
@@ -406,7 +515,7 @@ test("homepage footer exposes only verified app and social destinations with acc
     html,
     /aria-label="ParkTek Innovation on LinkedIn"[^>]+href="https:\/\/in\.linkedin\.com\/company\/https-parktek\.in"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
   );
-  assert.doesNotMatch(html, /href="https:\/\/(?:x|youtube)\.com"/);
+  assert.doesNotMatch(html, /ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
 });
 
 test("lead pages render the shared accessible form contract", async () => {

@@ -95,7 +95,7 @@ const termsSections = [
   {
     title: "13. Changes to These Terms",
     paragraphs: [
-      "ParkTek may update these Terms to reflect changes in services, law, technology or business operations. The revised version will be published with an updated effective or last-updated date.",
+      "ParkTek may update these Terms to reflect changes in services, law, technology or business operations. The revised version will be published on this page.",
       "Where applicable law requires additional notice or consent for a material change, ParkTek will provide it as required.",
     ],
   },

@@ -12,7 +12,7 @@
 
 The release preserves the reference's defining composition: a deep-navy operations environment, oversized left-aligned headline, illuminated parking/gate scene, compact live-state overlays, contained navigation, strong conversion CTA and dense product storytelling below the fold. ParkTek's official Figma-derived logo and primary blue replace the concept's illustrative brand mark and orange accent.
 
-The visual is implemented as a lightweight local asset system. Responsive AVIF/JPEG sources, CSS state animation and the optional local Three.js trial provide motion without Higgsfield or another recurring generation subscription.
+The visual is implemented as a lightweight local asset system. Responsive AVIF/JPEG/WebP sources and CSS state animation provide motion without Higgsfield or another recurring generation subscription.
 
 ## Fidelity and product-truth decisions
 
@@ -29,9 +29,9 @@ The visual is implemented as a lightweight local asset system. Responsive AVIF/J
 - Each route has one main landmark and one H1; the homepage has one header and one footer.
 - The 375-pixel render uses responsive AVIF media, 16-pixel body copy and footer targets of at least 44 pixels.
 - Mobile navigation traps focus, locks body scroll, closes on Escape and restores focus to the trigger.
-- Reduced-motion mode disables continuous animation on the homepage and the Three.js trial.
+- Reduced-motion mode disables continuous animation on the homepage.
 - Lead-form empty submission focuses the first invalid field. Simulated upstream failure retains form values and never reports success; simulated success clears the form and announces confirmation.
-- Sitemap, robots directives, canonical metadata, structured data and trial/case-study noindex behavior were checked in the static export.
+- Sitemap, robots directives, canonical metadata, structured data and Case Studies noindex behavior were checked in the static export.
 - Axe checks at 375 and 1280 pixels returned no violations.
 
 ## Performance and release acceptance

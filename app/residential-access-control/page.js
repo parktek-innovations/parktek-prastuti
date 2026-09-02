@@ -240,7 +240,7 @@ export default function ResidentialAccessControlPage() {
                 maintenance path before the gate is placed into supported operation.
               </p>
             </div>
-            <div className={styles.flow}>
+            <div className={[styles.flow, styles.flowFive].join(" ")}>
               {DEPLOYMENT_STEPS.map((step) => (
                 <article className={styles.flowItem} key={step.number}>
                   <span className={styles.flowNumber}>{step.number}</span>

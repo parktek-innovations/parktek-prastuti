@@ -14,11 +14,11 @@ const summaryFacts = [
   { label: "Sale of personal data", value: "ParkTek does not sell or rent personal data." },
   {
     label: "Website analytics",
-    value: "The public website uses Google Analytics to measure page views, including page path, page location and page title.",
+    value: "The public website uses Google Analytics to measure page views. ParkTek sends the page pathname and a sanitized page location without query-string values, together with the page title.",
   },
   {
     label: "Advertising trackers",
-    value: "As of the effective date, ParkTek does not intentionally deploy third-party advertising trackers on the current public website. If this changes, ParkTek will update its notices and choices as required.",
+    value: "Currently, ParkTek does not intentionally deploy third-party advertising trackers on the public website. If this changes, ParkTek will update its notices and choices as required.",
   },
   {
     label: "Legal framework",
@@ -106,15 +106,15 @@ const policySections = [
   {
     title: "8. FASTag, E-Challan and Payment Information",
     paragraphs: [
-      "As of the effective date of this Policy, ParkTek’s public FASTag and E-Challan pages are informational or enquiry-oriented and do not themselves provide a live payment-gateway flow. ParkTek’s core access-control Services are not designed to store complete debit-card, credit-card or bank-account credentials.",
+      "Currently, ParkTek’s public FASTag and E-Challan pages are informational or enquiry-oriented and do not themselves provide a live payment-gateway flow. ParkTek’s core access-control Services are not designed to store complete debit-card, credit-card or bank-account credentials.",
       "If ParkTek enables a payment or live lookup feature, authorised third-party payment, banking, government-linked or data-service providers may process information required for that feature. ParkTek may receive transaction or lookup metadata such as a reference number, amount, status or response result. Before materially expanding such processing, ParkTek will update the applicable notice and this Policy where required.",
     ],
   },
   {
     title: "9. Cookies, Website Logs and Analytics",
     paragraphs: [
-      "The public website uses Google Analytics for website usage measurement, including page-view information such as page path, page location and page title. ParkTek and its hosting/network providers may also process request and security logs and may use essential browser storage or cookies where needed to deliver, secure or operate the website.",
-      "As of the effective date, ParkTek does not intentionally deploy third-party advertising trackers on the current public website. You can control browser cookies using your browser settings, although blocking essential storage may affect functionality.",
+      "The public website uses Google Analytics for website usage measurement. ParkTek sends the page pathname and a sanitized page location without query-string values, together with the page title. ParkTek and its hosting/network providers may also process request and security logs and may use essential browser storage or cookies where needed to deliver, secure or operate the website.",
+      "Currently, ParkTek does not intentionally deploy third-party advertising trackers on the public website. You can control browser cookies using your browser settings, although blocking essential storage may affect functionality.",
     ],
   },
   {
@@ -179,7 +179,7 @@ const policySections = [
   },
   {
     title: "17. Changes to This Policy",
-    paragraphs: ["ParkTek may update this Privacy Policy to reflect changes in Services, technology, law or data practices. We will publish the revised Policy with an updated effective or last-updated date. If a change materially affects how personal data is processed or fresh consent is legally required, ParkTek will provide additional notice or obtain consent as required."],
+    paragraphs: ["ParkTek may update this Privacy Policy to reflect changes in Services, technology, law or data practices. We will publish the revised Policy on this page. If a change materially affects how personal data is processed or fresh consent is legally required, ParkTek will provide additional notice or obtain consent as required."],
   },
   {
     title: "18. Privacy and Grievance Contact",

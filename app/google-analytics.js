@@ -12,12 +12,9 @@ export default function GoogleAnalytics({ measurementId }) {
         return;
       }
 
-      const queryString = window.location.search.replace(/^\?/, "");
-      const pagePath = queryString ? `${pathname}?${queryString}` : pathname;
-
       window.gtag("event", "page_view", {
-        page_path: pagePath,
-        page_location: window.location.href,
+        page_path: pathname,
+        page_location: `${window.location.origin}${pathname}`,
         page_title: document.title
       });
     };

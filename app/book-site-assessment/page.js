@@ -46,7 +46,7 @@ export default function BookSiteAssessmentPage() {
               <p className={styles.eyebrow}>What follows</p>
               <h2>A scoped path from assessment to supported operation.</h2>
             </div>
-            <div className={styles.flow}>
+            <div className={[styles.flow, styles.flowFive].join(" ")}>
               {DEPLOYMENT_STEPS.map((step) => (
                 <article className={styles.flowItem} key={step.number}>
                   <span className={styles.flowNumber}>{step.number}</span>

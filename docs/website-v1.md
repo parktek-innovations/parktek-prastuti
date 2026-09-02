@@ -17,7 +17,7 @@ ParkTek does not claim payment-gateway processing, custody of funds, unrestricte
 
 The visual thesis is a night operations control plane: dark navy surfaces, one signal-blue action color, cyan as a secondary system signal, an isometric parking world, and dense operational grids. The homepage crossfades an illustrative barrier from closed to open and adds a restrained scan treatment. It does not use pinned multi-screen scroll scenes.
 
-Motion is CSS-only on the production homepage and is removed when `prefers-reduced-motion: reduce` is active. The separate `/scroll-world-trial/` route remains an experimental local Three.js route and is not part of the production conversion path.
+Motion is CSS-only on the production homepage and is removed when `prefers-reduced-motion: reduce` is active.
 
 ## Routes
 
@@ -35,7 +35,7 @@ Motion is CSS-only on the production homepage and is removed when `prefers-reduc
 | `/privacy-policy/` | Privacy policy and account-deletion instructions |
 | `/terms-of-service/` | Service terms and current financial-transaction boundary |
 
-`/parking-pos-system/` was not an existing route, so V1 does not create or redirect it. The temporary `/scroll-world-trial/` route is retained outside the main navigation.
+`/parking-pos-system/` was not an existing route, so V1 does not create or redirect it.
 
 ## Main implementation
 
@@ -133,7 +133,7 @@ Netlify's Functions scope, not in the browser bundle.
 
 `makeMetadata` creates per-route titles, descriptions, canonical URLs, Open Graph data, and Twitter cards. The root layout emits Organization and LocalBusiness JSON-LD. Inner pages emit BreadcrumbList JSON-LD. `sitemap.xml` is generated from the central routes and verified, indexable case studies; `robots.txt` points to it.
 
-The experimental Three.js route is excluded from the sitemap and should remain `noindex`.
+Unfinished Case Studies routes remain outside the sitemap and carry `noindex` metadata while hidden from navigation.
 
 ## Founder verification required
 

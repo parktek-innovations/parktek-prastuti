@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 import { CONTACT, SITE } from "@/lib/website-content";
 
@@ -23,20 +23,9 @@ const LEGAL_LINKS = [
 
 const FOOTER_MEDIA_ITEMS = [
   {
-    label: "ParkTek on X",
-    icon: "/figma/footer/social-x.svg",
-  },
-  {
     label: "ParkTek Innovation on LinkedIn",
     href: "https://in.linkedin.com/company/https-parktek.in",
     icon: "/figma/footer/social-linkedin.svg",
-  },
-  {
-    label: "ParkTek on YouTube",
-    icon: "/figma/footer/social-youtube.svg",
-  },
-  {
-    label: "ParkTek on Instagram",
   },
   {
     label: "Download ParkTek on Google Play",
@@ -113,8 +102,15 @@ export function SiteFooter({ className = "" }) {
               />
             </Link>
             <nav aria-label="ParkTek apps and social profiles" className={styles.footerSocialRow}>
-              {FOOTER_MEDIA_ITEMS.map((item) => {
-                const icon = item.icon ? (
+              {FOOTER_MEDIA_ITEMS.map((item) => (
+                <a
+                  aria-label={item.label}
+                  className={styles.footerSocialLink}
+                  href={item.href}
+                  key={item.label}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <Image
                     alt=""
                     aria-hidden="true"
@@ -123,27 +119,8 @@ export function SiteFooter({ className = "" }) {
                     src={item.icon}
                     width={item.isApp ? 44 : 20}
                   />
-                ) : (
-                  <Instagram aria-hidden="true" size={20} />
-                );
-
-                return item.href ? (
-                  <a
-                    aria-label={item.label}
-                    className={styles.footerSocialLink}
-                    href={item.href}
-                    key={item.label}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {icon}
-                  </a>
-                ) : (
-                  <span aria-hidden="true" className={styles.footerSocialIcon} key={item.label}>
-                    {icon}
-                  </span>
-                );
-              })}
+                </a>
+              ))}
             </nav>
           </div>
         </div>
