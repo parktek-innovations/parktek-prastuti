@@ -19,15 +19,15 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.82rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-align: center;
 }
 
 .announcement strong {
-  color: var(--pk-color-brand-text-emphasis);
+  color: var(--prastuti-primary);
 }
 
 .hero {
@@ -62,8 +62,8 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
-  color: var(--pk-color-brand-primary-strong);
-  font-size: 0.74rem;
+  color: var(--prastuti-primary);
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -93,8 +93,8 @@
 .heroLead {
   max-width: 630px;
   margin-bottom: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: clamp(1.02rem, 1.3vw, 1.16rem);
+  color: var(--prastuti-text-muted);
+  font-size: clamp(1.125rem, 1.3vw, 1.25rem);
   line-height: 1.72;
 }
 
@@ -113,7 +113,7 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
@@ -135,13 +135,13 @@
 .heroPrimaryButton {
   border-color: var(--pk-color-brand-primary);
   background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .heroPrimaryButton:hover {
   border-color: var(--pk-color-brand-primary-strong);
   background: var(--pk-color-brand-primary-strong);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .commercialLayout .primaryButton {
@@ -160,7 +160,7 @@
   border: 1px solid var(--pk-color-action-secondary-border);
   border-radius: 10px;
   background: var(--pk-color-action-secondary-background);
-  color: var(--pk-color-action-secondary-foreground);
+  color: var(--prastuti-text-primary);
 }
 
 .secondaryButton:hover {
@@ -171,14 +171,14 @@
 .textLink {
   justify-content: flex-start;
   min-height: 44px;
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
 .textLink:hover {
-  color: var(--pk-color-link-hover);
+  color: var(--prastuti-primary-hover);
 }
 
 .reassurance {
@@ -187,8 +187,8 @@
   gap: 10px 20px;
   margin: 28px 0 0;
   padding: 0;
-  color: var(--pk-color-text-muted);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   font-weight: 600;
   list-style: none;
 }
@@ -651,7 +651,7 @@
 .hudLabel {
   display: block;
   color: var(--prastuti-primary);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -661,7 +661,7 @@
   display: block;
   margin-top: 8px;
   color: var(--prastuti-text-primary);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -702,7 +702,7 @@
 
 .partnerSocietiesHeader h2 {
   margin-bottom: 0;
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(2.25rem, 3vw, 3rem);
   line-height: 1.04;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -711,7 +711,7 @@
 .partnerSocietiesHeader p {
   max-width: 680px;
   margin: 0 auto;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -738,7 +738,7 @@
   background: var(--prastuti-background);
   color: var(--prastuti-text-primary);
   font: inherit;
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -842,8 +842,8 @@
 .sectionTitle {
   max-width: 850px;
   margin-bottom: 0;
-  font-size: clamp(2.65rem, 4.5vw, 4.8rem);
-  line-height: 0.98;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.02;
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
@@ -851,8 +851,8 @@
 .sectionLead {
   max-width: 620px;
   margin-bottom: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 1rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
   line-height: 1.75;
 }
 
@@ -878,17 +878,18 @@
 
 .metricValue {
   display: block;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-family: "Clash Display", sans-serif;
   font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 500;
   line-height: 1;
 }
 
 .metricLabel {
   display: block;
   margin-top: 10px;
-  color: var(--pk-color-text-muted);
-  font-size: 0.8rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   line-height: 1.45;
 }
 
@@ -911,7 +912,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 14px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .solutionCard {
@@ -944,19 +945,22 @@
   color: var(--prastuti-primary);
   font-family: "Clash Display", sans-serif;
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .solutionCard h3 {
   max-width: 520px;
   margin: 44px 0 14px;
-  font-size: clamp(2rem, 3.3vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .solutionCard p {
   max-width: 56ch;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   line-height: 1.7;
 }
 
@@ -966,8 +970,8 @@
   gap: 8px 18px;
   margin: 22px 0 0;
   padding: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.8rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.5;
   list-style: none;
 }
@@ -1022,8 +1026,8 @@
   border: 1px solid var(--pk-component-badge-border-default);
   border-radius: 999px;
   background: var(--pk-component-badge-background-default);
-  color: var(--pk-component-badge-foreground-default);
-  font-size: 0.7rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.75rem;
 }
 
 .flowLayout {
@@ -1136,7 +1140,7 @@
   right: 12px;
   bottom: 22%;
   color: var(--prastuti-text-muted);
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   writing-mode: vertical-rl;
@@ -1228,14 +1232,14 @@
 
 .operationsEvent span {
   color: var(--prastuti-primary);
-  font-size: 0.54rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
 
 .operationsEvent strong {
   color: var(--prastuti-text-primary);
-  font-size: 0.76rem;
+  font-size: 0.8125rem;
 }
 
 .flowCaption {
@@ -1244,8 +1248,8 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  color: var(--pk-color-text-muted);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
 }
 
 .liveDot {
@@ -1285,7 +1289,7 @@
   place-items: center;
   border: 1px solid var(--pk-color-border-strong);
   border-radius: 50%;
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -1293,15 +1297,15 @@
 .step h3 {
   margin: 0 0 6px;
   font-family: "Montserrat", sans-serif;
-  font-size: 0.96rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 .step p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.86rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -1362,15 +1366,15 @@
 
 .moduleCard h3 {
   margin: 52px 0 10px;
-  font-size: 1.4rem;
+  font-size: 1.375rem;
   font-weight: 600;
   letter-spacing: -0.03em;
 }
 
 .moduleCard p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.84rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -1403,7 +1407,7 @@
 }
 
 .commercialLayout .sectionKicker {
-  color: var(--pk-color-brand-primary-strong);
+  color: var(--prastuti-primary);
 }
 
 .capabilityList {
@@ -1422,7 +1426,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 16px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .commercialCapabilityIconArea {
@@ -1455,15 +1459,15 @@
 .commercialCapability h3 {
   margin: 0 0 5px;
   font-family: "Montserrat", sans-serif;
-  font-size: 0.96rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 .commercialCapability p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.83rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -1473,8 +1477,8 @@
   gap: 4px 14px;
   margin: 10px 0 0;
   padding: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.5;
   list-style: none;
 }
@@ -1584,13 +1588,13 @@
 
 .proofCopy h3 {
   margin-bottom: 7px;
-  font-size: 1.4rem;
+  font-size: 1.375rem;
 }
 
 .proofCopy p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.88rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
 }
 
 .compatibilityGrid {
@@ -1610,7 +1614,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 14px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .compatibilitySection .sectionTitle {
@@ -1634,7 +1638,7 @@
 }
 
 .compatibilityIconMain {
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .compatibilityIconAccent {
@@ -1644,8 +1648,8 @@
 .compatibilityItem strong {
   display: block;
   margin-top: 26px;
-  color: var(--pk-color-text-primary);
-  font-size: 1.06rem;
+  color: var(--prastuti-text-primary);
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.35;
 }
@@ -1653,8 +1657,8 @@
 .compatibilityItem > span:last-child {
   display: block;
   margin-top: 10px;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.86rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -1723,15 +1727,15 @@
   background: var(--prastuti-primary-subtle);
   color: var(--prastuti-primary);
   font-family: "Clash Display", sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: 500;
   content: "0" counter(deploy);
 }
 
 .deploymentItem h3 {
   margin: 30px 0 12px;
   font-family: "Montserrat", sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.4;
@@ -1739,8 +1743,8 @@
 
 .deploymentItem p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.84rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.7;
 }
 
@@ -1793,7 +1797,7 @@
   margin: 24px 0 11px;
   color: var(--prastuti-text-primary);
   font-family: "Montserrat", sans-serif;
-  font-size: 1.12rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.4;
@@ -1802,7 +1806,7 @@
 .trustCard p {
   margin: 0;
   color: var(--prastuti-text-muted);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   line-height: 1.7;
 }
 
@@ -1835,7 +1839,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   cursor: pointer;
   font-weight: 700;
   list-style: none;
@@ -1846,7 +1850,7 @@
 }
 
 .faqItem summary::after {
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   content: "+";
   font-size: 1.35rem;
   font-weight: 400;
@@ -1859,8 +1863,8 @@
 .faqItem p {
   max-width: 70ch;
   padding: 0 50px 24px 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.9rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1rem;
   line-height: 1.75;
 }
 
@@ -1892,14 +1896,14 @@
 .finalInner h2 {
   margin-bottom: 20px;
   max-width: 14ch;
-  font-size: clamp(2.8rem, 5vw, 5rem);
-  line-height: 0.96;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.02;
 }
 
 .finalInner p {
   max-width: 650px;
-  color: var(--pk-color-text-secondary);
-  font-size: 1.06rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
 }
 
 @keyframes scene-switch {
@@ -1968,7 +1972,7 @@
   }
 
   .heroTitle {
-    font-size: clamp(3.4rem, 5.6vw, 4.4rem);
+    font-size: clamp(4rem, 5.6vw, 4.4rem);
   }
 
   .worldFrame {
@@ -2091,7 +2095,7 @@
   .announcement a {
     min-height: 48px;
     padding: 8px 14px;
-    font-size: 0.74rem;
+    font-size: 0.8125rem;
   }
 
   .hero::before {
@@ -2103,7 +2107,7 @@
   }
 
   .heroTitle {
-    font-size: clamp(2.7rem, 13.5vw, 4rem);
+    font-size: clamp(2.75rem, 13.5vw, 4rem);
   }
 
   .heroLead,
