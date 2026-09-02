@@ -261,7 +261,7 @@ test("public marketing output excludes stale product-stage and builder wording",
   }
 });
 
-test("privacy policy export contains the complete 28 August 2026 policy", async () => {
+test("privacy policy export contains the complete approved policy", async () => {
   const html = await outputFile("privacy-policy/index.html");
   const sectionTitles = [
     "Who We Are and What This Policy Covers",
@@ -287,8 +287,7 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
     "Charges and Fees",
   ];
 
-  assert.doesNotMatch(html, /Effective date<\/dt><dd>28 August 2026/);
-  assert.match(html, /Effective 28 August 2026/);
+  assert.doesNotMatch(html, /Effective(?: date)?\s*(?::|<)/i);
   assert.match(html, /PARKTEK INNOVATION PRIVATE LIMITED/);
   assert.match(html, /support@parktek\.in/);
   sectionTitles.forEach((title, index) => {
@@ -299,7 +298,8 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   assert.match(html, /ParkTek Convenience Fee.*₹0.*ParkTek Platform Fee.*₹0/s);
   assert.match(html, /Electricity Bill Payment.*FASTag Recharge.*Credit Card Bill Payment.*Other BBPS Services/s);
   assert.match(html, /Card and Other Payment Charges.*Google Pay, PhonePe or BHIM/s);
-  assert.doesNotMatch(html, /1%\s*[–-]\s*2\.5%/);
+  assert.match(html, /approximately 1%–3%/);
+  assert.match(html, /UPI payments through supported options.*are free and carry ₹0 ParkTek convenience fee and ₹0 ParkTek platform fee/s);
   assert.match(html, /This Privacy Policy should be read together with any feature-specific notice/);
   assert.match(html, /uses Google Analytics for website usage measurement/);
   assert.match(html, /page path, page location and page title/);
@@ -308,6 +308,23 @@ test("privacy policy export contains the complete 28 August 2026 policy", async 
   assert.doesNotMatch(html, /children under 13 years of age/i);
   assert.doesNotMatch(html, /does not collect or store any payment or financial information/i);
   assert.doesNotMatch(html, /respects your privacy and is committed to protecting your personal data/i);
+});
+
+test("legal exports omit review-only effective-date and jurisdiction placeholders", async () => {
+  const [terms, privacySource, termsSource, securitySource] = await Promise.all([
+    outputFile("terms-of-service/index.html"),
+    sourceFile("app/privacy-policy/page.js"),
+    sourceFile("app/terms-of-service/page.js"),
+    sourceFile("app/security/page.js"),
+  ]);
+
+  for (const source of [privacySource, termsSource, securitySource]) {
+    assert.doesNotMatch(source, /className=\{styles\.policyEffective\}/);
+  }
+  assert.doesNotMatch(terms, /To be approved|court-jurisdiction wording/i);
+  assert.match(terms, /These Terms are governed by the laws of India/);
+  assert.doesNotMatch(privacySource, /<ul className=\{styles\.policyFootnote\}>/);
+  assert.match(privacySource, /<p className=\{styles\.policyFootnote\}>\* ParkTek does not levy/);
 });
 
 test("privacy policy uses the wide native webpage treatment", async () => {

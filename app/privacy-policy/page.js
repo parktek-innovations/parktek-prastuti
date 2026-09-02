@@ -257,7 +257,6 @@ export default function PrivacyPolicyPage() {
             <p className={styles.eyebrow}>Privacy policy</p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Privacy Policy</h1>
             <p className={styles.policyCompany}>PARKTEK INNOVATION PRIVATE LIMITED</p>
-            <p className={styles.policyEffective}>Effective 28 August 2026</p>
           </div>
         </section>
 
@@ -352,14 +351,12 @@ export default function PrivacyPolicyPage() {
                   </table>
                 </div>
 
-                <ul className={styles.policyFootnote}>
-                  <li>ParkTek does not levy an additional convenience or platform fee. Charges imposed by a biller, bank, card network, payment gateway or other payment partner may still apply and, where applicable, will be disclosed before transaction confirmation.</li>
-                </ul>
+                <p className={styles.policyFootnote}>* ParkTek does not levy an additional convenience or platform fee. Charges imposed by a biller, bank, card network, payment gateway or other payment partner may still apply and, where applicable, will be disclosed before transaction confirmation.</p>
 
                 <aside className={styles.policyInfoBox}>
                   <h3>Card and Other Payment Charges</h3>
-                  <p>Certain payment methods, including some credit or debit cards, may attract additional transaction, gateway or payment-partner charges imposed by the applicable bank, card network, payment gateway or other payment provider. Any such charge will be clearly disclosed before the customer confirms the transaction.</p>
-                  <p>UPI payment options such as Google Pay, PhonePe or BHIM may be available as alternative payment methods through ParkTek.</p>
+                  <p>Credit or debit card payments may attract approximately 1%–3% in transaction, gateway or payment-partner charges imposed by the applicable bank, card network, payment gateway or other payment provider. Any applicable card charge will be clearly displayed before the customer confirms the transaction.</p>
+                  <p>UPI payments through supported options such as Google Pay, PhonePe or BHIM are free and carry ₹0 ParkTek convenience fee and ₹0 ParkTek platform fee.</p>
                 </aside>
               </section>
 

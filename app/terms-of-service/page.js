@@ -103,7 +103,7 @@ const termsSections = [
     title: "14. Governing Law and Disputes",
     paragraphs: [
       "These Terms are governed by the laws of India.",
-      "Users should first contact ParkTek so that a complaint or dispute can be reviewed and, where possible, resolved through the appropriate support process. Any exclusive court-jurisdiction wording should be added only after ParkTek confirms the jurisdiction it wishes to adopt.",
+      "Users should first contact ParkTek so that a complaint or dispute can be reviewed and, where possible, resolved through the appropriate support process.",
     ],
   },
   {
@@ -140,7 +140,6 @@ export default function TermsOfServicePage() {
             <p className={styles.eyebrow}>Terms of service</p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Terms of Service</h1>
             <p className={styles.policyCompany}>PARKTEK INNOVATION PRIVATE LIMITED</p>
-            <p className={styles.policyEffective}>Effective date: [To be approved]</p>
           </div>
         </section>
 
