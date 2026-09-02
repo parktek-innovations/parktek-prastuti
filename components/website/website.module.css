@@ -475,7 +475,7 @@
   margin: 0 0 16px;
   padding-bottom: 12px;
   color: var(--prastuti-text-primary);
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
 }
@@ -571,20 +571,25 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px 22px;
 }
 
 .footerSocialLink {
-  display: grid;
-  width: 44px;
+  display: inline-flex;
   height: 44px;
-  place-items: center;
-  border-radius: 50%;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: 8px;
   background: var(--pk-color-text-primary);
   color: var(--pk-color-action-primary-foreground);
-}
-
-.footerSocialLink {
+  font-family: Inter, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
   transition: opacity 150ms ease, transform 150ms ease;
 }
 
@@ -593,12 +598,30 @@
   height: 20px;
 }
 
-.footerAppIcon {
-  width: 44px;
+.footerStoreGroup {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.footerStoreBadgeLink {
+  display: inline-flex;
+  min-width: 0;
+  flex: 0 1 auto;
+  border-radius: 7px;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.footerStoreBadge {
+  width: auto;
   height: 44px;
 }
 
-.footerSocialLink:hover {
+.footerSocialLink:hover,
+.footerStoreBadgeLink:hover {
   opacity: 0.82;
   transform: translateY(-2px);
 }
@@ -1050,6 +1073,19 @@
     flex-direction: column;
   }
 
+  .footerSocialRow {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footerStoreBadge {
+    width: 100%;
+    height: auto;
+    max-height: 44px;
+  }
+
   .footerAbout,
   .footerContactIntro,
   .footerColumn a,
@@ -1075,7 +1111,8 @@
     transition: none !important;
   }
 
-  .footerSocialLink {
+  .footerSocialLink,
+  .footerStoreBadgeLink {
     transition: none !important;
   }
 }

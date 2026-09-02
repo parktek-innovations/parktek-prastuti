@@ -721,33 +721,6 @@
   gap: 14px;
 }
 
-.partnerMarqueeControls {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
-
-.partnerMarqueeControl {
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 12px;
-  border: 1px solid var(--prastuti-primary-subtle-border);
-  border-radius: 999px;
-  background: var(--prastuti-background);
-  color: var(--prastuti-text-primary);
-  font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.partnerMarqueeControl:hover {
-  border-color: var(--prastuti-primary);
-  color: var(--prastuti-primary);
-}
-
 .partnerLogoViewport {
   overflow: hidden;
 }
@@ -803,10 +776,6 @@
 }
 
 .partnerLogoRows:hover .partnerLogoTrack {
-  animation-play-state: paused;
-}
-
-.partnerMarquee[data-paused="true"] .partnerLogoTrack {
   animation-play-state: paused;
 }
 
@@ -893,6 +862,96 @@
   line-height: 1.45;
 }
 
+.credibilitySection {
+  padding-block: clamp(52px, 5.75vw, 82px);
+  background: var(--prastuti-background);
+}
+
+.credibilityHeader {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.credibilityHeader .sectionKicker {
+  margin-bottom: 12px;
+}
+
+.credibilityHeader .sectionTitle {
+  max-width: 760px;
+}
+
+.credibilityLead {
+  max-width: 650px;
+  margin: 15px 0 0;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  text-wrap: balance;
+}
+
+.credibilityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: clamp(28px, 3.6vw, 44px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credibilityCard {
+  min-width: 0;
+  padding: clamp(22px, 2vw, 30px) clamp(28px, 3vw, 40px);
+  border: 1px solid var(--pk-component-card-border-default);
+  border-radius: 14px;
+  background: var(--pk-component-card-background-default);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--prastuti-text-primary) 5%, transparent);
+}
+
+.credibilityIconArea {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 12px;
+  background: var(--prastuti-surface);
+  color: var(--prastuti-text-primary);
+}
+
+.credibilityIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.credibilityAccent {
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: 22px 0 16px;
+  border-radius: 2px;
+  background: var(--prastuti-primary);
+}
+
+.credibilityValue {
+  display: block;
+  color: var(--prastuti-text-primary);
+  font-family: Inter, sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.credibilityLabel {
+  display: block;
+  max-width: 24ch;
+  margin-top: 12px;
+  color: var(--prastuti-text-muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
 .solutionGrid,
 .proofGrid,
 .trustGrid {
@@ -951,7 +1010,7 @@
 .solutionCard h3 {
   max-width: 520px;
   margin: 44px 0 14px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.75rem);
   font-weight: 700;
   line-height: 1.08;
@@ -1296,7 +1355,7 @@
 
 .step h3 {
   margin: 0 0 6px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -1458,7 +1517,7 @@
 
 .commercialCapability h3 {
   margin: 0 0 5px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -1734,7 +1793,7 @@
 
 .deploymentItem h3 {
   margin: 30px 0 12px;
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
@@ -1796,7 +1855,7 @@
 .trustCard h3 {
   margin: 24px 0 11px;
   color: var(--prastuti-text-primary);
-  font-family: "Montserrat", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
@@ -2032,6 +2091,18 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .credibilityGrid {
+    gap: 14px;
+  }
+
+  .credibilityCard {
+    padding: 20px 22px;
+  }
+
+  .credibilityValue {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
   .deploymentGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2112,6 +2183,7 @@
 
   .heroLead,
   .sectionLead,
+  .credibilityLead,
   .finalInner p {
     font-size: 1rem;
   }
@@ -2222,12 +2294,25 @@
     padding-block: 74px;
   }
 
+  .credibilitySection {
+    padding-block: 48px;
+  }
+
   .metricsGrid,
+  .credibilityGrid,
   .moduleGrid,
   .compatibilityGrid,
   .proofGrid,
   .deploymentGrid {
     grid-template-columns: 1fr;
+  }
+
+  .credibilityCard {
+    padding: 22px 28px;
+  }
+
+  .credibilityLabel {
+    max-width: none;
   }
 
   .metric,
@@ -2353,10 +2438,6 @@
 }
 
 @media (hover: none), (pointer: coarse) {
-  .partnerMarqueeControl {
-    display: none;
-  }
-
   .partnerLogoTrack {
     width: 100%;
     animation: none;
@@ -2410,10 +2491,6 @@
     animation: none;
     transform: none;
     will-change: auto;
-  }
-
-  .partnerMarqueeControl {
-    display: none;
   }
 
   .partnerLogoGroup {

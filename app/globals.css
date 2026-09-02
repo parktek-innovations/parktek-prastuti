@@ -157,19 +157,30 @@ svg {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p {
   margin-top: 0;
 }
 
 h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+[role="heading"] {
+  font-family: Inter, sans-serif;
+}
+
+h1,
 h2 {
-  font-family: "Clash Display", "Montserrat", sans-serif;
   font-weight: 500;
   letter-spacing: -0.025em;
 }
 
 h3 {
-  font-family: "Montserrat", system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.015em;
 }

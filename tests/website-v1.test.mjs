@@ -80,6 +80,40 @@ test("homepage carries the approved positioning and requested availability label
   }
 });
 
+test("homepage credibility metrics render in the requested location and responsive layout", async () => {
+  const [html, homepage, content, styles] = await Promise.all([
+    outputFile("index.html"),
+    sourceFile("components/website/home-page.jsx"),
+    sourceFile("lib/website-content.js"),
+    sourceFile("components/website/home-page.module.css"),
+  ]);
+
+  for (const copy of [
+    "ParkTek at a glance",
+    "Trusted by growing communities.",
+    "Real operations. Real results. Built for modern residential living.",
+    "50,000+",
+    "Vehicle movements",
+    "50+",
+    "Residential apartment communities",
+    "25,000+",
+    "Trusted users",
+  ]) {
+    assert.match(html, new RegExp(copy.replace(/[+.]/g, "\\$&")));
+  }
+
+  const solutionsIndex = html.indexOf("From society gates to managed commercial parking.");
+  const credibilityIndex = html.indexOf("ParkTek at a glance");
+  const workflowIndex = html.indexOf("How ParkTek works");
+  assert.ok(solutionsIndex < credibilityIndex && credibilityIndex < workflowIndex);
+  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "50,000\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
+  assert.match(homepage, /<section aria-labelledby="credibility-title"[\s\S]*?<ul className=\{styles\.credibilityGrid\}/);
+  assert.equal((homepage.match(/aria-hidden="true" className=\{styles\.credibilityIconArea\}/g) || []).length, 1);
+  assert.match(styles, /\.credibilityGrid\s*\{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/s);
+  assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.credibilityGrid,[\s\S]*grid-template-columns:\s*1fr/);
+  assert.doesNotMatch(html, />Communities<|99\.9%|Communities served|Cities covered/);
+});
+
 test("case studies stay unpromoted while implementation remains", async () => {
   const homepage = await outputFile("index.html");
   const caseStudies = await outputFile("case-studies/index.html");
@@ -380,18 +414,52 @@ test("responsive marketing images keep PNG fallbacks and smaller WebP candidates
   }
 });
 
-test("partner marquee can pause and becomes static for touch and reduced motion", async () => {
-  const [marquee, styles] = await Promise.all([
-    sourceFile("components/website/partner-marquee.jsx"),
+test("partner marquee keeps moving without a pause control and becomes static for touch and reduced motion", async () => {
+  const [homepage, styles] = await Promise.all([
+    sourceFile("components/website/home-page.jsx"),
     sourceFile("components/website/home-page.module.css"),
   ]);
 
-  assert.match(marquee, /aria-pressed=\{paused\}/);
-  assert.match(marquee, /Pause partner logo movement/);
-  assert.match(marquee, /Play partner logo movement/);
-  assert.match(styles, /\.partnerMarquee\[data-paused="true"\][\s\S]*animation-play-state:\s*paused/);
+  assert.doesNotMatch(homepage, /PartnerMarquee|Pause partner logo movement|Play partner logo movement|aria-pressed/);
+  assert.doesNotMatch(styles, /partnerMarqueeControl|data-paused/);
+  assert.match(styles, /\.partnerLogoTrack\s*\{[^}]*animation:\s*partner-logo-scroll 36s linear infinite/s);
   assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
+});
+
+test("all website headings use locally bundled Inter", async () => {
+  const [layout, ...styles] = await Promise.all([
+    sourceFile("app/layout.js"),
+    sourceFile("app/globals.css"),
+    sourceFile("app/marketing-pages.module.css"),
+    sourceFile("components/website/case-study-card.module.css"),
+    sourceFile("components/website/home-page.module.css"),
+    sourceFile("components/website/website.module.css"),
+  ]);
+  const [globalStyles] = styles;
+  const websiteStyles = styles.join("\n");
+
+  for (const weight of [400, 500, 600, 700]) {
+    assert.match(layout, new RegExp(`import "@fontsource/inter/latin-${weight}\\.css"`));
+  }
+  assert.match(globalStyles, /h1,[\s\S]*h6,[\s\S]*\[role="heading"\]\s*\{[^}]*font-family:\s*Inter, sans-serif;/);
+  assert.doesNotMatch(
+    websiteStyles,
+    /(?:h[1-6]|footerHeading)[^{]*\{[^}]*font-family:\s*"(?:Clash Display|Montserrat)"/s
+  );
+
+  const cssOutput = new URL("../out/_next/static/css/", import.meta.url);
+  const compiledStyles = (await Promise.all(
+    (await readdir(cssOutput))
+      .filter((name) => name.endsWith(".css"))
+      .map((name) => readFile(new URL(name, cssOutput), "utf8"))
+  )).join("\n");
+  const fontAssets = await readdir(new URL("../out/_next/static/media/", import.meta.url));
+
+  assert.match(compiledStyles, /@font-face\{font-family:Inter/);
+  for (const weight of [400, 500, 600, 700]) {
+    assert.ok(fontAssets.some((name) => new RegExp(`inter-latin-${weight}-normal\\..+\\.woff2`).test(name)));
+  }
 });
 
 test("responsive CSS keeps shared cards balanced across launch breakpoints", async () => {
@@ -515,7 +583,9 @@ test("homepage footer exposes only verified app and social destinations with acc
     html,
     /aria-label="ParkTek Innovation on LinkedIn"[^>]+href="https:\/\/in\.linkedin\.com\/company\/https-parktek\.in"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
   );
-  assert.doesNotMatch(html, /ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
+  assert.match(html, /alt="Get it on Google Play"[^>]+src="\/figma\/footer\/google-play-badge\.svg"/);
+  assert.match(html, /alt="Download on the App Store"[^>]+src="\/figma\/footer\/app-store-badge\.svg"/);
+  assert.doesNotMatch(html, /social-android\.svg|social-ios\.svg|footerAppIcon|ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
 });
 
 test("lead pages render the shared accessible form contract", async () => {
