@@ -16,7 +16,11 @@ export const metadata = {
     path: "/"
   }),
   icons: {
-    icon: "/brand/parktek-mark.svg"
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/brand/parktek-mark-96.png", type: "image/png", sizes: "96x96" }
+    ],
+    shortcut: "/favicon.ico"
   }
 };
 
