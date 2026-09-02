@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <g id="icon-main" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 5 39 11v11c0 9.6-5.8 16.4-15 21-9.2-4.6-15-11.4-15-21V11l15-6Z"/>
+    <rect x="16" y="21" width="16" height="12" rx="2"/>
+  </g>
+  <g id="icon-accent" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 21v-3a5 5 0 0 1 10 0v3"/>
+    <circle cx="24" cy="27" r="1.5"/>
+    <path d="M24 28.5V31"/>
+  </g>
+</svg>
