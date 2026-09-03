@@ -1106,9 +1106,11 @@
 }
 
 .flowVisual img {
+  display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  object-fit: contain;
 }
 
 .flowScene {
@@ -2087,6 +2089,94 @@
     gap: 18px;
   }
 
+  .worldFrame {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    min-height: 0;
+    padding: 0 10px 10px;
+  }
+
+  .worldFrame > picture {
+    position: relative;
+    grid-area: 1 / 1 / 2 / -1;
+    width: calc(100% + 20px);
+    margin-inline: -10px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .worldFrame::after {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 1 / 2 / -1;
+    width: calc(100% + 20px);
+    height: 100%;
+    margin-inline: -10px;
+  }
+
+  .worldImage {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .scanLine {
+    position: relative;
+    grid-area: 1 / 1 / 2 / -1;
+    top: auto;
+    bottom: auto;
+    height: 100%;
+  }
+
+  .hud,
+  .gateHud,
+  .occupancyHud {
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px;
+    width: 100%;
+    padding: 9px 10px;
+  }
+
+  .hud {
+    grid-column: 1;
+  }
+
+  .gateHud {
+    grid-column: 2;
+  }
+
+  .occupancyHud {
+    grid-column: 3;
+  }
+
+  .hudIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hudLabel {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hudValue {
+    margin-top: 3px;
+    font-size: 0.8125rem;
+  }
+
+  .hudStatus {
+    width: 8px;
+    height: 8px;
+  }
+
+  .hud::after,
+  .occupancyHud::after,
+  .gateHud::after {
+    display: none;
+  }
+
   .metricsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2222,12 +2312,17 @@
   }
 
   .worldFrame {
-    min-height: 500px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    min-height: 0;
+    padding: 0 8px 8px;
     border-radius: 12px;
   }
 
-  .worldImage {
-    object-position: 62% center;
+  .worldFrame > picture,
+  .worldFrame::after {
+    width: calc(100% + 16px);
+    margin-inline: -8px;
   }
 
   .heroLane {
@@ -2259,35 +2354,19 @@
   .hud,
   .gateHud,
   .occupancyHud {
-    right: auto;
-    left: 4%;
-    width: 92%;
-    grid-template-columns: 38px minmax(0, 1fr) auto;
-    gap: 10px;
-    padding: 10px 12px;
-  }
-
-  .hudIcon {
-    width: 38px;
-    height: 38px;
+    grid-column: 1;
   }
 
   .hud {
-    top: 4%;
+    grid-row: 2;
   }
 
   .gateHud {
-    bottom: 18%;
+    grid-row: 3;
   }
 
   .occupancyHud {
-    bottom: 4%;
-  }
-
-  .hud::after,
-  .occupancyHud::after,
-  .gateHud::after {
-    display: none;
+    grid-row: 4;
   }
 
   .section {

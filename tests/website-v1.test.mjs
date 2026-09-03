@@ -535,7 +535,14 @@ test("homepage animated worlds use the archived gate and ecosystem assets", asyn
   assert.match(styles, /\.worldImageOpen\s*\{[\s\S]*animation:\s*scene-switch 9s ease-in-out infinite/);
   assert.match(styles, /@keyframes scene-switch/);
   assert.match(styles, /@keyframes scan/);
-  assert.match(styles, /\.flowVisual img\s*\{[\s\S]*aspect-ratio:\s*16 \/ 10;/);
+  assert.match(styles, /@media \(max-width: 820px\)[\s\S]*\.worldFrame > picture\s*\{[^}]*aspect-ratio:\s*16 \/ 9;/);
+  assert.match(styles, /@media \(max-width: 820px\)[\s\S]*\.worldImage\s*\{[^}]*object-fit:\s*contain;[^}]*object-position:\s*center;/);
+  assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.worldFrame\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\);/);
+  assert.doesNotMatch(styles, /object-position:\s*62% center/);
+  assert.match(
+    styles,
+    /\.flowVisual img\s*\{[^}]*display:\s*block;[^}]*width:\s*100%;[^}]*height:\s*auto;[^}]*aspect-ratio:\s*1672 \/ 941;[^}]*object-fit:\s*contain;/
+  );
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)\s*\{[\s\S]*\.worldImageOpen,[\s\S]*\.scanLine[\s\S]*display:\s*none;/);
 });
 
