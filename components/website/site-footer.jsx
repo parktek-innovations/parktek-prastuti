@@ -31,10 +31,11 @@ const STORE_BADGES = [
   {
     label: "Download ParkTek on Google Play",
     href: "https://play.google.com/store/apps/details?id=com.parktek.app&pcampaignid=web_share",
-    icon: "/figma/footer/google-play-badge.svg",
+    icon: "/figma/footer/google-play-badge.png",
     alt: "Get it on Google Play",
-    height: 48,
-    width: 162,
+    badgeClassName: styles.footerGooglePlayBadge,
+    height: 250,
+    width: 646,
   },
   {
     label: "Download ParkTek on the App Store",
@@ -136,7 +137,7 @@ export function SiteFooter({ className = "" }) {
                   >
                     <Image
                       alt={item.alt}
-                      className={styles.footerStoreBadge}
+                      className={[styles.footerStoreBadge, item.badgeClassName].filter(Boolean).join(" ")}
                       height={item.height}
                       src={item.icon}
                       width={item.width}

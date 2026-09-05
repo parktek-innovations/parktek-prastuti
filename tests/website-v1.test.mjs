@@ -590,7 +590,7 @@ test("homepage footer exposes only verified app and social destinations with acc
     html,
     /aria-label="ParkTek Innovation on LinkedIn"[^>]+href="https:\/\/in\.linkedin\.com\/company\/https-parktek\.in"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
   );
-  assert.match(html, /alt="Get it on Google Play"[^>]+src="\/figma\/footer\/google-play-badge\.svg"/);
+  assert.match(html, /alt="Get it on Google Play"[^>]+src="\/figma\/footer\/google-play-badge\.png"/);
   assert.match(html, /alt="Download on the App Store"[^>]+src="\/figma\/footer\/app-store-badge\.svg"/);
   assert.doesNotMatch(html, /social-android\.svg|social-ios\.svg|footerAppIcon|ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
 });

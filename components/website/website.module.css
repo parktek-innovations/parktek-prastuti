@@ -620,6 +620,13 @@
   height: 44px;
 }
 
+.footerStoreBadge.footerGooglePlayBadge {
+  width: 166px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+}
+
 .footerSocialLink:hover,
 .footerStoreBadgeLink:hover {
   opacity: 0.82;
