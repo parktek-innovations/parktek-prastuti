@@ -398,49 +398,59 @@ export function WebsiteHomePage() {
 
       <section className={styles.hero} id="home">
         <div className={`${styles.container} ${styles.heroInner}`}>
-          <div className={styles.heroCopy}>
+          <div className={styles.heroHeading}>
             <span className={styles.eyebrow}>Connected parking operations</span>
             <h1 className={styles.heroTitle}>
-              Every gate. Every vehicle. Every parking transaction<span className={styles.heroAccent}>—connected.</span>
+              Every gate. Every vehicle.
+              <br className={styles.desktopTitleBreak} />{" "}
+              Every parking transaction<span className="sr-only">— connected.</span>
             </h1>
-            <p className={styles.heroLead}>
-              ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
-              operations in one operating workflow.
-            </p>
-            <div className={styles.actionRow}>
-              <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
-                {SITE.primaryCta.label}
-                <ArrowIcon />
-              </a>
-              <a className={styles.secondaryButton} href={SITE.secondaryCta.href}>
-                {SITE.secondaryCta.label}
-              </a>
-            </div>
-            <ul className={styles.reassurance} aria-label="Capability availability">
-              <li className={styles.reassuranceLive}>RFID access live</li>
-              <li className={styles.reassuranceLive}>ANPR live</li>
-              <li className={styles.reassuranceLive}>Commercial workflows live</li>
-            </ul>
           </div>
 
-          <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene" role="img">
-            <WorldImage
-              alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
-              className={styles.worldImage}
-              eager
-              name="parktek-gate-closed"
-              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
-            />
-            <WorldImage
-              ariaHidden
-              className={`${styles.worldImage} ${styles.worldImageOpen}`}
-              name="parktek-gate-open"
-              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
-            />
-            <span className={styles.scanLine} aria-hidden="true" />
-            <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
-            <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
-            <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
+          <div className={styles.heroBody}>
+            <div className={styles.heroCopy}>
+              <span aria-hidden="true" className={`${styles.heroAccent} ${styles.heroConnected}`}>
+                — connected.
+              </span>
+              <p className={styles.heroLead}>
+                ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
+                operations in one operating workflow.
+              </p>
+              <div className={styles.actionRow}>
+                <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
+                  {SITE.primaryCta.label}
+                  <ArrowIcon />
+                </a>
+                <a className={styles.secondaryButton} href={SITE.secondaryCta.href}>
+                  {SITE.secondaryCta.label}
+                </a>
+              </div>
+              <ul className={styles.reassurance} aria-label="Capability availability">
+                <li className={styles.reassuranceLive}>RFID access live</li>
+                <li className={styles.reassuranceLive}>ANPR live</li>
+                <li className={styles.reassuranceLive}>Commercial workflows live</li>
+              </ul>
+            </div>
+
+            <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene" role="img">
+              <WorldImage
+                alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
+                className={styles.worldImage}
+                eager
+                name="parktek-gate-closed"
+                sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+              />
+              <WorldImage
+                ariaHidden
+                className={`${styles.worldImage} ${styles.worldImageOpen}`}
+                name="parktek-gate-open"
+                sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+              />
+              <span className={styles.scanLine} aria-hidden="true" />
+              <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
+              <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
+              <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
+            </div>
           </div>
         </div>
       </section>
