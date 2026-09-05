@@ -8,8 +8,8 @@
   --navy-800: var(--pk-color-surface-table-row-hover);
   --line: var(--pk-color-border-default);
   --line-strong: var(--pk-color-border-strong);
-  --text: var(--pk-color-text-primary);
-  --muted: var(--pk-color-text-muted);
+  --text: var(--prastuti-text-primary);
+  --muted: var(--prastuti-text-muted);
   --primary: var(--prastuti-primary);
   --primary-hover: var(--prastuti-primary-hover);
 }
@@ -32,7 +32,7 @@
   padding: 12px 16px;
   border-radius: 8px;
   background: var(--pk-color-surface-card);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-size: 15px;
   font-weight: 700;
   transform: translateY(-160%);
@@ -83,7 +83,7 @@
   gap: 8px;
   padding: 0 12px;
   border-radius: 8px;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 14px;
   font-weight: 500;
   line-height: 1;
@@ -104,7 +104,7 @@
 .headerLink:hover,
 .navDropdown[open] > .navSummary {
   background: var(--navy-800);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .chevron {
@@ -144,7 +144,7 @@
   gap: 16px;
   padding: 9px 10px;
   border-radius: 7px;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-size: 14px;
   line-height: 1.35;
   text-decoration: none;
@@ -173,7 +173,7 @@
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font: inherit;
   font-size: 14px;
   line-height: 1.35;
@@ -219,7 +219,7 @@
 .dropdownMeta,
 .mobileMeta {
   flex: none;
-  color: var(--pk-color-text-muted);
+  color: var(--prastuti-text-muted);
   font-size: 12px;
 }
 
@@ -247,7 +247,7 @@
   display: none;
   border-color: var(--pk-color-brand-primary);
   background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   padding: 0 18px;
 }
 
@@ -273,7 +273,7 @@
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: transparent;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   cursor: pointer;
 }
 
@@ -333,7 +333,7 @@
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: transparent;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font: inherit;
   font-size: 14px;
   cursor: pointer;
@@ -366,7 +366,7 @@
   gap: 16px;
   padding: 10px 12px;
   border-radius: 8px;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-size: 16px;
   line-height: 1.35;
   text-decoration: none;
@@ -393,7 +393,7 @@
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font: inherit;
   font-size: 16px;
   line-height: 1.35;
@@ -436,7 +436,7 @@
   margin: auto 20px 24px;
   border-color: var(--pk-color-brand-primary);
   background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   padding: 0 20px;
 }
 
@@ -474,8 +474,8 @@
   position: relative;
   margin: 0 0 16px;
   padding-bottom: 12px;
-  color: var(--pk-color-text-primary);
-  font-family: "Clash Display", "Montserrat", sans-serif;
+  color: var(--prastuti-text-primary);
+  font-family: Inter, sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
 }
@@ -495,20 +495,20 @@
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 16px;
   line-height: 1.55;
   text-decoration: none;
 }
 
 .footerColumn a:hover {
-  color: var(--pk-color-link-hover);
+  color: var(--prastuti-primary-hover);
 }
 
 .footerAbout {
   max-width: 28ch;
   margin: 0;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 16px;
   font-weight: 600;
   line-height: 1.65;
@@ -517,7 +517,7 @@
 .footerContactIntro {
   max-width: 30ch;
   margin: 0 0 4px;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 16px;
   line-height: 1.65;
 }
@@ -571,20 +571,25 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px 22px;
 }
 
 .footerSocialLink {
-  display: grid;
-  width: 44px;
+  display: inline-flex;
   height: 44px;
-  place-items: center;
-  border-radius: 50%;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: 8px;
   background: var(--pk-color-text-primary);
   color: var(--pk-color-action-primary-foreground);
-}
-
-.footerSocialLink {
+  font-family: Inter, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
   transition: opacity 150ms ease, transform 150ms ease;
 }
 
@@ -593,12 +598,37 @@
   height: 20px;
 }
 
-.footerAppIcon {
-  width: 44px;
+.footerStoreGroup {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.footerStoreBadgeLink {
+  display: inline-flex;
+  min-width: 0;
+  flex: 0 1 auto;
+  border-radius: 7px;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.footerStoreBadge {
+  width: auto;
   height: 44px;
 }
 
-.footerSocialLink:hover {
+.footerStoreBadge.footerGooglePlayBadge {
+  width: 166px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+}
+
+.footerSocialLink:hover,
+.footerStoreBadgeLink:hover {
   opacity: 0.82;
   transform: translateY(-2px);
 }
@@ -653,9 +683,9 @@
 
 .formIntro h2 {
   margin: 0;
-  color: var(--pk-color-text-primary);
-  font-size: clamp(26px, 3vw, 38px);
-  font-weight: 600;
+  color: var(--prastuti-text-primary);
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 500;
   line-height: 1.12;
   letter-spacing: -0.02em;
 }
@@ -697,7 +727,7 @@
 
 .field label,
 .consentField label {
-  color: var(--pk-component-input-label-default);
+  color: var(--prastuti-text-primary);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.4;
@@ -718,7 +748,7 @@
   border-radius: 8px;
   outline: none;
   background: var(--pk-component-input-background-default);
-  color: var(--pk-component-input-foreground-default);
+  color: var(--prastuti-text-primary);
   font: inherit;
   font-size: 16px;
   line-height: 1.5;
@@ -732,7 +762,7 @@
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: var(--pk-component-input-placeholder-default);
+  color: var(--prastuti-text-muted);
   opacity: 1;
 }
 
@@ -761,7 +791,7 @@
 }
 
 .fieldHint {
-  color: var(--pk-color-text-muted);
+  color: var(--prastuti-text-muted);
 }
 
 .consentField {
@@ -833,7 +863,7 @@
 }
 
 .formActions a {
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   text-underline-offset: 3px;
 }
 
@@ -1050,6 +1080,19 @@
     flex-direction: column;
   }
 
+  .footerSocialRow {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footerStoreBadge {
+    width: 100%;
+    height: auto;
+    max-height: 44px;
+  }
+
   .footerAbout,
   .footerContactIntro,
   .footerColumn a,
@@ -1075,7 +1118,8 @@
     transition: none !important;
   }
 
-  .footerSocialLink {
+  .footerSocialLink,
+  .footerStoreBadgeLink {
     transition: none !important;
   }
 }

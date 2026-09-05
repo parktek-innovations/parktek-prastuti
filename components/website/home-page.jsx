@@ -2,17 +2,19 @@
 import Image from "next/image";
 import {
   Activity,
+  ArrowLeftRight,
   ArrowRight,
+  Building2,
   Camera,
   CircleDot,
   Cpu,
   Gauge,
   Radio,
-  Tag
+  Tag,
+  Users
 } from "lucide-react";
 
 import { CaseStudyCard } from "@/components/website/case-study-card";
-import { PartnerMarquee } from "@/components/website/partner-marquee";
 import { ResponsiveStaticImage } from "@/components/website/responsive-static-image";
 import {
   ANNOUNCEMENT,
@@ -21,6 +23,7 @@ import {
   COMPATIBILITY,
   DEPLOYMENT_STEPS,
   FAQS,
+  HOMEPAGE_CREDIBILITY_METRICS,
   METRICS,
   MODULES,
   PRODUCT_PROOF,
@@ -38,6 +41,12 @@ const moduleIcons = {
   control: Cpu,
   vision: Camera,
   pos: Gauge
+};
+
+const credibilityMetricIcons = {
+  "vehicle-movements": ArrowLeftRight,
+  "residential-communities": Building2,
+  "trusted-users": Users
 };
 
 const SHOW_DEPLOYMENT_STORIES = false;
@@ -266,6 +275,38 @@ function SectionHeading({ eyebrow, title, lead }) {
   );
 }
 
+function CredibilitySection() {
+  return (
+    <section aria-labelledby="credibility-title" className={`${styles.section} ${styles.credibilitySection}`}>
+      <div className={styles.container}>
+        <div className={styles.credibilityHeader}>
+          <span className={styles.sectionKicker}>ParkTek at a glance</span>
+          <h2 className={styles.sectionTitle} id="credibility-title">Trusted by growing communities.</h2>
+          <p className={styles.credibilityLead}>
+            Real operations. Real results. Built for modern residential living.
+          </p>
+        </div>
+        <ul className={styles.credibilityGrid}>
+          {HOMEPAGE_CREDIBILITY_METRICS.map((metric) => {
+            const Icon = credibilityMetricIcons[metric.id];
+
+            return (
+              <li className={styles.credibilityCard} key={metric.id}>
+                <span aria-hidden="true" className={styles.credibilityIconArea}>
+                  <Icon className={styles.credibilityIcon} strokeWidth={1.7} />
+                </span>
+                <span aria-hidden="true" className={styles.credibilityAccent} />
+                <strong className={styles.credibilityValue}>{metric.value}</strong>
+                <span className={styles.credibilityLabel}>{metric.label}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function PartnerLogoGroup({ logos, duplicate = false }) {
   return (
     <div aria-hidden={duplicate || undefined} className={styles.partnerLogoGroup}>
@@ -298,18 +339,16 @@ function PartnerSocieties() {
             <p>ParkTek is active in residential communities and connected parking sites.</p>
           </div>
 
-          <PartnerMarquee>
-            <div className={styles.partnerLogoRows}>
-              {partnerSocietyRows.map((logos, index) => (
-                <div className={styles.partnerLogoViewport} key={`partner-row-${index + 1}`}>
-                  <div className={styles.partnerLogoTrack} data-row={index + 1}>
-                    <PartnerLogoGroup logos={logos} />
-                    <PartnerLogoGroup duplicate logos={logos} />
-                  </div>
+          <div className={styles.partnerLogoRows}>
+            {partnerSocietyRows.map((logos, index) => (
+              <div className={styles.partnerLogoViewport} key={`partner-row-${index + 1}`}>
+                <div className={styles.partnerLogoTrack} data-row={index + 1}>
+                  <PartnerLogoGroup logos={logos} />
+                  <PartnerLogoGroup duplicate logos={logos} />
                 </div>
-              ))}
-            </div>
-          </PartnerMarquee>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -359,49 +398,59 @@ export function WebsiteHomePage() {
 
       <section className={styles.hero} id="home">
         <div className={`${styles.container} ${styles.heroInner}`}>
-          <div className={styles.heroCopy}>
+          <div className={styles.heroHeading}>
             <span className={styles.eyebrow}>Connected parking operations</span>
             <h1 className={styles.heroTitle}>
-              Every gate. Every vehicle. Every parking transaction<span className={styles.heroAccent}>—connected.</span>
+              Every gate. Every vehicle.
+              <br className={styles.desktopTitleBreak} />{" "}
+              Every parking transaction<span className="sr-only">— connected.</span>
             </h1>
-            <p className={styles.heroLead}>
-              ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
-              operations in one operating workflow.
-            </p>
-            <div className={styles.actionRow}>
-              <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
-                {SITE.primaryCta.label}
-                <ArrowIcon />
-              </a>
-              <a className={styles.secondaryButton} href={SITE.secondaryCta.href}>
-                {SITE.secondaryCta.label}
-              </a>
-            </div>
-            <ul className={styles.reassurance} aria-label="Capability availability">
-              <li className={styles.reassuranceLive}>RFID access live</li>
-              <li className={styles.reassuranceLive}>ANPR live</li>
-              <li className={styles.reassuranceLive}>Commercial workflows live</li>
-            </ul>
           </div>
 
-          <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene" role="img">
-            <WorldImage
-              alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
-              className={styles.worldImage}
-              eager
-              name="parktek-gate-closed"
-              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
-            />
-            <WorldImage
-              ariaHidden
-              className={`${styles.worldImage} ${styles.worldImageOpen}`}
-              name="parktek-gate-open"
-              sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
-            />
-            <span className={styles.scanLine} aria-hidden="true" />
-            <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
-            <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
-            <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
+          <div className={styles.heroBody}>
+            <div className={styles.heroCopy}>
+              <span aria-hidden="true" className={`${styles.heroAccent} ${styles.heroConnected}`}>
+                — connected.
+              </span>
+              <p className={styles.heroLead}>
+                ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
+                operations in one operating workflow.
+              </p>
+              <div className={styles.actionRow}>
+                <a className={`${styles.primaryButton} ${styles.heroPrimaryButton}`} href={SITE.primaryCta.href}>
+                  {SITE.primaryCta.label}
+                  <ArrowIcon />
+                </a>
+                <a className={styles.secondaryButton} href={SITE.secondaryCta.href}>
+                  {SITE.secondaryCta.label}
+                </a>
+              </div>
+              <ul className={styles.reassurance} aria-label="Capability availability">
+                <li className={styles.reassuranceLive}>RFID access live</li>
+                <li className={styles.reassuranceLive}>ANPR live</li>
+                <li className={styles.reassuranceLive}>Commercial workflows live</li>
+              </ul>
+            </div>
+
+            <div className={styles.worldFrame} aria-label="Animated ParkTek gate access scene" role="img">
+              <WorldImage
+                alt="A connected ParkTek residential entry gate with a boom barrier, controller and approaching vehicle."
+                className={styles.worldImage}
+                eager
+                name="parktek-gate-closed"
+                sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+              />
+              <WorldImage
+                ariaHidden
+                className={`${styles.worldImage} ${styles.worldImageOpen}`}
+                name="parktek-gate-open"
+                sizes="(max-width: 1080px) calc(100vw - 48px), 58vw"
+              />
+              <span className={styles.scanLine} aria-hidden="true" />
+              <HeroHud className={styles.hud} icon={Tag} label="Vehicle identity" value="Permit verified" />
+              <HeroHud className={styles.gateHud} icon={Cpu} label="Local controller" value="Decision ready" />
+              <HeroHud className={styles.occupancyHud} icon={Activity} label="Operations" value="Event recorded" />
+            </div>
           </div>
         </div>
       </section>
@@ -454,6 +503,8 @@ export function WebsiteHomePage() {
           </div>
         </div>
       </section>
+
+      <CredibilitySection />
 
       <section className={`${styles.section} ${styles.sectionAlt}`} id="how-it-works">
         <div className={styles.container}>

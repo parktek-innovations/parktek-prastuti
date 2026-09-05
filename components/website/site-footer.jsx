@@ -21,23 +21,29 @@ const LEGAL_LINKS = [
   { label: "Security", href: "/security/" },
 ];
 
-const FOOTER_MEDIA_ITEMS = [
-  {
-    label: "ParkTek Innovation on LinkedIn",
-    href: "https://in.linkedin.com/company/https-parktek.in",
-    icon: "/figma/footer/social-linkedin.svg",
-  },
+const LINKEDIN_ITEM = {
+  label: "ParkTek Innovation on LinkedIn",
+  href: "https://in.linkedin.com/company/https-parktek.in",
+  icon: "/figma/footer/social-linkedin.svg",
+};
+
+const STORE_BADGES = [
   {
     label: "Download ParkTek on Google Play",
     href: "https://play.google.com/store/apps/details?id=com.parktek.app&pcampaignid=web_share",
-    icon: "/figma/footer/social-android.svg",
-    isApp: true,
+    icon: "/figma/footer/google-play-badge.png",
+    alt: "Get it on Google Play",
+    badgeClassName: styles.footerGooglePlayBadge,
+    height: 250,
+    width: 646,
   },
   {
     label: "Download ParkTek on the App Store",
     href: "https://apps.apple.com/ca/app/parktek/id6760598237",
-    icon: "/figma/footer/social-ios.svg",
-    isApp: true,
+    icon: "/figma/footer/app-store-badge.svg",
+    alt: "Download on the App Store",
+    height: 48,
+    width: 154,
   },
 ];
 
@@ -102,25 +108,43 @@ export function SiteFooter({ className = "" }) {
               />
             </Link>
             <nav aria-label="ParkTek apps and social profiles" className={styles.footerSocialRow}>
-              {FOOTER_MEDIA_ITEMS.map((item) => (
-                <a
-                  aria-label={item.label}
-                  className={styles.footerSocialLink}
-                  href={item.href}
-                  key={item.label}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <Image
-                    alt=""
-                    aria-hidden="true"
-                    className={item.isApp ? styles.footerAppIcon : styles.footerSocialGlyph}
-                    height={item.isApp ? 44 : 20}
-                    src={item.icon}
-                    width={item.isApp ? 44 : 20}
-                  />
-                </a>
-              ))}
+              <a
+                aria-label={LINKEDIN_ITEM.label}
+                className={styles.footerSocialLink}
+                href={LINKEDIN_ITEM.href}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Image
+                  alt=""
+                  aria-hidden="true"
+                  className={styles.footerSocialGlyph}
+                  height={20}
+                  src={LINKEDIN_ITEM.icon}
+                  width={20}
+                />
+                <span>LinkedIn</span>
+              </a>
+              <div aria-label="ParkTek app downloads" className={styles.footerStoreGroup} role="group">
+                {STORE_BADGES.map((item) => (
+                  <a
+                    aria-label={item.label}
+                    className={styles.footerStoreBadgeLink}
+                    href={item.href}
+                    key={item.label}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <Image
+                      alt={item.alt}
+                      className={[styles.footerStoreBadge, item.badgeClassName].filter(Boolean).join(" ")}
+                      height={item.height}
+                      src={item.icon}
+                      width={item.width}
+                    />
+                  </a>
+                ))}
+              </div>
             </nav>
           </div>
         </div>

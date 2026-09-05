@@ -19,15 +19,15 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.82rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-align: center;
 }
 
 .announcement strong {
-  color: var(--pk-color-brand-text-emphasis);
+  color: var(--prastuti-primary);
 }
 
 .hero {
@@ -44,16 +44,24 @@
 .heroInner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(440px, 0.86fr) minmax(0, 1.04fr);
-  align-items: center;
-  gap: clamp(44px, 5vw, 84px);
-  min-height: min(820px, calc(100svh - var(--header-height)));
+  min-height: min(980px, calc(100svh - var(--header-height)));
   padding-block: clamp(68px, 7vw, 104px);
 }
 
+.heroHeading {
+  width: 100%;
+}
+
+.heroBody {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: clamp(40px, 5.5vw, 80px);
+  margin-top: clamp(8px, 1vw, 16px);
+}
+
 .heroCopy {
-  max-width: 650px;
+  max-width: 520px;
 }
 
 .eyebrow,
@@ -62,8 +70,8 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
-  color: var(--pk-color-brand-primary-strong);
-  font-size: 0.74rem;
+  color: var(--prastuti-primary);
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -77,24 +85,40 @@
   content: "";
 }
 
-.heroTitle {
-  max-width: 780px;
-  margin-bottom: 26px;
-  font-size: clamp(4rem, 5.25vw, 4.875rem);
+.heroTitle,
+.heroConnected {
+  font-size: clamp(3.25rem, 5.25vw, 4.875rem);
   line-height: 0.97;
   letter-spacing: -0.04em;
+}
+
+.heroTitle {
+  max-width: none;
+  margin: 0;
   text-wrap: balance;
+  white-space: nowrap;
+}
+
+.desktopTitleBreak {
+  display: inline;
 }
 
 .heroAccent {
   color: color-mix(in srgb, var(--prastuti-primary) 82%, var(--prastuti-background));
 }
 
+.heroConnected {
+  display: block;
+  margin-bottom: clamp(24px, 2.5vw, 36px);
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+}
+
 .heroLead {
   max-width: 630px;
   margin-bottom: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: clamp(1.02rem, 1.3vw, 1.16rem);
+  color: var(--prastuti-text-muted);
+  font-size: clamp(1.125rem, 1.3vw, 1.25rem);
   line-height: 1.72;
 }
 
@@ -113,7 +137,7 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
@@ -135,13 +159,13 @@
 .heroPrimaryButton {
   border-color: var(--pk-color-brand-primary);
   background: var(--pk-color-brand-primary);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .heroPrimaryButton:hover {
   border-color: var(--pk-color-brand-primary-strong);
   background: var(--pk-color-brand-primary-strong);
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .commercialLayout .primaryButton {
@@ -160,7 +184,7 @@
   border: 1px solid var(--pk-color-action-secondary-border);
   border-radius: 10px;
   background: var(--pk-color-action-secondary-background);
-  color: var(--pk-color-action-secondary-foreground);
+  color: var(--prastuti-text-primary);
 }
 
 .secondaryButton:hover {
@@ -171,14 +195,14 @@
 .textLink {
   justify-content: flex-start;
   min-height: 44px;
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
 .textLink:hover {
-  color: var(--pk-color-link-hover);
+  color: var(--prastuti-primary-hover);
 }
 
 .reassurance {
@@ -187,8 +211,8 @@
   gap: 10px 20px;
   margin: 28px 0 0;
   padding: 0;
-  color: var(--pk-color-text-muted);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   font-weight: 600;
   list-style: none;
 }
@@ -220,7 +244,7 @@
 
 .worldFrame {
   position: relative;
-  min-height: 650px;
+  min-height: clamp(400px, 29vw, 440px);
   overflow: hidden;
   border: 1px solid var(--prastuti-border);
   border-radius: 18px;
@@ -651,7 +675,7 @@
 .hudLabel {
   display: block;
   color: var(--prastuti-primary);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -661,7 +685,7 @@
   display: block;
   margin-top: 8px;
   color: var(--prastuti-text-primary);
-  font-size: 0.86rem;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -702,7 +726,7 @@
 
 .partnerSocietiesHeader h2 {
   margin-bottom: 0;
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(2.25rem, 3vw, 3rem);
   line-height: 1.04;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -711,7 +735,7 @@
 .partnerSocietiesHeader p {
   max-width: 680px;
   margin: 0 auto;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -719,33 +743,6 @@
 .partnerLogoRows {
   display: grid;
   gap: 14px;
-}
-
-.partnerMarqueeControls {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
-
-.partnerMarqueeControl {
-  display: inline-flex;
-  min-height: 36px;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 12px;
-  border: 1px solid var(--prastuti-primary-subtle-border);
-  border-radius: 999px;
-  background: var(--prastuti-background);
-  color: var(--prastuti-text-primary);
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.partnerMarqueeControl:hover {
-  border-color: var(--prastuti-primary);
-  color: var(--prastuti-primary);
 }
 
 .partnerLogoViewport {
@@ -806,10 +803,6 @@
   animation-play-state: paused;
 }
 
-.partnerMarquee[data-paused="true"] .partnerLogoTrack {
-  animation-play-state: paused;
-}
-
 .partnerLogoCell:hover .partnerLogoImage {
   opacity: 1;
   filter: saturate(1);
@@ -842,8 +835,8 @@
 .sectionTitle {
   max-width: 850px;
   margin-bottom: 0;
-  font-size: clamp(2.65rem, 4.5vw, 4.8rem);
-  line-height: 0.98;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.02;
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
@@ -851,8 +844,8 @@
 .sectionLead {
   max-width: 620px;
   margin-bottom: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 1rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
   line-height: 1.75;
 }
 
@@ -878,18 +871,109 @@
 
 .metricValue {
   display: block;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   font-family: "Clash Display", sans-serif;
   font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 500;
   line-height: 1;
 }
 
 .metricLabel {
   display: block;
   margin-top: 10px;
-  color: var(--pk-color-text-muted);
-  font-size: 0.8rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   line-height: 1.45;
+}
+
+.credibilitySection {
+  padding-block: clamp(52px, 5.75vw, 82px);
+  background: var(--prastuti-background);
+}
+
+.credibilityHeader {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.credibilityHeader .sectionKicker {
+  margin-bottom: 12px;
+}
+
+.credibilityHeader .sectionTitle {
+  max-width: 760px;
+}
+
+.credibilityLead {
+  max-width: 650px;
+  margin: 15px 0 0;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  text-wrap: balance;
+}
+
+.credibilityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: clamp(28px, 3.6vw, 44px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.credibilityCard {
+  min-width: 0;
+  padding: clamp(22px, 2vw, 30px) clamp(28px, 3vw, 40px);
+  border: 1px solid var(--pk-component-card-border-default);
+  border-radius: 14px;
+  background: var(--pk-component-card-background-default);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--prastuti-text-primary) 5%, transparent);
+}
+
+.credibilityIconArea {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--prastuti-border);
+  border-radius: 12px;
+  background: var(--prastuti-surface);
+  color: var(--prastuti-text-primary);
+}
+
+.credibilityIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.credibilityAccent {
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: 22px 0 16px;
+  border-radius: 2px;
+  background: var(--prastuti-primary);
+}
+
+.credibilityValue {
+  display: block;
+  color: var(--prastuti-text-primary);
+  font-family: Inter, sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.credibilityLabel {
+  display: block;
+  max-width: 24ch;
+  margin-top: 12px;
+  color: var(--prastuti-text-muted);
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .solutionGrid,
@@ -911,7 +995,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 14px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .solutionCard {
@@ -944,19 +1028,22 @@
   color: var(--prastuti-primary);
   font-family: "Clash Display", sans-serif;
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .solutionCard h3 {
   max-width: 520px;
   margin: 44px 0 14px;
-  font-size: clamp(2rem, 3.3vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1;
+  font-family: Inter, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .solutionCard p {
   max-width: 56ch;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   line-height: 1.7;
 }
 
@@ -966,8 +1053,8 @@
   gap: 8px 18px;
   margin: 22px 0 0;
   padding: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.8rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.5;
   list-style: none;
 }
@@ -1022,8 +1109,8 @@
   border: 1px solid var(--pk-component-badge-border-default);
   border-radius: 999px;
   background: var(--pk-component-badge-background-default);
-  color: var(--pk-component-badge-foreground-default);
-  font-size: 0.7rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.75rem;
 }
 
 .flowLayout {
@@ -1043,9 +1130,11 @@
 }
 
 .flowVisual img {
+  display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  object-fit: contain;
 }
 
 .flowScene {
@@ -1136,7 +1225,7 @@
   right: 12px;
   bottom: 22%;
   color: var(--prastuti-text-muted);
-  font-size: 0.58rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   writing-mode: vertical-rl;
@@ -1228,14 +1317,14 @@
 
 .operationsEvent span {
   color: var(--prastuti-primary);
-  font-size: 0.54rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
 
 .operationsEvent strong {
   color: var(--prastuti-text-primary);
-  font-size: 0.76rem;
+  font-size: 0.8125rem;
 }
 
 .flowCaption {
@@ -1244,8 +1333,8 @@
   justify-content: space-between;
   gap: 16px;
   padding: 16px 18px;
-  color: var(--pk-color-text-muted);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
 }
 
 .liveDot {
@@ -1285,23 +1374,23 @@
   place-items: center;
   border: 1px solid var(--pk-color-border-strong);
   border-radius: 50%;
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   font-size: 0.75rem;
   font-weight: 700;
 }
 
 .step h3 {
   margin: 0 0 6px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.96rem;
+  font-family: Inter, sans-serif;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 .step p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.86rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -1362,15 +1451,15 @@
 
 .moduleCard h3 {
   margin: 52px 0 10px;
-  font-size: 1.4rem;
+  font-size: 1.375rem;
   font-weight: 600;
   letter-spacing: -0.03em;
 }
 
 .moduleCard p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.84rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -1403,7 +1492,7 @@
 }
 
 .commercialLayout .sectionKicker {
-  color: var(--pk-color-brand-primary-strong);
+  color: var(--prastuti-primary);
 }
 
 .capabilityList {
@@ -1422,7 +1511,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 16px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .commercialCapabilityIconArea {
@@ -1454,16 +1543,16 @@
 
 .commercialCapability h3 {
   margin: 0 0 5px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.96rem;
+  font-family: Inter, sans-serif;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 .commercialCapability p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.83rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -1473,8 +1562,8 @@
   gap: 4px 14px;
   margin: 10px 0 0;
   padding: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.5;
   list-style: none;
 }
@@ -1584,13 +1673,13 @@
 
 .proofCopy h3 {
   margin-bottom: 7px;
-  font-size: 1.4rem;
+  font-size: 1.375rem;
 }
 
 .proofCopy p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.88rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
 }
 
 .compatibilityGrid {
@@ -1610,7 +1699,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 14px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .compatibilitySection .sectionTitle {
@@ -1634,7 +1723,7 @@
 }
 
 .compatibilityIconMain {
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
 }
 
 .compatibilityIconAccent {
@@ -1644,8 +1733,8 @@
 .compatibilityItem strong {
   display: block;
   margin-top: 26px;
-  color: var(--pk-color-text-primary);
-  font-size: 1.06rem;
+  color: var(--prastuti-text-primary);
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.35;
 }
@@ -1653,8 +1742,8 @@
 .compatibilityItem > span:last-child {
   display: block;
   margin-top: 10px;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.86rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -1723,15 +1812,15 @@
   background: var(--prastuti-primary-subtle);
   color: var(--prastuti-primary);
   font-family: "Clash Display", sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: 500;
   content: "0" counter(deploy);
 }
 
 .deploymentItem h3 {
   margin: 30px 0 12px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.08rem;
+  font-family: Inter, sans-serif;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.4;
@@ -1739,8 +1828,8 @@
 
 .deploymentItem p {
   margin: 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.84rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.875rem;
   line-height: 1.7;
 }
 
@@ -1792,8 +1881,8 @@
 .trustCard h3 {
   margin: 24px 0 11px;
   color: var(--prastuti-text-primary);
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.12rem;
+  font-family: Inter, sans-serif;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.4;
@@ -1802,7 +1891,7 @@
 .trustCard p {
   margin: 0;
   color: var(--prastuti-text-muted);
-  font-size: 0.84rem;
+  font-size: 0.875rem;
   line-height: 1.7;
 }
 
@@ -1835,7 +1924,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  color: var(--pk-color-text-primary);
+  color: var(--prastuti-text-primary);
   cursor: pointer;
   font-weight: 700;
   list-style: none;
@@ -1846,7 +1935,7 @@
 }
 
 .faqItem summary::after {
-  color: var(--pk-color-link-default);
+  color: var(--prastuti-primary);
   content: "+";
   font-size: 1.35rem;
   font-weight: 400;
@@ -1859,8 +1948,8 @@
 .faqItem p {
   max-width: 70ch;
   padding: 0 50px 24px 0;
-  color: var(--pk-color-text-secondary);
-  font-size: 0.9rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1rem;
   line-height: 1.75;
 }
 
@@ -1892,14 +1981,14 @@
 .finalInner h2 {
   margin-bottom: 20px;
   max-width: 14ch;
-  font-size: clamp(2.8rem, 5vw, 5rem);
-  line-height: 0.96;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1.02;
 }
 
 .finalInner p {
   max-width: 650px;
-  color: var(--pk-color-text-secondary);
-  font-size: 1.06rem;
+  color: var(--prastuti-text-muted);
+  font-size: 1.125rem;
 }
 
 @keyframes scene-switch {
@@ -1962,17 +2051,8 @@
 }
 
 @media (max-width: 1180px) {
-  .heroInner {
-    grid-template-columns: minmax(390px, 0.9fr) minmax(0, 1.1fr);
+  .heroBody {
     gap: 38px;
-  }
-
-  .heroTitle {
-    font-size: clamp(3.4rem, 5.6vw, 4.4rem);
-  }
-
-  .worldFrame {
-    min-height: 560px;
   }
 
   .moduleGrid,
@@ -1983,20 +2063,33 @@
 
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1023px) {
   .heroInner {
-    grid-template-columns: 1fr;
     min-height: auto;
+  }
+
+  .heroBody {
+    grid-template-columns: 1fr;
+    gap: clamp(36px, 5vw, 52px);
+  }
+
+  .heroTitle {
+    white-space: normal;
+  }
+
+  .desktopTitleBreak {
+    display: none;
   }
 
   .heroCopy {
     max-width: 780px;
   }
+}
 
+@media (max-width: 960px) {
   .worldFrame {
-    min-height: min(68vw, 650px);
+    min-height: min(60vw, 560px);
   }
-
 }
 
 @media (min-width: 821px) and (max-width: 960px) {
@@ -2024,8 +2117,108 @@
     gap: 18px;
   }
 
+  .worldFrame {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    min-height: 0;
+    padding: 0 10px 10px;
+  }
+
+  .worldFrame > picture {
+    position: relative;
+    grid-area: 1 / 1 / 2 / -1;
+    width: calc(100% + 20px);
+    margin-inline: -10px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .worldFrame::after {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 1 / 2 / -1;
+    width: calc(100% + 20px);
+    height: 100%;
+    margin-inline: -10px;
+  }
+
+  .worldImage {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .scanLine {
+    position: relative;
+    grid-area: 1 / 1 / 2 / -1;
+    top: auto;
+    bottom: auto;
+    height: 100%;
+  }
+
+  .hud,
+  .gateHud,
+  .occupancyHud {
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 8px;
+    width: 100%;
+    padding: 9px 10px;
+  }
+
+  .hud {
+    grid-column: 1;
+  }
+
+  .gateHud {
+    grid-column: 2;
+  }
+
+  .occupancyHud {
+    grid-column: 3;
+  }
+
+  .hudIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hudLabel {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hudValue {
+    margin-top: 3px;
+    font-size: 0.8125rem;
+  }
+
+  .hudStatus {
+    width: 8px;
+    height: 8px;
+  }
+
+  .hud::after,
+  .occupancyHud::after,
+  .gateHud::after {
+    display: none;
+  }
+
   .metricsGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .credibilityGrid {
+    gap: 14px;
+  }
+
+  .credibilityCard {
+    padding: 20px 22px;
+  }
+
+  .credibilityValue {
+    font-size: clamp(2rem, 6vw, 3rem);
   }
 
   .deploymentGrid {
@@ -2091,7 +2284,7 @@
   .announcement a {
     min-height: 48px;
     padding: 8px 14px;
-    font-size: 0.74rem;
+    font-size: 0.8125rem;
   }
 
   .hero::before {
@@ -2102,12 +2295,14 @@
     padding-block: 52px 64px;
   }
 
-  .heroTitle {
-    font-size: clamp(2.7rem, 13.5vw, 4rem);
+  .heroTitle,
+  .heroConnected {
+    font-size: clamp(2.75rem, 10vw, 3.25rem);
   }
 
   .heroLead,
   .sectionLead,
+  .credibilityLead,
   .finalInner p {
     font-size: 1rem;
   }
@@ -2146,12 +2341,17 @@
   }
 
   .worldFrame {
-    min-height: 500px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    min-height: 0;
+    padding: 0 8px 8px;
     border-radius: 12px;
   }
 
-  .worldImage {
-    object-position: 62% center;
+  .worldFrame > picture,
+  .worldFrame::after {
+    width: calc(100% + 16px);
+    margin-inline: -8px;
   }
 
   .heroLane {
@@ -2183,47 +2383,44 @@
   .hud,
   .gateHud,
   .occupancyHud {
-    right: auto;
-    left: 4%;
-    width: 92%;
-    grid-template-columns: 38px minmax(0, 1fr) auto;
-    gap: 10px;
-    padding: 10px 12px;
-  }
-
-  .hudIcon {
-    width: 38px;
-    height: 38px;
+    grid-column: 1;
   }
 
   .hud {
-    top: 4%;
+    grid-row: 2;
   }
 
   .gateHud {
-    bottom: 18%;
+    grid-row: 3;
   }
 
   .occupancyHud {
-    bottom: 4%;
-  }
-
-  .hud::after,
-  .occupancyHud::after,
-  .gateHud::after {
-    display: none;
+    grid-row: 4;
   }
 
   .section {
     padding-block: 74px;
   }
 
+  .credibilitySection {
+    padding-block: 48px;
+  }
+
   .metricsGrid,
+  .credibilityGrid,
   .moduleGrid,
   .compatibilityGrid,
   .proofGrid,
   .deploymentGrid {
     grid-template-columns: 1fr;
+  }
+
+  .credibilityCard {
+    padding: 22px 28px;
+  }
+
+  .credibilityLabel {
+    max-width: none;
   }
 
   .metric,
@@ -2349,10 +2546,6 @@
 }
 
 @media (hover: none), (pointer: coarse) {
-  .partnerMarqueeControl {
-    display: none;
-  }
-
   .partnerLogoTrack {
     width: 100%;
     animation: none;
@@ -2406,10 +2599,6 @@
     animation: none;
     transform: none;
     will-change: auto;
-  }
-
-  .partnerMarqueeControl {
-    display: none;
   }
 
   .partnerLogoGroup {
