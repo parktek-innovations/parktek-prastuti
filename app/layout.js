@@ -1,4 +1,8 @@
 import Script from "next/script";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-700.css";
 import "./globals.css";
 import GoogleAnalytics from "./google-analytics";
 import { SiteFooter } from "@/components/website/site-footer";
@@ -16,7 +20,11 @@ export const metadata = {
     path: "/"
   }),
   icons: {
-    icon: "/brand/parktek-mark.svg"
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/brand/parktek-mark-96.png", type: "image/png", sizes: "96x96" }
+    ],
+    shortcut: "/favicon.ico"
   }
 };
 

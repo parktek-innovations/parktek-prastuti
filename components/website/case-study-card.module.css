@@ -4,7 +4,7 @@
   border: 1px solid var(--pk-component-card-border-default);
   border-radius: 14px;
   background: var(--pk-component-card-background-default);
-  color: var(--pk-component-card-foreground-default);
+  color: var(--prastuti-text-primary);
 }
 
 .featured {
@@ -18,8 +18,8 @@
   padding: 24px;
   border-bottom: 1px solid var(--pk-color-border-default);
   background: var(--pk-component-empty-state-background-default);
-  color: var(--pk-component-empty-state-icon-default);
-  font-size: 0.78rem;
+  color: var(--prastuti-text-muted);
+  font-size: 0.8125rem;
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
@@ -43,8 +43,8 @@
 
 .meta {
   margin: 0;
-  color: var(--pk-color-brand-text-emphasis);
-  font-size: 0.72rem;
+  color: var(--prastuti-primary);
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -54,14 +54,17 @@
 .copy h3 {
   max-width: 680px;
   margin: 18px 0 14px;
-  font-size: clamp(1.8rem, 3.5vw, 3.4rem);
-  line-height: 1.05;
+  font-family: Inter, sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .summary {
   max-width: 65ch;
   margin: 0;
-  color: var(--pk-color-text-secondary);
+  color: var(--prastuti-text-muted);
   line-height: 1.7;
 }
 
@@ -71,13 +74,13 @@
   align-items: center;
   gap: 8px;
   margin-top: 22px;
-  color: var(--pk-color-link-default);
-  font-size: 0.88rem;
+  color: var(--prastuti-primary);
+  font-size: 0.9375rem;
   font-weight: 700;
 }
 
 .link:hover {
-  color: var(--pk-color-link-hover);
+  color: var(--prastuti-primary-hover);
 }
 
 .prastuti {

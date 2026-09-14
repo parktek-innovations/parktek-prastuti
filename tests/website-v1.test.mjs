@@ -29,6 +29,46 @@ async function sourceFile(path) {
   return readFile(new URL(path, source), "utf8");
 }
 
+function cssBlock(styles, selector) {
+  const start = styles.indexOf(selector);
+  assert.notEqual(start, -1, `${selector} CSS block missing`);
+
+  const openingBrace = styles.indexOf("{", start);
+  assert.notEqual(openingBrace, -1, `${selector} CSS block has no opening brace`);
+
+  let depth = 0;
+  for (let index = openingBrace; index < styles.length; index += 1) {
+    if (styles[index] === "{") {
+      depth += 1;
+    } else if (styles[index] === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return styles.slice(start, index + 1);
+      }
+    }
+  }
+
+  assert.fail(`${selector} CSS block has no closing brace`);
+}
+
+function cssBlocksStartingWith(styles, prefix) {
+  const blocks = [];
+  let offset = 0;
+
+  while (offset < styles.length) {
+    const start = styles.indexOf(prefix, offset);
+    if (start === -1) {
+      break;
+    }
+
+    const block = cssBlock(styles.slice(start), prefix);
+    blocks.push(block);
+    offset = start + block.length;
+  }
+
+  return blocks;
+}
+
 test("static export contains every Website V1 route", async () => {
   for (const route of requiredRoutes) {
     const html = await outputFile(route);
@@ -40,8 +80,9 @@ test("static export contains every Website V1 route", async () => {
 test("homepage carries the approved positioning and requested availability labels", async () => {
   const html = await outputFile("index.html");
 
-  assert.match(html, /Every gate\. Every vehicle\. Every parking/);
-  assert.match(html, /transaction<span class="[^"]+">—connected\.<\/span>/);
+  assert.match(html, /Every gate\. Every vehicle\.<br class="[^"]+"\/>(?:\s|<!-- -->)*Every parking/);
+  assert.match(html, /transaction<span class="sr-only">— connected\.<\/span>/);
+  assert.match(html, /aria-hidden="true" class="[^"]+">— connected\.<\/span>/);
   assert.match(html, /Book a Site Assessment/);
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
@@ -78,6 +119,62 @@ test("homepage carries the approved positioning and requested availability label
   ]) {
     assert.match(productProof, new RegExp(`/figma/product-proof/${image}`));
   }
+});
+
+test("homepage hero uses a full-width heading above a responsive copy and image body", async () => {
+  const homepage = await sourceFile("components/website/home-page.jsx");
+  const styles = await sourceFile("components/website/home-page.module.css");
+  const hero = homepage.match(/<section className=\{styles\.hero\}[\s\S]*?<\/section>/)?.[0] || "";
+
+  assert.match(
+    hero,
+    /styles\.heroHeading[\s\S]*styles\.heroTitle[\s\S]*styles\.desktopTitleBreak[\s\S]*styles\.heroBody[\s\S]*styles\.heroCopy[\s\S]*styles\.heroConnected[\s\S]*styles\.worldFrame/
+  );
+  assert.equal((hero.match(/<h1/g) || []).length, 1);
+  assert.match(
+    styles,
+    /\.heroBody\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 0\.9fr\) minmax\(0, 1\.1fr\);/
+  );
+  assert.match(styles, /\.heroTitle\s*\{[^}]*white-space:\s*nowrap;/);
+  assert.match(styles, /\.desktopTitleBreak\s*\{[^}]*display:\s*inline;/);
+  assert.match(
+    styles,
+    /@media \(max-width: 1023px\)[\s\S]*\.heroBody\s*\{[^}]*grid-template-columns:\s*1fr;[\s\S]*\.desktopTitleBreak\s*\{[^}]*display:\s*none;/
+  );
+});
+
+test("homepage credibility metrics render in the requested location and responsive layout", async () => {
+  const [html, homepage, content, styles] = await Promise.all([
+    outputFile("index.html"),
+    sourceFile("components/website/home-page.jsx"),
+    sourceFile("lib/website-content.js"),
+    sourceFile("components/website/home-page.module.css"),
+  ]);
+
+  for (const copy of [
+    "ParkTek at a glance",
+    "Trusted by growing communities.",
+    "Real operations. Real results. Built for modern residential living.",
+    "50,000+",
+    "Vehicle movements",
+    "50+",
+    "Residential apartment communities",
+    "25,000+",
+    "Trusted users",
+  ]) {
+    assert.match(html, new RegExp(copy.replace(/[+.]/g, "\\$&")));
+  }
+
+  const solutionsIndex = html.indexOf("From society gates to managed commercial parking.");
+  const credibilityIndex = html.indexOf("ParkTek at a glance");
+  const workflowIndex = html.indexOf("How ParkTek works");
+  assert.ok(solutionsIndex < credibilityIndex && credibilityIndex < workflowIndex);
+  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "50,000\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
+  assert.match(homepage, /<section aria-labelledby="credibility-title"[\s\S]*?<ul className=\{styles\.credibilityGrid\}/);
+  assert.equal((homepage.match(/aria-hidden="true" className=\{styles\.credibilityIconArea\}/g) || []).length, 1);
+  assert.match(styles, /\.credibilityGrid\s*\{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/s);
+  assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.credibilityGrid,[\s\S]*grid-template-columns:\s*1fr/);
+  assert.doesNotMatch(html, />Communities<|99\.9%|Communities served|Cities covered/);
 });
 
 test("case studies stay unpromoted while implementation remains", async () => {
@@ -193,9 +290,13 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   const fastagSource = await sourceFile("app/fastag/page.js");
   const challanSource = await sourceFile("app/e-challan/page.js");
   const marketingStyles = await sourceFile("app/marketing-pages.module.css");
+  const statusPillSource = await sourceFile("components/website/status-pill.jsx");
+  const websiteStyles = await sourceFile("components/website/website.module.css");
 
   assert.match(fastag, /Recharge completion is confirmed by the authorized issuer or payment channel/i);
   assert.match(challan, /The issuing authority remains the source for challan records and status/i);
+  assert.match(fastag, /FASTag recharge guidance[\s\S]*Coming soon/i);
+  assert.match(challan, /E-Challan guidance[\s\S]*Coming soon/i);
   assert.doesNotMatch(fastag, /(?:id|href)="\#?fastag-enquiry"|Vehicle lookup starting point/);
   assert.doesNotMatch(challan, /(?:id|href)="\#?challan-enquiry"|Safe action area/);
   assert.match(fastag, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
@@ -204,6 +305,8 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
   assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
   assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
+  assert.match(statusPillSource, /"coming-soon": "Coming soon"/);
+  assert.match(websiteStyles, /\.status_coming-soon\s*\{/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive\s*\{[\s\S]*grid-template-columns:\s*1fr;/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive > \.flowItem:nth-child\(4\),[\s\S]*grid-column:\s*auto;/);
 });
@@ -380,18 +483,84 @@ test("responsive marketing images keep PNG fallbacks and smaller WebP candidates
   }
 });
 
-test("partner marquee can pause and becomes static for touch and reduced motion", async () => {
-  const [marquee, styles] = await Promise.all([
-    sourceFile("components/website/partner-marquee.jsx"),
+test("partner marquee keeps two animated rows on touch and honors reduced motion", async () => {
+  const [homepageOutput, homepage, styles] = await Promise.all([
+    outputFile("index.html"),
+    sourceFile("components/website/home-page.jsx"),
     sourceFile("components/website/home-page.module.css"),
   ]);
 
-  assert.match(marquee, /aria-pressed=\{paused\}/);
-  assert.match(marquee, /Pause partner logo movement/);
-  assert.match(marquee, /Play partner logo movement/);
-  assert.match(styles, /\.partnerMarquee\[data-paused="true"\][\s\S]*animation-play-state:\s*paused/);
-  assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
-  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
+  const partnerSection = homepageOutput.match(
+    /<section[^>]*aria-labelledby="partner-societies-title"[\s\S]*?<\/section>/
+  )?.[0] || "";
+  const track = cssBlock(styles, ".partnerLogoTrack {");
+  const secondTrack = cssBlock(styles, '.partnerLogoTrack[data-row="2"]');
+  const group = cssBlock(styles, ".partnerLogoGroup {");
+  const viewport = cssBlock(styles, ".partnerLogoViewport {");
+  const touchSelector = "@media (hover: none), (pointer: coarse)";
+  const touchStart = styles.indexOf(touchSelector);
+  const touch = touchStart === -1 ? "" : cssBlock(styles.slice(touchStart), touchSelector);
+  const reducedMotion = cssBlock(styles, "@media (prefers-reduced-motion: reduce)");
+  const reducedMotionTrack = cssBlock(reducedMotion, ".partnerLogoTrack {");
+  const mobileBlocks = cssBlocksStartingWith(styles, "@media (max-width:");
+
+  assert.doesNotMatch(homepage, /PartnerMarquee|Pause partner logo movement|Play partner logo movement|aria-pressed/);
+  assert.doesNotMatch(styles, /partnerMarqueeControl|data-paused/);
+  assert.equal((partnerSection.match(/data-row="\d+"/g) || []).length, 2);
+  for (const row of [1, 2]) {
+    assert.equal((partnerSection.match(new RegExp(`data-row="${row}"`, "g")) || []).length, 1);
+  }
+  assert.match(homepage, /<PartnerLogoGroup logos=\{logos\} \/>[\s\S]*<PartnerLogoGroup duplicate logos=\{logos\} \/>/);
+  assert.match(track, /display:\s*flex/);
+  assert.match(track, /width:\s*max-content/);
+  assert.match(track, /animation:\s*partner-logo-scroll 36s linear infinite/);
+  assert.match(secondTrack, /animation-delay:\s*-9s/);
+  assert.match(secondTrack, /animation-duration:\s*40s/);
+  assert.match(group, /display:\s*flex/);
+  assert.match(group, /flex-shrink:\s*0/);
+  assert.doesNotMatch(group, /flex-wrap/);
+  assert.match(viewport, /overflow:\s*hidden/);
+  assert.doesNotMatch(touch, /\.partnerLogoTrack|\.partnerLogoGroup/);
+  for (const mobileBlock of mobileBlocks) {
+    assert.doesNotMatch(mobileBlock, /\.partnerLogoGroup\s*\{[^}]*flex-wrap/s);
+  }
+  assert.match(reducedMotionTrack, /animation:\s*none/);
+  assert.match(reducedMotionTrack, /transform:\s*none/);
+});
+
+test("all website headings use locally bundled Inter", async () => {
+  const [layout, ...styles] = await Promise.all([
+    sourceFile("app/layout.js"),
+    sourceFile("app/globals.css"),
+    sourceFile("app/marketing-pages.module.css"),
+    sourceFile("components/website/case-study-card.module.css"),
+    sourceFile("components/website/home-page.module.css"),
+    sourceFile("components/website/website.module.css"),
+  ]);
+  const [globalStyles] = styles;
+  const websiteStyles = styles.join("\n");
+
+  for (const weight of [400, 500, 600, 700]) {
+    assert.match(layout, new RegExp(`import "@fontsource/inter/latin-${weight}\\.css"`));
+  }
+  assert.match(globalStyles, /h1,[\s\S]*h6,[\s\S]*\[role="heading"\]\s*\{[^}]*font-family:\s*Inter, sans-serif;/);
+  assert.doesNotMatch(
+    websiteStyles,
+    /(?:h[1-6]|footerHeading)[^{]*\{[^}]*font-family:\s*"(?:Clash Display|Montserrat)"/s
+  );
+
+  const cssOutput = new URL("../out/_next/static/css/", import.meta.url);
+  const compiledStyles = (await Promise.all(
+    (await readdir(cssOutput))
+      .filter((name) => name.endsWith(".css"))
+      .map((name) => readFile(new URL(name, cssOutput), "utf8"))
+  )).join("\n");
+  const fontAssets = await readdir(new URL("../out/_next/static/media/", import.meta.url));
+
+  assert.match(compiledStyles, /@font-face\{font-family:Inter/);
+  for (const weight of [400, 500, 600, 700]) {
+    assert.ok(fontAssets.some((name) => new RegExp(`inter-latin-${weight}-normal\\..+\\.woff2`).test(name)));
+  }
 });
 
 test("responsive CSS keeps shared cards balanced across launch breakpoints", async () => {
@@ -467,7 +636,14 @@ test("homepage animated worlds use the archived gate and ecosystem assets", asyn
   assert.match(styles, /\.worldImageOpen\s*\{[\s\S]*animation:\s*scene-switch 9s ease-in-out infinite/);
   assert.match(styles, /@keyframes scene-switch/);
   assert.match(styles, /@keyframes scan/);
-  assert.match(styles, /\.flowVisual img\s*\{[\s\S]*aspect-ratio:\s*16 \/ 10;/);
+  assert.match(styles, /@media \(max-width: 820px\)[\s\S]*\.worldFrame > picture\s*\{[^}]*aspect-ratio:\s*16 \/ 9;/);
+  assert.match(styles, /@media \(max-width: 820px\)[\s\S]*\.worldImage\s*\{[^}]*object-fit:\s*contain;[^}]*object-position:\s*center;/);
+  assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.worldFrame\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\);/);
+  assert.doesNotMatch(styles, /object-position:\s*62% center/);
+  assert.match(
+    styles,
+    /\.flowVisual img\s*\{[^}]*display:\s*block;[^}]*width:\s*100%;[^}]*height:\s*auto;[^}]*aspect-ratio:\s*1672 \/ 941;[^}]*object-fit:\s*contain;/
+  );
   assert.match(styles, /@media \(prefers-reduced-motion: reduce\)\s*\{[\s\S]*\.worldImageOpen,[\s\S]*\.scanLine[\s\S]*display:\s*none;/);
 });
 
@@ -515,7 +691,9 @@ test("homepage footer exposes only verified app and social destinations with acc
     html,
     /aria-label="ParkTek Innovation on LinkedIn"[^>]+href="https:\/\/in\.linkedin\.com\/company\/https-parktek\.in"[^>]+rel="noopener noreferrer"[^>]+target="_blank"/
   );
-  assert.doesNotMatch(html, /ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
+  assert.match(html, /alt="Get it on Google Play"[^>]+src="\/figma\/footer\/google-play-badge\.png"/);
+  assert.match(html, /alt="Download on the App Store"[^>]+src="\/figma\/footer\/app-store-badge\.svg"/);
+  assert.doesNotMatch(html, /social-android\.svg|social-ios\.svg|footerAppIcon|ParkTek on X|ParkTek on YouTube|ParkTek on Instagram|footerSocialIcon/);
 });
 
 test("lead pages render the shared accessible form contract", async () => {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { StatusPill } from "@/components/website/status-pill";
 import StructuredData from "@/components/website/structured-data";
 import { CONTACT } from "@/lib/website-content";
 import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
@@ -78,7 +79,7 @@ export default function FastagPage() {
                 <li aria-current="page">FASTag recharge</li>
               </ol>
             </nav>
-            <p className={styles.eyebrow}>FASTag recharge guidance</p>
+            <p className={styles.eyebrow}>FASTag recharge guidance <StatusPill status="Coming soon" /></p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Start a FASTag recharge enquiry safely.</h1>
             <p className={styles.lead}>
               Use the vehicle number to prepare a support enquiry, then confirm the issuer, amount and payment
