@@ -62,6 +62,7 @@
 .brandLogo {
   width: 132px;
   height: auto;
+  mix-blend-mode: difference;
 }
 
 .desktopNav {
@@ -324,6 +325,7 @@
 .mobilePanelHeader img {
   width: 121px;
   height: auto;
+  mix-blend-mode: difference;
 }
 
 .mobileClose {
