@@ -290,9 +290,13 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   const fastagSource = await sourceFile("app/fastag/page.js");
   const challanSource = await sourceFile("app/e-challan/page.js");
   const marketingStyles = await sourceFile("app/marketing-pages.module.css");
+  const statusPillSource = await sourceFile("components/website/status-pill.jsx");
+  const websiteStyles = await sourceFile("components/website/website.module.css");
 
   assert.match(fastag, /Recharge completion is confirmed by the authorized issuer or payment channel/i);
   assert.match(challan, /The issuing authority remains the source for challan records and status/i);
+  assert.match(fastag, /FASTag recharge guidance[\s\S]*Coming soon/i);
+  assert.match(challan, /E-Challan guidance[\s\S]*Coming soon/i);
   assert.doesNotMatch(fastag, /(?:id|href)="\#?fastag-enquiry"|Vehicle lookup starting point/);
   assert.doesNotMatch(challan, /(?:id|href)="\#?challan-enquiry"|Safe action area/);
   assert.match(fastag, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
@@ -301,6 +305,8 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
   assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
   assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
+  assert.match(statusPillSource, /"coming-soon": "Coming soon"/);
+  assert.match(websiteStyles, /\.status_coming-soon\s*\{/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive\s*\{[\s\S]*grid-template-columns:\s*1fr;/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive > \.flowItem:nth-child\(4\),[\s\S]*grid-column:\s*auto;/);
 });

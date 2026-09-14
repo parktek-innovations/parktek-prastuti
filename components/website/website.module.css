@@ -902,6 +902,12 @@
   color: var(--pk-color-status-pending-foreground);
 }
 
+.status_coming-soon {
+  border-color: var(--pk-color-status-pending-border);
+  background: var(--pk-color-status-pending-background);
+  color: var(--pk-color-status-pending-foreground);
+}
+
 .status_in-development {
   border-color: var(--pk-color-status-unknown-border);
   background: var(--pk-color-status-unknown-background);

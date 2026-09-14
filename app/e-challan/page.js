@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { StatusPill } from "@/components/website/status-pill";
 import StructuredData from "@/components/website/structured-data";
 import { CONTACT } from "@/lib/website-content";
 import { breadcrumbJsonLd, makeMetadata } from "@/lib/seo";
@@ -78,7 +79,7 @@ export default function EChallanPage() {
                 <li aria-current="page">E-Challan</li>
               </ol>
             </nav>
-            <p className={styles.eyebrow}>E-Challan guidance</p>
+            <p className={styles.eyebrow}>E-Challan guidance <StatusPill status="Coming soon" /></p>
             <h1 className={[styles.title, styles.compactTitle].join(" ")}>Review an e-challan enquiry before you act.</h1>
             <p className={styles.lead}>
               Prepare the vehicle and notice details, verify them with the issuing authority and use only an
