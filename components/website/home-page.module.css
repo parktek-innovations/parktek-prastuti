@@ -2545,26 +2545,6 @@
   }
 }
 
-@media (hover: none), (pointer: coarse) {
-  .partnerLogoTrack {
-    width: 100%;
-    animation: none;
-    transform: none;
-    will-change: auto;
-  }
-
-  .partnerLogoGroup {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-right: 0;
-  }
-
-  .partnerLogoGroup[aria-hidden="true"] {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .worldImageOpen,
   .scanLine,

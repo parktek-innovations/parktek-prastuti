@@ -29,6 +29,46 @@ async function sourceFile(path) {
   return readFile(new URL(path, source), "utf8");
 }
 
+function cssBlock(styles, selector) {
+  const start = styles.indexOf(selector);
+  assert.notEqual(start, -1, `${selector} CSS block missing`);
+
+  const openingBrace = styles.indexOf("{", start);
+  assert.notEqual(openingBrace, -1, `${selector} CSS block has no opening brace`);
+
+  let depth = 0;
+  for (let index = openingBrace; index < styles.length; index += 1) {
+    if (styles[index] === "{") {
+      depth += 1;
+    } else if (styles[index] === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return styles.slice(start, index + 1);
+      }
+    }
+  }
+
+  assert.fail(`${selector} CSS block has no closing brace`);
+}
+
+function cssBlocksStartingWith(styles, prefix) {
+  const blocks = [];
+  let offset = 0;
+
+  while (offset < styles.length) {
+    const start = styles.indexOf(prefix, offset);
+    if (start === -1) {
+      break;
+    }
+
+    const block = cssBlock(styles.slice(start), prefix);
+    blocks.push(block);
+    offset = start + block.length;
+  }
+
+  return blocks;
+}
+
 test("static export contains every Website V1 route", async () => {
   for (const route of requiredRoutes) {
     const html = await outputFile(route);
@@ -250,9 +290,13 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   const fastagSource = await sourceFile("app/fastag/page.js");
   const challanSource = await sourceFile("app/e-challan/page.js");
   const marketingStyles = await sourceFile("app/marketing-pages.module.css");
+  const statusPillSource = await sourceFile("components/website/status-pill.jsx");
+  const websiteStyles = await sourceFile("components/website/website.module.css");
 
   assert.match(fastag, /Recharge completion is confirmed by the authorized issuer or payment channel/i);
   assert.match(challan, /The issuing authority remains the source for challan records and status/i);
+  assert.match(fastag, /FASTag recharge guidance[\s\S]*Coming soon/i);
+  assert.match(challan, /E-Challan guidance[\s\S]*Coming soon/i);
   assert.doesNotMatch(fastag, /(?:id|href)="\#?fastag-enquiry"|Vehicle lookup starting point/);
   assert.doesNotMatch(challan, /(?:id|href)="\#?challan-enquiry"|Safe action area/);
   assert.match(fastag, /href="\/contact\/"[^>]*>Contact ParkTek<\/a>/);
@@ -261,6 +305,8 @@ test("FASTag and E-Challan enquiry sections and dead hero anchors stay hidden", 
   assert.match(fastagSource, /id="fastag-enquiry"[\s\S]*?action="\/contact\/"/);
   assert.match(challanSource, /const SHOW_CHALLAN_ENQUIRY = false/);
   assert.match(challanSource, /id="challan-enquiry"[\s\S]*?action="\/contact\/"/);
+  assert.match(statusPillSource, /"coming-soon": "Coming soon"/);
+  assert.match(websiteStyles, /\.status_coming-soon\s*\{/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive\s*\{[\s\S]*grid-template-columns:\s*1fr;/);
   assert.match(marketingStyles, /@media \(max-width: 620px\)[\s\S]*\.flowFive > \.flowItem:nth-child\(4\),[\s\S]*grid-column:\s*auto;/);
 });
@@ -437,17 +483,49 @@ test("responsive marketing images keep PNG fallbacks and smaller WebP candidates
   }
 });
 
-test("partner marquee keeps moving without a pause control and becomes static for touch and reduced motion", async () => {
-  const [homepage, styles] = await Promise.all([
+test("partner marquee keeps two animated rows on touch and honors reduced motion", async () => {
+  const [homepageOutput, homepage, styles] = await Promise.all([
+    outputFile("index.html"),
     sourceFile("components/website/home-page.jsx"),
     sourceFile("components/website/home-page.module.css"),
   ]);
 
+  const partnerSection = homepageOutput.match(
+    /<section[^>]*aria-labelledby="partner-societies-title"[\s\S]*?<\/section>/
+  )?.[0] || "";
+  const track = cssBlock(styles, ".partnerLogoTrack {");
+  const secondTrack = cssBlock(styles, '.partnerLogoTrack[data-row="2"]');
+  const group = cssBlock(styles, ".partnerLogoGroup {");
+  const viewport = cssBlock(styles, ".partnerLogoViewport {");
+  const touchSelector = "@media (hover: none), (pointer: coarse)";
+  const touchStart = styles.indexOf(touchSelector);
+  const touch = touchStart === -1 ? "" : cssBlock(styles.slice(touchStart), touchSelector);
+  const reducedMotion = cssBlock(styles, "@media (prefers-reduced-motion: reduce)");
+  const reducedMotionTrack = cssBlock(reducedMotion, ".partnerLogoTrack {");
+  const mobileBlocks = cssBlocksStartingWith(styles, "@media (max-width:");
+
   assert.doesNotMatch(homepage, /PartnerMarquee|Pause partner logo movement|Play partner logo movement|aria-pressed/);
   assert.doesNotMatch(styles, /partnerMarqueeControl|data-paused/);
-  assert.match(styles, /\.partnerLogoTrack\s*\{[^}]*animation:\s*partner-logo-scroll 36s linear infinite/s);
-  assert.match(styles, /@media \(hover: none\), \(pointer: coarse\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
-  assert.match(styles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.partnerLogoTrack[\s\S]*animation:\s*none/);
+  assert.equal((partnerSection.match(/data-row="\d+"/g) || []).length, 2);
+  for (const row of [1, 2]) {
+    assert.equal((partnerSection.match(new RegExp(`data-row="${row}"`, "g")) || []).length, 1);
+  }
+  assert.match(homepage, /<PartnerLogoGroup logos=\{logos\} \/>[\s\S]*<PartnerLogoGroup duplicate logos=\{logos\} \/>/);
+  assert.match(track, /display:\s*flex/);
+  assert.match(track, /width:\s*max-content/);
+  assert.match(track, /animation:\s*partner-logo-scroll 36s linear infinite/);
+  assert.match(secondTrack, /animation-delay:\s*-9s/);
+  assert.match(secondTrack, /animation-duration:\s*40s/);
+  assert.match(group, /display:\s*flex/);
+  assert.match(group, /flex-shrink:\s*0/);
+  assert.doesNotMatch(group, /flex-wrap/);
+  assert.match(viewport, /overflow:\s*hidden/);
+  assert.doesNotMatch(touch, /\.partnerLogoTrack|\.partnerLogoGroup/);
+  for (const mobileBlock of mobileBlocks) {
+    assert.doesNotMatch(mobileBlock, /\.partnerLogoGroup\s*\{[^}]*flex-wrap/s);
+  }
+  assert.match(reducedMotionTrack, /animation:\s*none/);
+  assert.match(reducedMotionTrack, /transform:\s*none/);
 });
 
 test("all website headings use locally bundled Inter", async () => {

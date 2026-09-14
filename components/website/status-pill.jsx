@@ -4,6 +4,7 @@ const STATUS_LABELS = {
   live: "Live",
   pilot: "Pilot",
   launching: "Launching",
+  "coming-soon": "Coming soon",
   "in-development": "In development",
 };
 

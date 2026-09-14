@@ -254,7 +254,7 @@ export function SiteHeader({ className = "" }) {
             alt={SITE.name}
             className={styles.brandLogo}
             height="54"
-            src="/brand/parktek-logo-black.svg"
+            src="/brand/parktek-logo-white.svg"
             width="152"
           />
         </Link>
@@ -304,7 +304,7 @@ export function SiteHeader({ className = "" }) {
             role="dialog"
           >
             <div className={styles.mobilePanelHeader}>
-              <Image alt={SITE.name} height="43" src="/brand/parktek-logo-black.svg" width="121" />
+              <Image alt={SITE.name} height="43" src="/brand/parktek-logo-white.svg" width="121" />
               <button className={styles.mobileClose} onClick={closeMenu} type="button">
                 Close
               </button>
