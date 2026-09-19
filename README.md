@@ -2,6 +2,19 @@
 
 Public ParkTek marketing site for residential access control and the phased commercial-parking launch.
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Source of truth](#source-of-truth)
+- [Stack](#stack)
+- [Capability labels](#capability-labels)
+- [Routes](#routes)
+- [Local setup](#local-setup)
+- [Environment](#environment)
+- [Verification](#verification)
+- [Public contact](#public-contact)
+<!-- END TOC -->
+
 ## Source of truth
 
 Shared product behavior, API contracts, models, design rules, and public-claim boundaries live in [`../parktek-samhita`](../parktek-samhita). This repository owns only the public website implementation and its local deployment notes.

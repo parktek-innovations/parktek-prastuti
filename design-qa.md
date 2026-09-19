@@ -1,5 +1,16 @@
 # ParkTek Prastuti Website V1 — design QA
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Evidence](#evidence)
+- [Visual result](#visual-result)
+- [Fidelity and product-truth decisions](#fidelity-and-product-truth-decisions)
+- [Responsive and interaction checks](#responsive-and-interaction-checks)
+- [Performance and release acceptance](#performance-and-release-acceptance)
+- [Remaining launch inputs](#remaining-launch-inputs)
+<!-- END TOC -->
+
 ## Evidence
 
 - Visual reference: `artifacts/design-qa-source-desktop.png` (1280 × 720 crop of the supplied concept).

@@ -2,6 +2,23 @@
 
 Last updated: 2026-07-15
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Design and interaction direction](#design-and-interaction-direction)
+- [Routes](#routes)
+- [Main implementation](#main-implementation)
+- [Central configuration](#central-configuration)
+- [Lead form and backend contract](#lead-form-and-backend-contract)
+  - [Environment](#environment)
+- [SEO and structured data](#seo-and-structured-data)
+- [Founder verification required](#founder-verification-required)
+- [Missing production images](#missing-production-images)
+- [Verification](#verification)
+- [Follow-ups](#follow-ups)
+<!-- END TOC -->
+
 ## Purpose
 
 Website V1 presents ParkTek as a connected parking platform for residential societies and a phased commercial-parking launch. It keeps public capability claims aligned with the shared ParkTek standards:

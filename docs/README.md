@@ -15,3 +15,5 @@ Shared landing documentation lives in `../../parktek-samhita/docs/lending/` (for
 - Website V1 route, content-status, lead-form, SEO, and release notes in `website-v1.md`
 
 Do not use this repo as the source of truth for platform product/API/model behavior.
+
+- [ISO 27001 implementation evidence](iso27001-evidence.md) — source controls, operating proof and approval-pending changes.
