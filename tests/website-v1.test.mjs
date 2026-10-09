@@ -80,9 +80,12 @@ test("static export contains every Website V1 route", async () => {
 test("homepage carries the approved positioning and requested availability labels", async () => {
   const html = await outputFile("index.html");
 
-  assert.match(html, /Every gate\. Every vehicle\.<br class="[^"]+"\/>(?:\s|<!-- -->)*Every parking/);
-  assert.match(html, /transaction<span class="sr-only">— connected\.<\/span>/);
-  assert.match(html, /aria-hidden="true" class="[^"]+">— connected\.<\/span>/);
+  const headline = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] || "";
+  assert.deepEqual(
+    [...headline.matchAll(/<span[^>]*>([^<]+)<\/span>/g)].map((match) => match[1]),
+    ["Every gate.", "Every vehicle.", "Every parking transaction", "— connected."]
+  );
+  assert.doesNotMatch(headline, /aria-hidden|sr-only/);
   assert.match(html, /Book a Site Assessment/);
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
@@ -121,25 +124,25 @@ test("homepage carries the approved positioning and requested availability label
   }
 });
 
-test("homepage hero uses a full-width heading above a responsive copy and image body", async () => {
+test("homepage hero keeps separate headline lines in the responsive copy and image layout", async () => {
   const homepage = await sourceFile("components/website/home-page.jsx");
   const styles = await sourceFile("components/website/home-page.module.css");
   const hero = homepage.match(/<section className=\{styles\.hero\}[\s\S]*?<\/section>/)?.[0] || "";
 
   assert.match(
     hero,
-    /styles\.heroHeading[\s\S]*styles\.heroTitle[\s\S]*styles\.desktopTitleBreak[\s\S]*styles\.heroBody[\s\S]*styles\.heroCopy[\s\S]*styles\.heroConnected[\s\S]*styles\.worldFrame/
+    /styles\.heroBody[\s\S]*styles\.heroCopy[\s\S]*styles\.heroTitle[\s\S]*styles\.heroTitleLine[\s\S]*styles\.heroAccent[\s\S]*styles\.heroLead[\s\S]*styles\.worldFrame/
   );
   assert.equal((hero.match(/<h1/g) || []).length, 1);
   assert.match(
     styles,
     /\.heroBody\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 0\.9fr\) minmax\(0, 1\.1fr\);/
   );
-  assert.match(styles, /\.heroTitle\s*\{[^}]*white-space:\s*nowrap;/);
-  assert.match(styles, /\.desktopTitleBreak\s*\{[^}]*display:\s*inline;/);
+  assert.match(styles, /\.heroTitleLine\s*\{[^}]*display:\s*block;/);
+  assert.doesNotMatch(cssBlock(styles, ".heroTitle {"), /white-space:\s*nowrap/);
   assert.match(
     styles,
-    /@media \(max-width: 1023px\)[\s\S]*\.heroBody\s*\{[^}]*grid-template-columns:\s*1fr;[\s\S]*\.desktopTitleBreak\s*\{[^}]*display:\s*none;/
+    /@media \(max-width: 1023px\)[\s\S]*\.heroBody\s*\{[^}]*grid-template-columns:\s*1fr;/
   );
 });
 
