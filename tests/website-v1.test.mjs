@@ -80,9 +80,12 @@ test("static export contains every Website V1 route", async () => {
 test("homepage carries the approved positioning and requested availability labels", async () => {
   const html = await outputFile("index.html");
 
-  assert.match(html, /Every gate\. Every vehicle\.<br class="[^"]+"\/>(?:\s|<!-- -->)*Every parking/);
-  assert.match(html, /transaction<span class="sr-only">— connected\.<\/span>/);
-  assert.match(html, /aria-hidden="true" class="[^"]+">— connected\.<\/span>/);
+  const headline = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] || "";
+  assert.deepEqual(
+    [...headline.matchAll(/<span[^>]*>([^<]+)<\/span>/g)].map((match) => match[1]),
+    ["Every gate.", "Every vehicle.", "Every parking transaction", "— connected."]
+  );
+  assert.doesNotMatch(headline, /aria-hidden|sr-only/);
   assert.match(html, /Book a Site Assessment/);
   assert.match(html, /Explore Commercial Parking/);
   assert.match(html, /Commercial POS/);
@@ -121,25 +124,25 @@ test("homepage carries the approved positioning and requested availability label
   }
 });
 
-test("homepage hero uses a full-width heading above a responsive copy and image body", async () => {
+test("homepage hero keeps separate headline lines in the responsive copy and image layout", async () => {
   const homepage = await sourceFile("components/website/home-page.jsx");
   const styles = await sourceFile("components/website/home-page.module.css");
   const hero = homepage.match(/<section className=\{styles\.hero\}[\s\S]*?<\/section>/)?.[0] || "";
 
   assert.match(
     hero,
-    /styles\.heroHeading[\s\S]*styles\.heroTitle[\s\S]*styles\.desktopTitleBreak[\s\S]*styles\.heroBody[\s\S]*styles\.heroCopy[\s\S]*styles\.heroConnected[\s\S]*styles\.worldFrame/
+    /styles\.heroBody[\s\S]*styles\.heroCopy[\s\S]*styles\.heroTitle[\s\S]*styles\.heroTitleLine[\s\S]*styles\.heroAccent[\s\S]*styles\.heroLead[\s\S]*styles\.worldFrame/
   );
   assert.equal((hero.match(/<h1/g) || []).length, 1);
   assert.match(
     styles,
     /\.heroBody\s*\{[^}]*grid-template-columns:\s*minmax\(320px, 0\.9fr\) minmax\(0, 1\.1fr\);/
   );
-  assert.match(styles, /\.heroTitle\s*\{[^}]*white-space:\s*nowrap;/);
-  assert.match(styles, /\.desktopTitleBreak\s*\{[^}]*display:\s*inline;/);
+  assert.match(styles, /\.heroTitleLine\s*\{[^}]*display:\s*block;/);
+  assert.doesNotMatch(cssBlock(styles, ".heroTitle {"), /white-space:\s*nowrap/);
   assert.match(
     styles,
-    /@media \(max-width: 1023px\)[\s\S]*\.heroBody\s*\{[^}]*grid-template-columns:\s*1fr;[\s\S]*\.desktopTitleBreak\s*\{[^}]*display:\s*none;/
+    /@media \(max-width: 1023px\)[\s\S]*\.heroBody\s*\{[^}]*grid-template-columns:\s*1fr;/
   );
 });
 
@@ -155,7 +158,7 @@ test("homepage credibility metrics render in the requested location and responsi
     "ParkTek at a glance",
     "Trusted by growing communities.",
     "Real operations. Real results. Built for modern residential living.",
-    "50,000+",
+    "10,00,000+",
     "Vehicle movements",
     "50+",
     "Residential apartment communities",
@@ -169,7 +172,7 @@ test("homepage credibility metrics render in the requested location and responsi
   const credibilityIndex = html.indexOf("ParkTek at a glance");
   const workflowIndex = html.indexOf("How ParkTek works");
   assert.ok(solutionsIndex < credibilityIndex && credibilityIndex < workflowIndex);
-  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "50,000\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
+  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "10,00,000\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
   assert.match(homepage, /<section aria-labelledby="credibility-title"[\s\S]*?<ul className=\{styles\.credibilityGrid\}/);
   assert.equal((homepage.match(/aria-hidden="true" className=\{styles\.credibilityIconArea\}/g) || []).length, 1);
   assert.match(styles, /\.credibilityGrid\s*\{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/s);
@@ -743,7 +746,7 @@ test("central public contact details remain consistent", async () => {
 
   assert.match(html, /support@parktek\.in/);
   assert.match(html, /\+91 9899945876/);
-  assert.match(html, /SK-70, Sector 112, Noida - 201301/);
+  assert.match(html, /SK-52, Sector 112, Noida - 201301/);
   assert.doesNotMatch(html, /sales@parktek\.in/);
 });
 

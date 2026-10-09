@@ -398,20 +398,15 @@ export function WebsiteHomePage() {
 
       <section className={styles.hero} id="home">
         <div className={`${styles.container} ${styles.heroInner}`}>
-          <div className={styles.heroHeading}>
-            <span className={styles.eyebrow}>Connected parking operations</span>
-            <h1 className={styles.heroTitle}>
-              Every gate. Every vehicle.
-              <br className={styles.desktopTitleBreak} />{" "}
-              Every parking transaction<span className="sr-only">— connected.</span>
-            </h1>
-          </div>
-
           <div className={styles.heroBody}>
             <div className={styles.heroCopy}>
-              <span aria-hidden="true" className={`${styles.heroAccent} ${styles.heroConnected}`}>
-                — connected.
-              </span>
+              <span className={styles.eyebrow}>Connected parking operations</span>
+              <h1 className={styles.heroTitle}>
+                <span className={styles.heroTitleLine}>Every gate.</span>{" "}
+                <span className={styles.heroTitleLine}>Every vehicle.</span>{" "}
+                <span className={styles.heroTitleLine}>Every parking transaction</span>{" "}
+                <span className={`${styles.heroTitleLine} ${styles.heroAccent}`}>— connected.</span>
+              </h1>
               <p className={styles.heroLead}>
                 ParkTek connects residential RFID and ANPR access, local gate control, commercial parking and POS
                 operations in one operating workflow.

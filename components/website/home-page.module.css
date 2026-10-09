@@ -44,24 +44,18 @@
 .heroInner {
   position: relative;
   z-index: 1;
-  min-height: min(980px, calc(100svh - var(--header-height)));
-  padding-block: clamp(68px, 7vw, 104px);
-}
-
-.heroHeading {
-  width: 100%;
+  padding-block: clamp(48px, 5vw, 80px) clamp(32px, 3vw, 48px);
 }
 
 .heroBody {
   display: grid;
   grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
-  align-items: start;
+  align-items: center;
   gap: clamp(40px, 5.5vw, 80px);
-  margin-top: clamp(8px, 1vw, 16px);
 }
 
 .heroCopy {
-  max-width: 520px;
+  max-width: 600px;
 }
 
 .eyebrow,
@@ -85,33 +79,19 @@
   content: "";
 }
 
-.heroTitle,
-.heroConnected {
-  font-size: clamp(3.25rem, 5.25vw, 4.875rem);
-  line-height: 0.97;
+.heroTitle {
+  margin: 0 0 clamp(24px, 2.5vw, 36px);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  line-height: 1.08;
   letter-spacing: -0.04em;
 }
 
-.heroTitle {
-  max-width: none;
-  margin: 0;
-  text-wrap: balance;
-  white-space: nowrap;
-}
-
-.desktopTitleBreak {
-  display: inline;
+.heroTitleLine {
+  display: block;
 }
 
 .heroAccent {
   color: color-mix(in srgb, var(--prastuti-primary) 82%, var(--prastuti-background));
-}
-
-.heroConnected {
-  display: block;
-  margin-bottom: clamp(24px, 2.5vw, 36px);
-  font-family: Inter, sans-serif;
-  font-weight: 500;
 }
 
 .heroLead {
@@ -2064,21 +2044,13 @@
 }
 
 @media (max-width: 1023px) {
-  .heroInner {
-    min-height: auto;
-  }
-
   .heroBody {
     grid-template-columns: 1fr;
     gap: clamp(36px, 5vw, 52px);
   }
 
   .heroTitle {
-    white-space: normal;
-  }
-
-  .desktopTitleBreak {
-    display: none;
+    font-size: clamp(2.25rem, 5.25vw, 3.25rem);
   }
 
   .heroCopy {
@@ -2276,6 +2248,12 @@
   }
 }
 
+@media (min-width: 621px) and (max-width: 1023px) {
+  .credibilityValue {
+    font-size: clamp(1.5rem, 3.8vw, 2.5rem);
+  }
+}
+
 @media (max-width: 620px) {
   .container {
     width: min(calc(100% - 28px), var(--max-width));
@@ -2292,12 +2270,11 @@
   }
 
   .heroInner {
-    padding-block: 52px 64px;
+    padding-block: 52px 40px;
   }
 
-  .heroTitle,
-  .heroConnected {
-    font-size: clamp(2.75rem, 10vw, 3.25rem);
+  .heroTitle {
+    font-size: clamp(1.75rem, 8.5vw, 2.75rem);
   }
 
   .heroLead,
