@@ -2276,6 +2276,12 @@
   }
 }
 
+@media (min-width: 621px) and (max-width: 1023px) {
+  .credibilityValue {
+    font-size: clamp(1.5rem, 3.8vw, 2.5rem);
+  }
+}
+
 @media (max-width: 620px) {
   .container {
     width: min(calc(100% - 28px), var(--max-width));

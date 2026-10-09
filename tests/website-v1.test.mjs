@@ -155,7 +155,7 @@ test("homepage credibility metrics render in the requested location and responsi
     "ParkTek at a glance",
     "Trusted by growing communities.",
     "Real operations. Real results. Built for modern residential living.",
-    "10L+",
+    "10,00,000+",
     "Vehicle movements",
     "50+",
     "Residential apartment communities",
@@ -169,7 +169,7 @@ test("homepage credibility metrics render in the requested location and responsi
   const credibilityIndex = html.indexOf("ParkTek at a glance");
   const workflowIndex = html.indexOf("How ParkTek works");
   assert.ok(solutionsIndex < credibilityIndex && credibilityIndex < workflowIndex);
-  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "10L\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
+  assert.match(content, /export const HOMEPAGE_CREDIBILITY_METRICS = \[[\s\S]*?value: "10,00,000\+"[\s\S]*?value: "50\+"[\s\S]*?value: "25,000\+"/);
   assert.match(homepage, /<section aria-labelledby="credibility-title"[\s\S]*?<ul className=\{styles\.credibilityGrid\}/);
   assert.equal((homepage.match(/aria-hidden="true" className=\{styles\.credibilityIconArea\}/g) || []).length, 1);
   assert.match(styles, /\.credibilityGrid\s*\{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/s);
