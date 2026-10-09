@@ -746,7 +746,7 @@ test("central public contact details remain consistent", async () => {
 
   assert.match(html, /support@parktek\.in/);
   assert.match(html, /\+91 9899945876/);
-  assert.match(html, /SK-70, Sector 112, Noida - 201301/);
+  assert.match(html, /SK-52, Sector 112, Noida - 201301/);
   assert.doesNotMatch(html, /sales@parktek\.in/);
 });
 

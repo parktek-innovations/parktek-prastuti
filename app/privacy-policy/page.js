@@ -223,7 +223,7 @@ function ContactDetails() {
       <div><dt>Company</dt><dd>PARKTEK INNOVATION PRIVATE LIMITED</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:support@parktek.in">support@parktek.in</a></dd></div>
       <div><dt>Phone</dt><dd><a href="tel:+919899945876">+91 9899945876</a></dd></div>
-      <div><dt>Address</dt><dd>SK-70, Sector 112, Noida - 201301, India</dd></div>
+      <div><dt>Address</dt><dd>SK-52, Sector 112, Noida - 201301, India</dd></div>
     </dl>
   );
 }
