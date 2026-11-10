@@ -1,10 +1,27 @@
-# ParkTek Website V1
+# Website implementation
 
-Last updated: 2026-07-15
+Last updated: 2026-11-11
+
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Design and interaction direction](#design-and-interaction-direction)
+- [Routes](#routes)
+- [Main implementation](#main-implementation)
+- [Central configuration](#central-configuration)
+- [Lead form and backend contract](#lead-form-and-backend-contract)
+  - [Environment](#environment)
+- [SEO and structured data](#seo-and-structured-data)
+- [Founder verification required](#founder-verification-required)
+- [Missing production images](#missing-production-images)
+- [Verification](#verification)
+- [Follow-ups](#follow-ups)
+<!-- END TOC -->
 
 ## Purpose
 
-Website V1 presents ParkTek as a connected parking platform for residential societies and a phased commercial-parking launch. It keeps public capability claims aligned with the shared ParkTek standards:
+The website presents ParkTek as a connected parking platform for residential societies and a phased commercial-parking launch. It keeps public capability claims aligned with the shared ParkTek standards:
 
 - residential vehicle access, RFID, controller operations, dashboards, logs, and support: **Live**
 - guarded ANPR for eligible registered vehicles: **Pilot**
@@ -23,7 +40,7 @@ Motion is CSS-only on the production homepage and is removed when `prefers-reduc
 
 | Route | Purpose |
 | --- | --- |
-| `/` | V1 overview and primary conversion path |
+| `/` | Platform overview and primary conversion path |
 | `/residential-access-control/` | Live residential access workflow, roles, access modes, and equipment scope |
 | `/commercial-parking-management/` | Commercial/POS launch scope with availability labels |
 | `/case-studies/` | Customer-approved case-study index |
@@ -35,7 +52,7 @@ Motion is CSS-only on the production homepage and is removed when `prefers-reduc
 | `/privacy-policy/` | Privacy policy and account-deletion instructions |
 | `/terms-of-service/` | Service terms and current financial-transaction boundary |
 
-`/parking-pos-system/` was not an existing route, so V1 does not create or redirect it.
+`/parking-pos-system/` was not an existing route, so the site does not create or redirect it.
 
 ## Main implementation
 
@@ -151,7 +168,7 @@ The placeholder case study also requires customer approval and founder verificat
 
 ## Missing production images
 
-V1 includes explicit placeholders instead of invented proof for:
+The site includes explicit placeholders instead of invented proof for:
 
 - residential dashboard screenshot
 - commercial operations dashboard
@@ -187,7 +204,15 @@ Release verification on 2026-07-15 passed:
 - mobile focus trap, first-error focus, mocked failure/success form states and reduced motion
 - Lighthouse mobile: 89 performance, 100 accessibility and 100 SEO
 
-The corresponding release renders and fidelity notes are tracked in `artifacts/` and `design-qa.md`.
+These are historical release results, not a fresh qualification of the current branch. The July QA report named the following local captures; they are absent from the current tracked checkout and cannot serve as reviewable evidence here:
+
+- `artifacts/design-qa-source-desktop.png` (1280 × 720).
+- `artifacts/design-qa-implementation-desktop.jpg` (1440 × 900).
+- `artifacts/design-qa-implementation-mobile.jpg` (375 × 812).
+
+The release QA also checked one main landmark and H1 per route, one homepage header/footer, mobile navigation focus trapping/Escape/focus return/body-scroll locking, 16px mobile body copy, 44px footer targets, and full-page lazy-loaded content. The lead-form checks used simulated upstream responses, not production delivery. Lighthouse release targets were performance ≥85, accessibility ≥95 and SEO ≥95. Google Analytics is deferred until after window load.
+
+The design uses Clash Display for the headline and Montserrat for navigation/body copy, responsive raster parking scenes and official SVG brand marks. The mobile hero places its visual after the primary copy and CTAs. These fidelity notes describe the July release; repeat the checklist above for a new release.
 
 ## Follow-ups
 
@@ -195,6 +220,6 @@ The corresponding release renders and fidelity notes are tracked in `artifacts/`
 2. Obtain customer approval for the first case study.
 3. Capture current dashboard and approved commercial-pilot product imagery.
 4. Keep commercial/POS labels synchronized with Samhita as capabilities move from In development to Pilot, Launching, or Live.
-5. Update `parktek-samhita/docs/lending/README.md` route and implementation maps in a coordinated Samhita documentation PR.
+5. Keep [Samhita landing documentation](../../parktek-samhita/docs/lending/README.md) aligned when routes or implementation boundaries change.
 6. Configure a proxy-compatible enquiry upstream or coordinate an authenticated Kendra proxy path before production form activation.
 7. Plan a supported Next.js major upgrade; static export limits exposure to the audited server/image paths, but Next 14.2.35 still reports upstream security advisories.
