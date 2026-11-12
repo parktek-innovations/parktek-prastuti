@@ -36,3 +36,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated ParkTek Codex discovery; sources live in Samhita/skills.
+/.agents/skills/
+/.agents/parktek-skills.json

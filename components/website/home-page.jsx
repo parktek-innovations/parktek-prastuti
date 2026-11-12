@@ -146,14 +146,14 @@ const partnerSocieties = [
   {
     name: "Godrej Properties",
     src: "/figma/partner-societies/godrej-properties.png",
-    width: 1968,
-    height: 799
+    width: 1278,
+    height: 264
   },
   {
     name: "Godrej Living",
     src: "/figma/partner-societies/godrej-living.png",
-    width: 1748,
-    height: 900
+    width: 401,
+    height: 116
   },
   {
     name: "Mahagun",

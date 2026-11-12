@@ -32,7 +32,7 @@ Public ParkTek marketing site built with Next.js and CSS Modules. It presents li
 
 ## Does not own
 
-- API contracts → `parktek-kendra`
+- Normative shared API contracts → `parktek-samhita`; producer implementation → `parktek-kendra`
 - Platform product/model decisions → `parktek-samhita`
 - Admin dashboard → `parktek-darpana`
 - Payment processing, settlement, and financial records → not implemented in this repo
@@ -48,7 +48,7 @@ Public ParkTek marketing site built with Next.js and CSS Modules. It presents li
 ## Main runtime
 
 - Language: TypeScript / JavaScript
-- Framework: Next.js + Tailwind CSS
+- Framework: Next.js + CSS Modules
 - Deployment: static export → Netlify CDN
 
 ## High-risk areas
@@ -70,6 +70,8 @@ npm test
 
 ## Required samhita references
 
-- `../parktek-samhita/docs/lending/`
-- `../parktek-samhita/skills/parktek-platform/SKILL.md`
-- `../parktek-samhita/docs/repos/parktek-prastuti.md`
+- `parktek-samhita/docs/lending/`
+- `parktek-samhita/skills/parktek-platform/SKILL.md`
+- `parktek-samhita/docs/repos/parktek-prastuti.md`
+
+Samhita paths resolve from `$PARKTEK_HOME`; implementation paths resolve from this repo’s current Git root, including worktrees.
