@@ -3,7 +3,7 @@
 Next.js exposes only `NEXT_PUBLIC_*` variables to the browser bundle. The Netlify function reads
 server-only values. Copy `.env.example` to `.env.local` for local overrides.
 
-Cross-repo deployment readiness and owner-supplied production values live in `../parktek-samhita/docs/deployment-readiness.md`.
+Cross-repo deployment readiness and owner-supplied production values live in [Samhita deployment readiness](../../parktek-samhita/docs/deployment-readiness.md).
 
 ## Common variables
 
@@ -20,4 +20,4 @@ Cross-repo deployment readiness and owner-supplied production values live in `..
 - Production secrets must be configured via CI/CD or environment injection — not committed.
 - Variables declared only in `netlify.toml` are not function runtime secrets; configure server-only values in Netlify's Functions scope.
 - The current public Kendra browser endpoint is not yet a production-safe proxy target because its origin check and IP rate limiter were designed for direct browser traffic.
-- Consult `../parktek-samhita/docs/lending/` for public-site content boundaries.
+- Consult [Samhita landing documentation](../../parktek-samhita/docs/lending/README.md) for public-site content boundaries.

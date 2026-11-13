@@ -1,17 +1,15 @@
-# ParkTek Prastuti Local Docs
+# Website documentation
 
-This directory stores implementation-only notes for `parktek-prastuti` (formerly `parktek-lending`).
+Repo-local documentation covers the Next.js marketing site and Netlify lead adapter. [Samhita landing documentation](../../parktek-samhita/docs/lending/README.md) owns shared product/brand context; this repo is not an API or product-policy authority.
 
-Shared landing documentation lives in `../../parktek-samhita/docs/lending/` (formerly `../../parktek-standards/docs/lending/`). Shared product behavior, API contracts, model rules, design standards, documentation standards, and AI-agent workflow live in `../../parktek-samhita/` (formerly `../../parktek-standards/`).
+## Setup and verification
 
-## Local Scope
+- [Repo context](REPO_CONTEXT.md), [local runbook](LOCAL_RUNBOOK.md), [environment](ENVIRONMENT.md).
+- [Testing](TESTING.md): lint, static export and contract/export checks.
 
-- Next.js route structure
-- landing page components
-- static assets
-- analytics implementation
-- Netlify deployment notes
-- local build/run instructions
-- Website V1 route, content-status, lead-form, SEO, and release notes in `website-v1.md`
+## Implementation and launch inputs
 
-Do not use this repo as the source of truth for platform product/API/model behavior.
+- [Website implementation](website-implementation.md): route map, content configuration, capability labels, lead form, SEO, historical visual QA and remaining launch inputs.
+- [Generated brand assets](../design-system/generated/prastuti/README.md): asset provenance; human design authority remains in Samhita.
+
+Founder/customer approval, current product imagery and a proxy-compatible enquiry upstream remain explicit launch inputs. Historical design QA is consolidated into the implementation guide, which records that the original local captures are unavailable; it does not certify a current production release.

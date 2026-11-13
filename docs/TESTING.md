@@ -1,6 +1,6 @@
 # Testing
 
-Cross-repo testing standard: `../parktek-samhita/docs/testing-standard.md`.
+Cross-repo testing standard: [Samhita testing standard](../../parktek-samhita/docs/testing-standard.md).
 
 ## Automated verification
 
