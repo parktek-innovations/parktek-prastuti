@@ -1,5 +1,16 @@
 # Local Runbook
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [First-time setup](#first-time-setup)
+- [Run](#run)
+- [Build](#build)
+- [Tests](#tests)
+- [Verification checklist](#verification-checklist)
+<!-- END TOC -->
+
 ## Prerequisites
 
 - Node.js 20
