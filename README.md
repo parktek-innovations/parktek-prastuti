@@ -2,11 +2,24 @@
 
 Public ParkTek marketing site for residential access control and the phased commercial-parking launch.
 
+<!-- BEGIN TOC -->
+## Table of Contents
+
+- [Source of truth](#source-of-truth)
+- [Stack](#stack)
+- [Capability labels](#capability-labels)
+- [Routes](#routes)
+- [Local setup](#local-setup)
+- [Environment](#environment)
+- [Verification](#verification)
+- [Public contact](#public-contact)
+<!-- END TOC -->
+
 ## Source of truth
 
 Shared product behavior, API contracts, models, design rules, and public-claim boundaries live in [`../parktek-samhita`](../parktek-samhita). This repository owns only the public website implementation and its local deployment notes.
 
-Start agent work with [`AGENTS.md`](AGENTS.md), then read [`../parktek-samhita/docs/agent-onboarding.md`](../parktek-samhita/docs/agent-onboarding.md) and [`docs/website-v1.md`](docs/website-v1.md).
+Start agent work with [`AGENTS.md`](AGENTS.md), then read [`../parktek-samhita/docs/agent-onboarding.md`](../parktek-samhita/docs/agent-onboarding.md) and [`docs/website-implementation.md`](docs/website-implementation.md).
 
 ## Stack
 
@@ -83,7 +96,7 @@ npm test
 
 The build produces the deployable static site in `out/`. Serve that folder with any static server when testing the exact production artifact.
 
-Before release, verify navigation, forms, metadata, keyboard access, reduced motion, and horizontal overflow at 375px, 768px, 1280px, and 1440px. See [`docs/website-v1.md`](docs/website-v1.md) for the complete checklist and founder-verification items.
+Before release, verify navigation, forms, metadata, keyboard access, reduced motion, and horizontal overflow at 375px, 768px, 1280px, and 1440px. See [`docs/website-implementation.md`](docs/website-implementation.md) for the complete checklist and founder-verification items.
 
 ## Public contact
 
